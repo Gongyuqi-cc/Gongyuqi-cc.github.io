@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LVM逻辑卷管理器 | gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="磁盘管理（进阶篇）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVM逻辑卷管理器">
+<meta property="og:url" content="http://example.com/2020/02/08/LVM%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%E5%99%A8/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="磁盘管理（进阶篇）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/LVMstructure.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/pvcreate.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgcreate.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdispaly.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvcre.dis..JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvmkfsmount.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/df_h.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvextend.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvextendresult.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/trans..JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ext4lvextend.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ext4lvreduce.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap1.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap2.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap3.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SNAPlvm.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/removelvm.JPG">
+<meta property="article:published_time" content="2020-02-08T08:30:23.000Z">
+<meta property="article:modified_time" content="2021-02-14T06:23:40.379Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/LVMstructure.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LVM逻辑卷管理器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/08/LVM%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-02-08T08:30:23.000Z" itemprop="datePublished">2020-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LVM逻辑卷管理器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>磁盘管理（进阶篇）</p>
+<a id="more"></a>
+
+<h1 id="LVM逻辑卷管理器"><a href="#LVM逻辑卷管理器" class="headerlink" title="LVM逻辑卷管理器"></a>LVM逻辑卷管理器</h1><ul>
+<li>前面的磁盘管理（基础篇）介绍的磁盘管理技术虽然能够有效地提高硬盘设备的读写速度以及数据的安全性，但是在硬盘分好区后，再想修改硬盘分区大小就不容易了。当用户想要随着实际需求的变化调整硬盘分区的大小时，会受到硬盘“灵活性”的限制。这时就需要用到另外一项非常普及的硬盘设备资源管理技术了—<strong>LVM（逻辑卷管理器）</strong>。LVM可以允许用户对硬盘资源进行动态调整。  </li>
+<li>LVM技术是在硬盘分区和文件系统之间添加了一个逻辑层，它提供了一个抽象的卷组，可以把多块硬盘进行卷组合并。这样一来，用户不必关心物理硬盘设备的底层架构和布局，就可以实现对硬盘分区的动态调整。  <img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/LVMstructure.JPG"/></li>
+</ul>
+<p><strong>PV,Physical Volume</strong><br><strong>VG,Volume Group</strong><br><strong>LV,Logical Volume</strong> </p>
+<ul>
+<li>物理卷处于LVM中的最底层。卷组建立在物理卷之上，一个卷组可以包含多个物理卷，而且在卷组创建之后也可以继续向其中添加新的物理卷。逻辑卷是用卷组中空闲的资源建立的，并且逻辑卷在建立后可以动态地扩展或缩小空间。这就是LVM的核心理念。 </li>
+</ul>
+<h2 id="部署逻辑卷"><a href="#部署逻辑卷" class="headerlink" title="部署逻辑卷"></a>部署逻辑卷</h2><p>该实验在VMware中进行，首先<strong>拍摄快照</strong>，以便在实验结束后恢复原有状态。<br><strong>依次创建物理卷PV、卷组VG、逻辑卷LV</strong>  </p>
+<ol>
+<li>在虚拟机中添加两块新硬盘设备。我们先对这两块新硬盘进行创建物理卷的操作，可以将该操作简单理解成让硬盘设备支持LVM技术。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l <span class="comment">#此时可以看出多出了/dev/sdb /dev/sdc的信息</span></span><br><span class="line">pvcreate /dev/sdb /dev/sdc <span class="comment">#让硬盘设备支持LVM技术</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/pvcreate.JPG"/>
+
+
+<ol start="2">
+<li>把两块硬盘设备加入到newvg卷组中，然后查看卷组状态  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgcreate newvg /dev/sdb /dev/sdc</span><br><span class="line">vgdisplay</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgcreate.JPG"/>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdispaly.JPG"/>
+
+<ol start="3">
+<li>切割出一个约160M的逻辑卷LV  <blockquote>
+<p>在对逻辑卷进行切割时有两种计量单位。第一种是以容量为单位，所使用的参数为-L。例如，使用-L 150M生成一个大小为150MB的逻辑卷。另外一种是以基本单元的个数为单位，所使用的参数为-l。每个基本单元的大小默认为4MB。例如，使用-l 37可以生成一个大小为37×4MB=148MB的逻辑卷。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lvdisplay <span class="comment">#查看当前逻辑卷情况</span></span><br><span class="line">lvcreate -n newlv -l 40 newvg</span><br><span class="line">lvdisplay <span class="comment">#创建逻辑卷后查看逻辑卷情况</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvcre.dis..JPG"/>
+
+<ol start="4">
+<li>把生成的逻辑卷格式化，然后挂载使用<blockquote>
+<p>Linux系统会把LVM中的逻辑卷设备存放在/dev设备目录中（实际上是做了一个符号链接），同时会以卷组的名称来建立一个目录，其中保存了逻辑卷的设备映射文件（即/dev/卷组名称/逻辑卷名称）。  </p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfs.xfs /dev/newvg/newlv</span><br><span class="line">mkdir /newlv</span><br><span class="line">mount /dev/newvg/newlv /newlv</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvmkfsmount.JPG"/>
+
+<ol start="5">
+<li>查看挂载状态，并写入配置文件  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/dev/newvg/newlv /newlv xfs defaults 0 0&quot;</span> &gt;&gt; /etc/fstab</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/df_h.JPG"/>
+
+<h2 id="扩容逻辑卷"><a href="#扩容逻辑卷" class="headerlink" title="扩容逻辑卷"></a>扩容逻辑卷</h2><blockquote>
+<p>用户在使用存储设备时感知不到设备底层的架构和布局，更不用关心底层是由多少块硬盘组成的，只要卷组中有足够的资源，就可以一直为逻辑卷扩容。扩展前请一定要记得卸载设备和挂载点的关联。  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /newlv</span><br></pre></td></tr></table></figure>
+<ol>
+<li>把上诉逻辑卷newlv扩展至30G  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lvextend -L 30G /dev/newvg/newlv</span><br><span class="line">mount -a</span><br><span class="line">df -h</span><br><span class="line"><span class="comment">#xfs文件系统需要执行xfs_growfs操作，需要先挂载，所以上面先执行了mount -a命令</span></span><br><span class="line">xfs_growfs /dev/newvg/newlv</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvextend.JPG"/>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lvextendresult.JPG"/>
+
+<p><strong>注意</strong><br><font color=blue>使用 resize2fs或xfs_growfs 对挂载目录在线扩容</font><br><font color=blue>resize2fs 针对文件系统ext2 ext3 ext4</font><br><font color=blue>xfs_growfs 针对文件系统xfs</font></p>
+<p><strong>xfs文件系统是不支持缩减逻辑卷操作，所以为了演示缩小逻辑卷操作，先将xfs文件系统重新格式化成ext4文件系统</strong> </p>
+<ol>
+<li>ext4文件系统的扩容操作  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /newlv</span><br><span class="line">mkfs.ext4 /dev/newvg/newlv</span><br><span class="line">vim /etc/fstab <span class="comment">#将/dev/newvg/newlv对应的xfs改成ext4,改变文件系统类型并不会影响磁盘上的数据</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/trans..JPG"/>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lvextend -L 35G /dev/newvg/newlv</span><br><span class="line">e2fsck -f /dev/newvg/newlv <span class="comment">#检查硬盘完整型，针对ext4执行</span></span><br><span class="line">mount -a</span><br><span class="line">df -h</span><br><span class="line">resize2fs /dev/newvg/newlv</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ext4lvextend.JPG"/>
+
+
+
+
+
+<h2 id="缩小逻辑卷"><a href="#缩小逻辑卷" class="headerlink" title="缩小逻辑卷"></a>缩小逻辑卷</h2><p><strong>执行缩容前一定确保最终的大小要大于现有数据所占的空间</strong><br>执行缩容操作前记得先把文件系统卸载掉  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /newlv</span><br></pre></td></tr></table></figure>
+<ol>
+<li>把逻辑卷newlv的容量减小到100M  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">umount /newlv</span><br><span class="line">df -h</span><br><span class="line">e2fsck -f /dev/newvg/newlv</span><br><span class="line">resize2fs /dev/newvg/newlv 5G  </span><br><span class="line">lvreduce -L 5G /dev/newvg/newlv <span class="comment">##奇怪，我之前运行的时候没有加此操作，依然能够成功</span></span><br><span class="line">mount -a</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ext4lvreduce.JPG"/>
+
+<h2 id="逻辑卷快照"><a href="#逻辑卷快照" class="headerlink" title="逻辑卷快照"></a>逻辑卷快照</h2><p>可以对某一个逻辑卷设备做一次快照，如果日后发现数据被改错了，就可以利用之前做好的快照卷进行覆盖还原。LVM的快照卷功能有两个特点：   </p>
+<blockquote>
+<p>快照卷的容量必须等同于逻辑卷的容量；<br> 快照卷仅一次有效，一旦执行还原操作后则会被立即自动删除。</p>
+</blockquote>
+<p>查看卷组信息<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap1.JPG"/><br>卷组输出结果显示已经使用5G的容量，空闲容量还有34.99GB.  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This is a test about LVNSnap&quot;</span> &gt; /LVMtest/file  </span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用-s参数生成一个快照卷，使用-L参数指定切割的大小。另外，还要在命令后面写上是针对哪个逻辑卷执行的快照操作。  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L 5G -s -n SNAP /dev/volumegroup/logicalvolume</span><br><span class="line">vgdispaly</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap2.JPG"/>
+
+<ol start="2">
+<li>在逻辑卷所挂载的目录中创建一个100MB的垃圾文件，然后再查看快照卷的状态。可以发现存储空间占的用量上升了。  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=/dev/zero of=/LVMtest/FILE count=1 bs=100M</span><br><span class="line">vgdisplay</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vgdisplaysnap3.JPG"/>
+
+<ol start="3">
+<li>为了校验SNAP快照卷的效果，需要对逻辑卷进行快照还原操作。在此之前记得先卸载掉逻辑卷设备与目录的挂载</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br><span class="line">umount /LVWtest</span><br><span class="line">lvconvert --merge /dev/volumegroup/SNAP </span><br><span class="line">mount -a</span><br><span class="line">ls /LVMtest </span><br><span class="line"><span class="comment">#此时我们之前创建的100M大小的垃圾文件FILE不见了，因为这个文件是LVM快照之后创建的文件</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SNAPlvm.JPG"/>
+
+
+<h2 id="删除逻辑卷"><a href="#删除逻辑卷" class="headerlink" title="删除逻辑卷"></a>删除逻辑卷</h2><p><strong>依次删除逻辑卷、卷组、物理卷设备，顺序不可颠倒</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">umount /newlv</span><br><span class="line">vim /etc/fstab <span class="comment">#删除掉/dev/newvg/newlv相关信息</span></span><br><span class="line">lvremove /dev/newvg/newlv</span><br><span class="line">vgremove newvg</span><br><span class="line">pvremove /dev/sdb /dev/sdc</span><br><span class="line"><span class="comment">#执行下面的命令分别查看LV、VG、PV的情况，发现/dev/newvg/newlv相关信息消失</span></span><br><span class="line">lvdisplay</span><br><span class="line">vgdisplay</span><br><span class="line">pvdisplay</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/removelvm.JPG"/>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33932782/article/details/76612965">https://blog.csdn.net/qq_33932782/article/details/76612965</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/02/08/LVM%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%E5%99%A8/" data-id="ckl4ra1lh0001agvf9wi8arba" data-title="LVM逻辑卷管理器" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/08/ATAC-seq%20Analysis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ATAT-seq Analysis
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/08/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">scRNA-seq数据分析实战（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

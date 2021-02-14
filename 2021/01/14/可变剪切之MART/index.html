@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>rMART | gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="可变剪切之rMART官方参考资料http:&#x2F;&#x2F;rnaseq-mats.sourceforge.net&#x2F;rMATS:https:&#x2F;&#x2F;github.com&#x2F;Xinglab&#x2F;rmats-turbo&#x2F;blob&#x2F;v4.1.0&#x2F;README.mdrmats2sashimiplot:https:&#x2F;&#x2F;github.com&#x2F;Xinglab&#x2F;rmats2sashimiplot (一)rMATS软件及相关依赖包的下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rMART">
+<meta property="og:url" content="http://example.com/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="可变剪切之rMART官方参考资料http:&#x2F;&#x2F;rnaseq-mats.sourceforge.net&#x2F;rMATS:https:&#x2F;&#x2F;github.com&#x2F;Xinglab&#x2F;rmats-turbo&#x2F;blob&#x2F;v4.1.0&#x2F;README.mdrmats2sashimiplot:https:&#x2F;&#x2F;github.com&#x2F;Xinglab&#x2F;rmats2sashimiplot (一)rMATS软件及相关依赖包的下">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_flagstat.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/erro_libgsl.so.25.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rMATs_output.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PRMT2_rMATs.txt.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rmats2sashimiplot_chr_error.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ABC_GCB_PRMT2_rMATs.JPG">
+<meta property="article:published_time" content="2021-01-14T03:05:01.000Z">
+<meta property="article:modified_time" content="2021-02-14T06:20:54.258Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="NGS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-可变剪切之MART" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/" class="article-date">
+  <time class="dt-published" datetime="2021-01-14T03:05:01.000Z" itemprop="datePublished">2021-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      rMART
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="可变剪切之rMART"><a href="#可变剪切之rMART" class="headerlink" title="可变剪切之rMART"></a>可变剪切之rMART</h1><p><strong>官方参考资料</strong><br><a target="_blank" rel="noopener" href="http://rnaseq-mats.sourceforge.net/">http://rnaseq-mats.sourceforge.net/</a><br><strong>rMATS</strong>:<a target="_blank" rel="noopener" href="https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md">https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md</a><br><strong>rmats2sashimiplot</strong>:<a target="_blank" rel="noopener" href="https://github.com/Xinglab/rmats2sashimiplot">https://github.com/Xinglab/rmats2sashimiplot</a></p>
+<h2 id="一-rMATS软件及相关依赖包的下载"><a href="#一-rMATS软件及相关依赖包的下载" class="headerlink" title="(一)rMATS软件及相关依赖包的下载"></a>(一)rMATS软件及相关依赖包的下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#先用conda下载rMATs软件需要的依赖包</span></span><br><span class="line"><span class="comment">#有时候python版本问题搞得我很烦，有些生信软件依赖特定的python版本，所以在软件安装过程中多加注意这个问题</span></span><br><span class="line">conda create rMATs2.7 python=2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line">conda install -y Cython=0.29.14 numpy=1.16.5 blas lapack gsl=2.6 gcc=5.4.0 CMake=3.15.4</span><br><span class="line">conda install libgfortran==1</span><br><span class="line">deactivate rMATs2.7</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载软件并解压rMATs软件</span></span><br><span class="line"><span class="comment">#rMATs不同版本下载网址：https://github.com/Xinglab/rmats-turbo/releases/tag/v4.1.0</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS</span><br><span class="line">wget https://github.com/Xinglab/rmats-turbo/releases/download/v4.1.0/rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line">tar -zxvf rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line"><span class="comment">#永久添加路径到环境变量中</span></span><br><span class="line"><span class="built_in">export</span> PATH=/home/gongyuqi/project/AS/rMATS/rmats-turbo/:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-STAR比对软件的使用"><a href="#二-STAR比对软件的使用" class="headerlink" title="(二)STAR比对软件的使用"></a>(二)STAR比对软件的使用</h2><p>这么多比对软件，为什么选STAR？<br>因为官网用的STAR！据说其他可以做可变剪切的比对软件生成的bam文件，rMATs运行不了~~~</p>
+<p><strong>1、构建参考基因组索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#激活比对的环境,这个环境里面我下载了各种比对软件，python版本为2.7.15.</span></span><br><span class="line">conda activate alignment2.7 </span><br><span class="line">nohup STAR --runThreadN 30 --runMode genomeGenerate \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--genomeFastaFiles /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.dna.primary_assembly.fa \</span><br><span class="line">--sjdbGTFfile /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.102.gtf &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>2、用STAR软件进行比对</strong></p>
+<p>STAR的使用以及输出文件解读参考资料：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yssxswl/article/details/105703869">https://blog.csdn.net/yssxswl/article/details/105703869</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/eca16bf2824e">https://www.jianshu.com/p/eca16bf2824e</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入fastq文件坐在目录，这里是原始的fastq数据，质控结果挺好的，不用再过滤了，所以我直接比对了</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rawdata</span><br><span class="line"><span class="comment">#写循环进行比对</span></span><br><span class="line">ls *.gz|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup STAR --runThreadN 20 \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--readFilesCommand gunzip -c \</span><br><span class="line">--readFilesIn ./<span class="variable">$id</span> \</span><br><span class="line">--outSAMtype BAM SortedByCoordinate \</span><br><span class="line">--outFileNamePrefix /home/gongyuqi/project/AS/aligndata_star/<span class="variable">$&#123;id%%.*&#125;</span>. &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><strong>3、比对情况统计并查看</strong></p>
+<p>(1)直接查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.Log.progress.out|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> sed -n <span class="string">&#x27;1,3p&#x27;</span> <span class="variable">$id</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>结果如下，比对情况还是不错的，可以进行后续的分析。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG"/></p>
+<p>(2)flagstat统计比对情况查看比对情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools flagstat -@ 20 <span class="variable">$id</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.flagstat.txt &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ls *.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> cat <span class="variable">$id</span> | grep <span class="string">&quot;mapped (&quot;</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这个比对结果实在是难以置信！！但是结合上面的比对结果，还是可以相信比对这一步是没有问题的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_flagstat.JPG"/></p>
+<h2 id="三-运行rMATs"><a href="#三-运行rMATs" class="headerlink" title="(三)运行rMATs"></a>(三)运行rMATs</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先我们要失活掉比对的环境（alignment2.7），激活rMATs环境</span></span><br><span class="line">conda deactivate alignment2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line"><span class="comment">#虽然rMATS路径被永久添加到环境变量中，但是PATH只认可执行文件，所以这一步还是要切换到rMATs路径下</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS/rmats-turbo</span><br><span class="line">input_dir=/home/gongyuqi/project/AS/aligndata_star</span><br><span class="line">python rmats.py \</span><br><span class="line">--b1 <span class="variable">$input_dir</span>/b1.txt \</span><br><span class="line">--b2 <span class="variable">$input_dir</span>/b2.txt \</span><br><span class="line">--gtf /home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gtf \</span><br><span class="line">-t single --readLength 36 --nthread 20 \</span><br><span class="line">--od /home/gongyuqi/project/AS/rMATS/rmats_output \</span><br><span class="line">--tmp /home/gongyuqi/project/AS/rMATS/rmats_tmp</span><br><span class="line"><span class="comment">#运行完记得退出当前环境，因为后面我们要用另外一个环境</span></span><br><span class="line">conda deactivate rMATs2.7</span><br></pre></td></tr></table></figure>
+<p>运行上面的代码，会报如下错误：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/erro_libgsl.so.25.JPG"/></p>
+<p>我查看了一下，/home/gongyuqi/miniconda3/envs/rMATs2.7/lib路径下有这个文件呢！为什么电脑找不到？触及到了我的知识盲区了~~~<br>查了一下午的资料，发现这个报错涉及到查找共享库（动态链接库）问题，根据查到的东西操作了一波居然没有解决，旁边的零食都不香了！😫<br>算了~~~我还是先去吃晚饭吧，已经饿得很瘦了！😫<br>。。。。。。<br>好啦，我吃完饭回来了。我继续倒腾，不放弃。<br>。。。。。。<br>额，我知道了，这段代码运行过程中还涉及到gcc编译，因为它依赖包中有GCC。<br>这两个问题实在是太专业了，今天又学习到了。现在有一点小小的开心！😊<br>解决方法参考资料：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a62e1d327023">https://www.jianshu.com/p/a62e1d327023</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Linux默认只会在指定的几个目录找共享库（动态链接库），其他目录的要自己加在LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#因为上述命令是依赖gcc的，需要gcc进行编译，所以还需要下面的操作</span></span><br><span class="line"><span class="built_in">export</span> LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#注意，上述都是临时的，治标不治本，下次执行运行rMATs时，依然要重复上述操作。当然你也可以将其永久性添加。</span></span><br></pre></td></tr></table></figure>
+<p>运行结果如下，关于这些结果文件的解释说明，可以参考rMATS官网，上面有很详细的阐述。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rMATs_output.JPG"/></p>
+<h2 id="四-rmats2sashimiplot可视化"><a href="#四-rmats2sashimiplot可视化" class="headerlink" title="(四)rmats2sashimiplot可视化"></a>(四)rmats2sashimiplot可视化</h2><p>终于到了激动人心的可视化阶段了，一顿操作之后，产生一张漂亮的图放PPT上还是很欣慰的。</p>
+<p><strong>1、环境搭建</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda create -n rmats2sashimiplot python=2.7 </span><br><span class="line">conda activate rmats2sashimiplot</span><br><span class="line">conda install -y numpy scipy matplotlib pysam samtools bedtools</span><br></pre></td></tr></table></figure>
+<p><strong>2、准备可视化的txt文件</strong>  </p>
+<p>以Exon Skipping为例演示,这里我随便找一个基因进行可视化，注意了，这个基因不一定是差异可变剪切的基因哟，因为是我随便找的一个。嘻嘻🤭</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;2p&#x27;</span> SE.MATS.JC.txt &gt; SE.plot.PRMT2.txt</span><br><span class="line">cat SE.plot.PRMT2.txt</span><br></pre></td></tr></table></figure>
+<p>文件内容如下：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PRMT2_rMATs.txt.JPG"/></p>
+<p><strong>3、可视化的txt文件</strong></p>
+<h6 id="一开始，我非常自信的运行了下面的代码"><a href="#一开始，我非常自信的运行了下面的代码" class="headerlink" title="一开始，我非常自信的运行了下面的代码~"></a>一开始，我非常自信的运行了下面的代码~</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.bam,SRR974972.Aligned.sortedByCoord.out.bam,SRR974978.Aligned.sortedByCoord.out.bam,SRR974984.Aligned.sortedByCoord.out.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.bam,SRR974976.Aligned.sortedByCoord.out.bam,SRR974980.Aligned.sortedByCoord.out.bam,SRR974982.Aligned.sortedByCoord.out.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h6 id="但是，我遇到了如下报错"><a href="#但是，我遇到了如下报错" class="headerlink" title="但是，我遇到了如下报错"></a>但是，我遇到了如下报错</h6><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rmats2sashimiplot_chr_error.JPG"/>
+
+
+<h6 id="我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"><a href="#我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。" class="headerlink" title="我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"></a>我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有<code>chr</code>存在且让其存在在正确的位置呢。</h6><h6 id="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。"><a href="#我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。" class="headerlink" title="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。"></a>我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。</h6><h6 id="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"><a href="#起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可" class="headerlink" title="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"></a>起床<del>吃早饭</del>骑车去实验室<del>思考</del>查资料<del>有一点小想法了</del>我实践一下看看可不可</h6><p>参考资料：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5ceda0350d0d">https://www.jianshu.com/p/5ceda0350d0d</a></p>
+<h6 id="第一步：给bam文件添加chr"><a href="#第一步：给bam文件添加chr" class="headerlink" title="第一步：给bam文件添加chr"></a><font color=blue>第一步：给bam文件添加chr</font></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加chr</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools view -h <span class="variable">$id</span> | sed -e <span class="string">&#x27;/^@SQ/s/SN\:/SN\:chr/&#x27;</span> -e <span class="string">&#x27;/^[^@]/s/\t/\tchr/2&#x27;</span>|awk -F <span class="string">&#x27; &#x27;</span> <span class="string">&#x27;$7=($7==&quot;=&quot; || $7==&quot;*&quot;?$7:sprintf(&quot;chr%s&quot;,$7))&#x27;</span> |tr <span class="string">&quot; &quot;</span> <span class="string">&quot;\t&quot;</span> | samtools view -h -b -@ 10 -S - &gt; <span class="variable">$&#123;id%%.*&#125;</span>.Aligned.sortedByCoord.out.chr.bam &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h6 id="第二步：使用添加chr的bam文件执行程序"><a href="#第二步：使用添加chr的bam文件执行程序" class="headerlink" title="第二步：使用添加chr的bam文件执行程序"></a><font color=blue>第二步：使用添加chr的bam文件执行程序</font></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.chr.bam,SRR974972.Aligned.sortedByCoord.out.chr.bam,SRR974978.Aligned.sortedByCoord.out.chr.bam,SRR974984.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.chr.bam,SRR974976.Aligned.sortedByCoord.out.chr.bam,SRR974980.Aligned.sortedByCoord.out.chr.bam,SRR974982.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/SE.plot</span><br></pre></td></tr></table></figure>
+<p>可视化结果如下（你会发现，咦~两组间差异不显著呀？因为我随便挑了一个基因可视化呀！我有偷偷可视化某个基因，可视化出来的差异性与我定量和半定量qPCR的结果一致哟，所以上述分析流程应该是OK的~~~嘻嘻嘻🤭不管怎样，这个基因确实存在Exon Skipping。）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ABC_GCB_PRMT2_rMATs.JPG"/></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>技术上</strong><br>1、需要搭建两个重要的环境：运行rMATs的环境，运行rmats2sashimiplot的环境。<br>2、选用STAR进行参考基因组的比对（注意了，参考基因组和注释文件的版本要一致哟）。<br>3、在rMATs的环境下,结合上述生成的bam文件，运行rMATs软件，生成可变剪切事件的文件。<br>4、在rmats2sashimiplot环境下，可视化上述生成的可变剪切事件。</p>
+<p><strong>心态上</strong><br>上午解决不了就下午解决，今天解决不了就明天解决。这个方法不行就换个方法。思考良久之后可以适当的问问老师。最关键的还是要按时吃饭按时睡觉。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/" data-id="ckl4ra1mf0010agvf9az82jph" data-title="rMART" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SUPPA2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MISO</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

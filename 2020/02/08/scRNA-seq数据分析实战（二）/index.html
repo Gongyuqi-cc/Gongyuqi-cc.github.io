@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>scRNA-seq数据分析实战（二） | gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="体验Seraut包处理GSE111229的scRNA-seq数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scRNA-seq数据分析实战（二）">
+<meta property="og:url" content="http://example.com/2020/02/08/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="体验Seraut包处理GSE111229的scRNA-seq数据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/loaddata.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratseu1.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/manuqc.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratseu@.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotnbyplat.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotbyg.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotbygeneumiercc.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotgenegapdhbmp3.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratGenePlotgeneumi.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratGenePlotbrca12.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratCellPlotcell12.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szsueratnormalize.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szsueratnormalize.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpc1-20.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpcaplotbyplate.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpcaplotbyg.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratheatmappc1.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratfindcluster.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseurattSNEplotbypca.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker0.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker1.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker2.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker3.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/intersectgene.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DoHeatMap.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Rgs5.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Dcn.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Pbk.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Trf.JPG">
+<meta property="article:published_time" content="2020-02-08T08:30:23.000Z">
+<meta property="article:modified_time" content="2021-02-14T06:34:09.032Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="NGS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/loaddata.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-scRNA-seq数据分析实战（二）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/08/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2020-02-08T08:30:23.000Z" itemprop="datePublished">2020-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      scRNA-seq数据分析实战（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>体验Seraut包处理GSE111229的scRNA-seq数据</p>
+<a id="more"></a>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls()) </span><br><span class="line">Sys.setenv(R_MAX_NUM_DLLS=<span class="number">999</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="载入数据"><a href="#载入数据" class="headerlink" title="载入数据"></a>载入数据</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">load(file=<span class="string">&#x27;../input.Rdata&#x27;</span>)</span><br><span class="line">counts=a</span><br><span class="line"><span class="comment"># using raw counts is the easiest way to process data through Seurat.</span></span><br><span class="line">counts[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>];<span class="built_in">dim</span>(counts)</span><br><span class="line">library(stringr) </span><br><span class="line">meta=df</span><br><span class="line">head(meta) </span><br><span class="line"><span class="comment"># 下面的基因是文章作者给出的</span></span><br><span class="line">gs=read.table(<span class="string">&#x27;top18-genes-in-4-subgroup.txt&#x27;</span>)[,<span class="number">1</span>]</span><br><span class="line">gs</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/loaddata.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#简单了解一下表达矩阵</span></span><br><span class="line">fivenum(apply(counts,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">boxplot(apply(counts,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">fivenum(apply(counts,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">hist(apply(counts,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br></pre></td></tr></table></figure>
+<h2 id="构建Seraute对象"><a href="#构建Seraute对象" class="headerlink" title="构建Seraute对象"></a>构建Seraute对象</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">library(Seurat)</span><br><span class="line"><span class="comment"># 其中 min.cells 和 min.genes 两个参数是经验值</span></span><br><span class="line"><span class="comment">#Seurat真的很优秀呀，给定参数，自动进行质控</span></span><br><span class="line">seu &lt;- CreateSeuratObject(raw.data = counts, </span><br><span class="line">                          meta.data =meta,</span><br><span class="line">                          min.cells = <span class="number">5</span>, </span><br><span class="line">                          min.genes = <span class="number">2000</span>, </span><br><span class="line">                          project = <span class="string">&quot;seu&quot;</span>)</span><br><span class="line">seu</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratseu1.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#可以尝试以下手动质控</span></span><br><span class="line">table(apply(counts,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) )&gt;<span class="number">2000</span>)</span><br><span class="line">table(apply(counts,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) )&gt;<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/manuqc.JPG"/>
+
+<p>可以看到，两种质控方法得到的数据非常接近</p>
+<p><strong>查看对象的基本情况</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head(seu@meta.data) </span><br><span class="line"><span class="built_in">dim</span>(seu@data)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratseu@.JPG"/>
+
+<p><strong>可视化基本信息</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VlnPlot(object = seu, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span> ), </span><br><span class="line">        group.by = <span class="string">&#x27;plate&#x27;</span>,</span><br><span class="line">        nCol = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotnbyplat.JPG"/>
+
+<p>可以看出：不管是各个样本检测到的基因数量还是文库大小，都没有批次效应。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VlnPlot(object = seu, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span> ), </span><br><span class="line">        group.by = <span class="string">&#x27;g&#x27;</span>,</span><br><span class="line">        nCol = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotbyg.JPG"/>
+
+<p>可以看出：层次聚类得到的分组主要是因为样本间检测的基因数量的差异造成的。</p>
+<p><strong>可以给seu对象增加一个属性，供QC使用</strong>  </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建新增的属性</span></span><br><span class="line">ercc.genes &lt;- grep(pattern = <span class="string">&quot;^ERCC-&quot;</span>, x = rownames(x = seu@raw.data), value = <span class="literal">TRUE</span>)</span><br><span class="line">percent.ercc &lt;- Matrix::colSums(seu@raw.data[ercc.genes, ]) / Matrix::colSums(seu@raw.data)</span><br><span class="line"><span class="comment"># 添加新增的属性</span></span><br><span class="line">seu &lt;- AddMetaData(object = seu, metadata = percent.ercc,</span><br><span class="line">                   col.name = <span class="string">&quot;percent.ercc&quot;</span>)</span><br><span class="line">VlnPlot(object = seu, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span>, <span class="string">&quot;percent.ercc&quot;</span> ), </span><br><span class="line">        group.by = <span class="string">&#x27;g&#x27;</span>,</span><br><span class="line">        nCol = <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotbygeneumiercc.JPG"/>
+
+
+<p>可以看出：细胞能检测到的基因数量与其含有的ERCC序列反相关。当组间的文库大小差异可忽略时，外源RNA多，计算后的内源RNA的比例自然是会下降的。</p>
+<p><strong>进一步可视化基本信息</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#VlnPlot(seu,group.by = &#x27;plate&#x27;,c(&quot;nGene&quot;,&quot;Gapdh&quot;,&quot;Bmp3&quot;))</span></span><br><span class="line"><span class="comment">#上面这段代码和下面的代码时同样的效果</span></span><br><span class="line">VlnPlot(object = seu, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;Gapdh&quot;</span>, <span class="string">&quot;Bmp3&quot;</span> ), </span><br><span class="line">        group.by = <span class="string">&#x27;plate&#x27;</span>,</span><br><span class="line">        nCol = <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratVlnPlotgenegapdhbmp3.JPG"/>
+再次证明没有批次效应
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GenePlot(object = seu,  gene1 = <span class="string">&quot;nUMI&quot;</span>, gene2 = <span class="string">&quot;nGene&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratGenePlotgeneumi.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GenePlot(object = seu,  gene1 = <span class="string">&quot;Brca1&quot;</span>, gene2 = <span class="string">&quot;Brca2&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratGenePlotbrca12.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CellPlot(seu,seu@cell.names[<span class="number">3</span>], </span><br><span class="line">         seu@cell.names[<span class="number">4</span>],</span><br><span class="line">         do.ident = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratCellPlotcell12.JPG"/>
+
+
+<h2 id="表达矩阵标准化"><a href="#表达矩阵标准化" class="headerlink" title="表达矩阵标准化"></a>表达矩阵标准化</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">seu &lt;- NormalizeData(object = seu, </span><br><span class="line">                     normalization.method = <span class="string">&quot;LogNormalize&quot;</span>, </span><br><span class="line">                     scale.factor = <span class="number">10000</span>)</span><br><span class="line">seu@data[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szsueratnormalize.JPG"/>
+
+
+<h2 id="挑选变化的基因"><a href="#挑选变化的基因" class="headerlink" title="挑选变化的基因"></a>挑选变化的基因</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里需要理解  dispersion 值</span></span><br><span class="line">seu &lt;- FindVariableGenes(object = seu, </span><br><span class="line">                         mean.function = ExpMean, </span><br><span class="line">                         dispersion.function = LogVMR )</span><br><span class="line"><span class="comment">## 默认值是：x.low.cutoff = 0.1, x.high.cutoff = 8, y.cutoff = 1</span></span><br><span class="line"><span class="comment">## 根据经验阈值挑选的变化基因个数。</span></span><br><span class="line"><span class="built_in">length</span>( seu@var.genes)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szsueratnormalize.JPG"/>
+
+
+<h2 id="去除一些技术误差，比如-nUMI或者ERCC"><a href="#去除一些技术误差，比如-nUMI或者ERCC" class="headerlink" title="去除一些技术误差，比如 nUMI或者ERCC"></a>去除一些技术误差，比如 nUMI或者ERCC</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">head(seu@meta.data) </span><br><span class="line">seu &lt;- ScaleData(object = seu, </span><br><span class="line">                 vars.to.regress = <span class="built_in">c</span>(<span class="string">&quot;nUMI&quot;</span>,<span class="string">&#x27;nGene&#x27;</span>,<span class="string">&quot;percent.ercc&quot;</span> ))</span><br><span class="line"><span class="comment"># 后面就不需要考虑ERCC序列了。</span></span><br><span class="line">seu@scale.data[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">pheatmap(as.matrix(seu@scale.data[gs,])) </span><br></pre></td></tr></table></figure>
+<h2 id="普通PCA降维"><a href="#普通PCA降维" class="headerlink" title="普通PCA降维"></a>普通PCA降维</h2><p>用前面挑选的有变化的基因进行降维</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">seu &lt;- RunPCA(object = seu, pc.genes = seu@var.genes, </span><br><span class="line">              do.print = <span class="literal">TRUE</span>, pcs.print = <span class="number">1</span>:<span class="number">5</span>, </span><br><span class="line">              genes.print = <span class="number">5</span>)</span><br><span class="line">tmp &lt;- seu@dr$pca@gene.loadings</span><br><span class="line">head(tmp)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpc1-20.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VizPCA( seu, pcs.use = <span class="number">1</span>:<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PCAPlot(seu, dim.1 = <span class="number">1</span>, dim.2 = <span class="number">2</span>,group.by = <span class="string">&#x27;plate&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpcaplotbyplate.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PCAPlot(seu, dim.1 = <span class="number">1</span>, dim.2 = <span class="number">2</span>,group.by = <span class="string">&#x27;g&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratpcaplotbyg.JPG"/>
+
+
+<p><strong>根据不同组成份进行热图的展示</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">seu &lt;- ProjectPCA(seu, do.print = <span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#根据PC1进行可视化</span></span><br><span class="line">PCHeatmap(object = seu, pc.use = <span class="number">1</span>, cells.use = <span class="number">100</span>, </span><br><span class="line">          do.balanced = <span class="literal">TRUE</span>, label.columns = <span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#使用pc.use = 1:10即批量展示前10各组成份的热图信息</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratheatmappc1.JPG"/>
+
+<p><strong>根据参数来调整最后的分组</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据参数来调整最后的分组个数</span></span><br><span class="line"><span class="comment">#因为文章分为4群细胞，所以这里调整resolution的值为0.4，最后会得到4个组</span></span><br><span class="line"><span class="comment">#resolution很重要很重要很重要</span></span><br><span class="line">seu1 &lt;- FindClusters(object = seu, reduction.type = <span class="string">&quot;pca&quot;</span>, </span><br><span class="line">                    dims.use = <span class="number">1</span>:<span class="number">20</span>, force.recalc = <span class="built_in">T</span>,</span><br><span class="line">                    resolution = <span class="number">0.4</span>, print.output = <span class="number">0</span>, </span><br><span class="line">                    save.SNN = <span class="literal">TRUE</span>)</span><br><span class="line">PrintFindClustersParams(seu1)</span><br><span class="line">table(seu1@meta.data$res.0.4)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseuratfindcluster.JPG"/>
+
+
+<h2 id="tSNE展示分组信息"><a href="#tSNE展示分组信息" class="headerlink" title="tSNE展示分组信息"></a>tSNE展示分组信息</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## resolution 是最关键的参数</span></span><br><span class="line">seu=seu1</span><br><span class="line">seu &lt;- RunTSNE(object = seu, dims.use = <span class="number">1</span>:<span class="number">10</span>, do.fast = <span class="literal">TRUE</span>)</span><br><span class="line"><span class="comment"># note that you can set do.label=T to help label individual clusters</span></span><br><span class="line">TSNEPlot(object = seu, do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/szseurattSNEplotbypca.JPG" width="60%" height="60%">
+
+<h2 id="对每个类别的细胞寻找marker基因"><a href="#对每个类别的细胞寻找marker基因" class="headerlink" title="对每个类别的细胞寻找marker基因"></a>对每个类别的细胞寻找marker基因</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">seu.markers &lt;- FindAllMarkers(object = seu, only.pos = <span class="literal">TRUE</span>, </span><br><span class="line">                              min.pct = <span class="number">0.25</span>, </span><br><span class="line">                              thresh.use = <span class="number">0.25</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker0.JPG"  width="60%" height="60%">
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker1.JPG"  width="60%" height="60%">
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker2.JPG"  width="60%" height="60%">
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seumaker3.JPG"  width="60%" height="60%">
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">library(dplyr)</span><br><span class="line">top20 &lt;- seu.markers %&gt;% group_by(cluster) %&gt;% top_n(<span class="number">20</span>, avg_logFC)</span><br><span class="line"><span class="comment">#读入作者的4个亚群的top级的差异基因</span></span><br><span class="line">gs=read.table(<span class="string">&#x27;top18-genes-in-4-subgroup.txt&#x27;</span>)[,<span class="number">1</span>]</span><br><span class="line">gs</span><br><span class="line">intersect(top10$gene,gs)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/intersectgene.JPG"/>
+
+<ul>
+<li><strong>这时，你会发现用Seurat方法计算得到的差异基因和作者计算（自己写函数，并没有用到任何R包，有点搞不懂他为什么要这么做，还有一点小小的敬佩）得到的差异基因部分重合（37个共同基因）。</strong></li>
+<li><strong>用不同的方法计算得到的差异基因都会有一定的差异，就转录组差异分析而言，limma、DESeq2、EdgeR三大差异分析包计算的差异基因也是部分重合的。</strong></li>
+<li><strong>生信分析在一定程度上给研究者提供了方向，具体验证还是要落实到实验上。但是，干数据也很重要，没有方向怎么能行！所以呀，干数据和湿数据都要要，一个都不能少！</strong></li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">top20 &lt;- seu.markers %&gt;% group_by(cluster) %&gt;% top_n(<span class="number">20</span>, avg_logFC)</span><br><span class="line">intersect(top20$gene,gs)</span><br><span class="line">DoHeatmap(object = seu, genes.use = top20$gene, </span><br><span class="line">          slim.col.label = <span class="literal">TRUE</span>, remove.key = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DoHeatMap.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FeaturePlot(object = seu, </span><br><span class="line">            features.plot =<span class="string">&quot;Rgs5&quot;</span>, </span><br><span class="line">            cols.use = <span class="built_in">c</span>(<span class="string">&quot;yellow&quot;</span>, <span class="string">&quot;red&quot;</span>), </span><br><span class="line">            reduction.use = <span class="string">&quot;tsne&quot;</span>,</span><br><span class="line">            no.legend=<span class="literal">FALSE</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Rgs5.JPG" width="60%" height="60%">
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FeaturePlot(object = seu, </span><br><span class="line">            features.plot =<span class="string">&quot;Dcn&quot;</span>, </span><br><span class="line">            cols.use = <span class="built_in">c</span>(<span class="string">&quot;yellow&quot;</span>, <span class="string">&quot;red&quot;</span>), </span><br><span class="line">            reduction.use = <span class="string">&quot;tsne&quot;</span>,</span><br><span class="line">            no.legend=<span class="literal">FALSE</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Dcn.JPG" width="60%" height="60%">
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FeaturePlot(object = seu, </span><br><span class="line">            features.plot =<span class="string">&quot;Pbk&quot;</span>, </span><br><span class="line">            cols.use = <span class="built_in">c</span>(<span class="string">&quot;yellow&quot;</span>, <span class="string">&quot;red&quot;</span>), </span><br><span class="line">            reduction.use = <span class="string">&quot;tsne&quot;</span>,</span><br><span class="line">            no.legend=<span class="literal">FALSE</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Pbk.JPG" width="60%" height="60%">
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FeaturePlot(object = seu, </span><br><span class="line">            features.plot =<span class="string">&quot;Trf&quot;</span>, </span><br><span class="line">            cols.use = <span class="built_in">c</span>(<span class="string">&quot;yellow&quot;</span>, <span class="string">&quot;red&quot;</span>), </span><br><span class="line">            reduction.use = <span class="string">&quot;tsne&quot;</span>,</span><br><span class="line">            no.legend=<span class="literal">FALSE</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Trf.JPG" width="60%" height="60%">
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/02/08/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" data-id="ckl4ra1m9000ragvfdhjzfuu1" data-title="scRNA-seq数据分析实战（二）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/08/LVM%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LVM逻辑卷管理器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/08/%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">磁盘管理 （分区、格式化、挂载、卸载）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

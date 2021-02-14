@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="gyq&#39;s blog">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="gongyuqiqi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-可变剪切之SUPPA2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/" class="article-date">
+  <time class="dt-published" datetime="2021-01-23T08:30:27.000Z" itemprop="datePublished">2021-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="可变剪切之SUPPA2"><a href="#可变剪切之SUPPA2" class="headerlink" title="可变剪切之SUPPA2"></a>可变剪切之SUPPA2</h1><p>SUPPA2参考资料：<br><a target="_blank" rel="noopener" href="https://github.com/comprna/SUPPA/wiki/SUPPA2-tutorial#differential-splicing-with-local-events">https://github.com/comprna/SUPPA/wiki/SUPPA2-tutorial#differential-splicing-with-local-events</a><br>分析流程中所需要得<strong>参考基因组</strong>、<strong>注释文件</strong>、<strong>R脚本</strong>都可以在该链接中找到并下载</p>
+<p>下面这段话引自官网，简单了解一下SUPPA2及其功能</p>
+<blockquote>
+<p>SUPPA2 obtains the inclusion levels of AS events exploiting transcript quantification. There are different measures for isoform quantification (counts, TMM, FPKM…). We strongly recommend the use of TPM (Transcripts Per Million), because is normalized for gene length first, and then for sequencing depth. This allows direct comparison between samples (check the following video if you want to know more).</p>
+</blockquote>
+<blockquote>
+<p>There are several tools for transcript quantification (this is an interesting review² on this matter). Each one has different pros and cons and the user is free to use the one that fits better to his requirements. We recommend to use Salmon³, because is one of the fastest methods for quantification without compromising accuracy and it also offers some other interesting options like GC bias correction or bootstrapping among others. The commands indicated here are oriented for using this tools.</p>
+</blockquote>
+<h2 id="一-环境搭建"><a href="#一-环境搭建" class="headerlink" title="(一)环境搭建"></a>(一)环境搭建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda creat SUPPA2_3.9 python=3.9.1</span><br><span class="line">conda activate SUPPA2_3.9</span><br><span class="line">conda intall -c bioconda salmon suppa matplotlib</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-转录本定量"><a href="#二-转录本定量" class="headerlink" title="(二)转录本定量"></a>(二)转录本定量</h2><h3 id="1、建立索引"><a href="#1、建立索引" class="headerlink" title="1、建立索引"></a>1、建立索引</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salmon index -t hg19_EnsenmblGenes_sequence_ensenmbl.fasta -i Ensembl_hg19_salmon_index</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/hg19_salmon_index.JPG"/>
+
+<h3 id="2、定量获得TPM值"><a href="#2、定量获得TPM值" class="headerlink" title="2、定量获得TPM值"></a>2、定量获得TPM值</h3><p><strong>(1)、运行salmon软件定量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;_1</span><br><span class="line">y&#x3D;_2</span><br><span class="line">for id in &#123;SRR1513329,SRR1513330,SRR1513331,SRR1513332,SRR1513333,SRR1513334&#125;</span><br><span class="line">do</span><br><span class="line">nohup salmon quant -i &#x2F;home&#x2F;gongyuqi&#x2F;ref&#x2F;hg38&#x2F;ensembl&#x2F;SUPPA_ref&#x2F;Ensembl_hg19_salmon_index -l ISF --gcBias -1 $id$x.fastq.gz -2 $id$y.fastq.gz -p 20 -o &#x2F;home&#x2F;gongyuqi&#x2F;project&#x2F;AS&#x2F;SUPPA2&#x2F;$id &amp;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>展示一个样本的输出结果结构<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tree_SRR1513329.JPG"/><br>其中quant.sf文件很重要，要用于后续的分析，展示该文件部分内容<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/quant_df.JPG"/></p>
+<p><strong>(2)、提取所有样本的TPM值并合并为一个文件</strong></p>
+<p><code>-k</code> indicates the row used as index<br><code>-f</code> TPM值在第四列，在这里要提取每个样本的TPM值</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">suppa_dir=/home/gongyuqi/miniconda3/envs/SUPPA2_3.9/bin/</span><br><span class="line">python <span class="variable">$suppa_dir</span>/multipleFieldSelection.py -i /home/gongyuqi/project/AS/SUPPA2/*/quant.sf -k 1 -f 4 -o /home/gongyuqi/project/AS/SUPPA2/iso_tpm.txt</span><br></pre></td></tr></table></figure>
+<p>查看iso_tpm.txt的内容<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/iso_tmp_txt.JPG"/></p>
+<p><strong>(3)、使iso_tpm.txt文件中的转录本id同下载的gtf文件id一致</strong>  </p>
+<p>运行此R脚本，会生成iso_tpm_formatted.txt文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rscript format_Ensembl_ids.R iso_tpm.txt</span><br></pre></td></tr></table></figure>
+<p>查看iso_tpm_formatted.txt的内容<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/iso_tmp_formatted_txt.JPG"/></p>
+<h2 id="三、PSI计算"><a href="#三、PSI计算" class="headerlink" title="三、PSI计算"></a>三、PSI计算</h2><p><strong>1、根据参考基因组注释文件生成可变剪切事件文件</strong></p>
+<p><code>-i</code> GTF文件<br><code>-o</code> 输出文件前缀<br><code>-e</code> 输出文件中包含的可变剪切类型<br><code>-f</code> 输出的格式  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成ioe文件</span></span><br><span class="line">gtf_dir=/home/gongyuqi/ref/hg38/ensembl/SUPPA_ref</span><br><span class="line">python <span class="variable">$suppa_dir</span>/suppa.py generateEvents -i <span class="variable">$gtf_dir</span>/Homo_sapiens.GRCh37.75.formatted.gtf -o ensembl_hg19.events -e SE SS MX RI FL -f ioe</span><br><span class="line"><span class="comment">#合并所有的ioe文件</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$gtf_dir</span></span><br><span class="line">awk <span class="string">&#x27;</span></span><br><span class="line"><span class="string">    FNR==1 &amp;&amp; NR!=1 &#123; while (/^&lt;header&gt;/) getline; &#125;</span></span><br><span class="line"><span class="string">    1 &#123;print&#125;</span></span><br><span class="line"><span class="string">&#x27;</span> *.ioe &gt; ensembl_hg19.events.ioe</span><br></pre></td></tr></table></figure>
+<p>结果如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ensembl_hg19.events.ioe.JPG"/></p>
+<p><strong>2、计算样本的PSI值</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/SUPPA2</span><br><span class="line">ioe_merge_file=~/ref/hg38/ensembl/SUPPA_ref/hg19_event/ensembl_hg19.events.ioe</span><br><span class="line">nohup python <span class="variable">$suppa_dir</span>/suppa.py psiPerEvent -i <span class="variable">$ioe_merge_file</span> -e iso_tpm_formatted.txt -o TRA2_events &amp;</span><br></pre></td></tr></table></figure>
+<p>查看结果TRA2_events.psi文件<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/TRA2_events.psi.JPG"/></p>
+<p><strong>3、boxplot图可视化</strong></p>
+<p><code>-i</code> 输入的PSI矩阵<br><code>-e</code> 需要可视化的某基因的某种可变剪切类型<br><code>-g</code> 样品按顺序分组<br><code>-c</code> 分组名称，1-3好样本为NC组，4-6号样本为KD组<br><code>-o</code> 结果输出地址  </p>
+<p>以ENSG00000149554为例进行可视化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scripts_dir=/home/gongyuqi/project/AS/SUPPA2/scripts</span><br><span class="line">python <span class="variable">$scripts_dir</span>/generate_boxplot_event.py -i TRA2_events.psi -e <span class="string">&quot;ENSG00000149554;SE:chr11:125496728-125497502:125497725-125499127:+&quot;</span> -g 1-3,4-6 -c NC,KD -o ./</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/boxplot_PSI.JPG" width="50%">
+
+
+<h2 id="四、差异可变剪切分析"><a href="#四、差异可变剪切分析" class="headerlink" title="四、差异可变剪切分析"></a>四、差异可变剪切分析</h2><p>分组情况<br>negative control siRNA ：SRR1513329,SRR1513330,SRR1513331<br>TRA2A/B siRNA ：SRR1513332,SRR1513333,SRR1513334  </p>
+<p><strong>1、分别构建两组的TPM和PSI文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$scripts_dir</span>/split_file.R iso_tpm_formatted.txt SRR1513329,SRR1513330,SRR1513331 SRR1513332,SRR1513333,SRR1513334 TRA2_NC_iso.tpm TRA2_KD_iso.tpm -i</span><br><span class="line"><span class="variable">$scripts_dir</span>/split_file.R TRA2_events.psi SRR1513329,SRR1513330,SRR1513331 SRR1513332,SRR1513333,SRR1513334 TRA2_NC_events.psi TRA2_KD_events.psi -e</span><br></pre></td></tr></table></figure>
+<p><strong>2、差异分析</strong> </p>
+<p><code>-m empirical</code> 选择empirical方法<br><code>-gc</code> 基因修正<br><code>--save_tpm_events</code> 参数的添加，会多生成一个<br>TRA2_diffSplice_avglogtpm.tab文件，是后续火山图可视化的输入文件之一</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python <span class="variable">$suppa_dir</span>/suppa.py diffSplice -m empirical -gc -i <span class="variable">$ioe_merge_file</span> --save_tpm_events -p TRA2_KD_events.psi TRA2_NC_events.psi -e TRA2_KD_iso.tpm TRA2_NC_iso.tpm -o ./<span class="built_in">test</span>/TRA2_diffSplice</span><br></pre></td></tr></table></figure>
+<p>差异分析生成下列3个文件<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/diffsplice.JPG"/></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat TRA2_diffSplice.dpsi|grep <span class="string">&quot;ENSG00000149554&quot;</span>|less -N</span><br></pre></td></tr></table></figure>
+<p>查看dpsi文件，以ENSG00000149554为例，分析结果中会显示这个基因不同的可变剪切类型在两种处理情况下的psi值及其显著性，红色箭头标记的可变剪切事件在两组中的差异是显著的(p_value&lt;0.05)<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/diffsplice_ENSG00000149554_mark.JPG"/></p>
+<p><strong>当然,上述可变剪切差异分析的结果还可以导入R中进行volcanoplot可视化分析，官网提供了具体的R脚本</strong><br>可视化结果如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/volcano_plot.JPG" width="50%"></p>
+<p><strong>总结：</strong><br>1、技术路线：salmon定量获得各个样本的TPM值——&gt; 合并样本——&gt; 计算PSI值——&gt; 可变剪切差异分析<br>2、拿到最终的差异分析结果，提取出显著的差异可变剪切事件，写脚本将可变剪切事件的id转换成基因名，就得视觉上更友好的文件了。拿到这个文件开展后续的个性化分析。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/" data-id="ckl4ra1mh0013agvf4qiychia" data-title="SUPPA2" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-可变剪切之MART" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/" class="article-date">
+  <time class="dt-published" datetime="2021-01-14T03:05:01.000Z" itemprop="datePublished">2021-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="可变剪切之rMART"><a href="#可变剪切之rMART" class="headerlink" title="可变剪切之rMART"></a>可变剪切之rMART</h1><p><strong>官方参考资料</strong><br><a target="_blank" rel="noopener" href="http://rnaseq-mats.sourceforge.net/">http://rnaseq-mats.sourceforge.net/</a><br><strong>rMATS</strong>:<a target="_blank" rel="noopener" href="https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md">https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md</a><br><strong>rmats2sashimiplot</strong>:<a target="_blank" rel="noopener" href="https://github.com/Xinglab/rmats2sashimiplot">https://github.com/Xinglab/rmats2sashimiplot</a></p>
+<h2 id="一-rMATS软件及相关依赖包的下载"><a href="#一-rMATS软件及相关依赖包的下载" class="headerlink" title="(一)rMATS软件及相关依赖包的下载"></a>(一)rMATS软件及相关依赖包的下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#先用conda下载rMATs软件需要的依赖包</span></span><br><span class="line"><span class="comment">#有时候python版本问题搞得我很烦，有些生信软件依赖特定的python版本，所以在软件安装过程中多加注意这个问题</span></span><br><span class="line">conda create rMATs2.7 python=2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line">conda install -y Cython=0.29.14 numpy=1.16.5 blas lapack gsl=2.6 gcc=5.4.0 CMake=3.15.4</span><br><span class="line">conda install libgfortran==1</span><br><span class="line">deactivate rMATs2.7</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载软件并解压rMATs软件</span></span><br><span class="line"><span class="comment">#rMATs不同版本下载网址：https://github.com/Xinglab/rmats-turbo/releases/tag/v4.1.0</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS</span><br><span class="line">wget https://github.com/Xinglab/rmats-turbo/releases/download/v4.1.0/rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line">tar -zxvf rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line"><span class="comment">#永久添加路径到环境变量中</span></span><br><span class="line"><span class="built_in">export</span> PATH=/home/gongyuqi/project/AS/rMATS/rmats-turbo/:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-STAR比对软件的使用"><a href="#二-STAR比对软件的使用" class="headerlink" title="(二)STAR比对软件的使用"></a>(二)STAR比对软件的使用</h2><p>这么多比对软件，为什么选STAR？<br>因为官网用的STAR！据说其他可以做可变剪切的比对软件生成的bam文件，rMATs运行不了~~~</p>
+<p><strong>1、构建参考基因组索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#激活比对的环境,这个环境里面我下载了各种比对软件，python版本为2.7.15.</span></span><br><span class="line">conda activate alignment2.7 </span><br><span class="line">nohup STAR --runThreadN 30 --runMode genomeGenerate \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--genomeFastaFiles /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.dna.primary_assembly.fa \</span><br><span class="line">--sjdbGTFfile /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.102.gtf &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>2、用STAR软件进行比对</strong></p>
+<p>STAR的使用以及输出文件解读参考资料：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yssxswl/article/details/105703869">https://blog.csdn.net/yssxswl/article/details/105703869</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/eca16bf2824e">https://www.jianshu.com/p/eca16bf2824e</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入fastq文件坐在目录，这里是原始的fastq数据，质控结果挺好的，不用再过滤了，所以我直接比对了</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rawdata</span><br><span class="line"><span class="comment">#写循环进行比对</span></span><br><span class="line">ls *.gz|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup STAR --runThreadN 20 \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--readFilesCommand gunzip -c \</span><br><span class="line">--readFilesIn ./<span class="variable">$id</span> \</span><br><span class="line">--outSAMtype BAM SortedByCoordinate \</span><br><span class="line">--outFileNamePrefix /home/gongyuqi/project/AS/aligndata_star/<span class="variable">$&#123;id%%.*&#125;</span>. &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><strong>3、比对情况统计并查看</strong></p>
+<p>(1)直接查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.Log.progress.out|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> sed -n <span class="string">&#x27;1,3p&#x27;</span> <span class="variable">$id</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>结果如下，比对情况还是不错的，可以进行后续的分析。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG"/></p>
+<p>(2)flagstat统计比对情况查看比对情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools flagstat -@ 20 <span class="variable">$id</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.flagstat.txt &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ls *.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> cat <span class="variable">$id</span> | grep <span class="string">&quot;mapped (&quot;</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这个比对结果实在是难以置信！！但是结合上面的比对结果，还是可以相信比对这一步是没有问题的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_flagstat.JPG"/></p>
+<h2 id="三-运行rMATs"><a href="#三-运行rMATs" class="headerlink" title="(三)运行rMATs"></a>(三)运行rMATs</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先我们要失活掉比对的环境（alignment2.7），激活rMATs环境</span></span><br><span class="line">conda deactivate alignment2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line"><span class="comment">#虽然rMATS路径被永久添加到环境变量中，但是PATH只认可执行文件，所以这一步还是要切换到rMATs路径下</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS/rmats-turbo</span><br><span class="line">input_dir=/home/gongyuqi/project/AS/aligndata_star</span><br><span class="line">python rmats.py \</span><br><span class="line">--b1 <span class="variable">$input_dir</span>/b1.txt \</span><br><span class="line">--b2 <span class="variable">$input_dir</span>/b2.txt \</span><br><span class="line">--gtf /home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gtf \</span><br><span class="line">-t single --readLength 36 --nthread 20 \</span><br><span class="line">--od /home/gongyuqi/project/AS/rMATS/rmats_output \</span><br><span class="line">--tmp /home/gongyuqi/project/AS/rMATS/rmats_tmp</span><br><span class="line"><span class="comment">#运行完记得退出当前环境，因为后面我们要用另外一个环境</span></span><br><span class="line">conda deactivate rMATs2.7</span><br></pre></td></tr></table></figure>
+<p>运行上面的代码，会报如下错误：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/erro_libgsl.so.25.JPG"/></p>
+<p>我查看了一下，/home/gongyuqi/miniconda3/envs/rMATs2.7/lib路径下有这个文件呢！为什么电脑找不到？触及到了我的知识盲区了~~~<br>查了一下午的资料，发现这个报错涉及到查找共享库（动态链接库）问题，根据查到的东西操作了一波居然没有解决，旁边的零食都不香了！😫<br>算了~~~我还是先去吃晚饭吧，已经饿得很瘦了！😫<br>。。。。。。<br>好啦，我吃完饭回来了。我继续倒腾，不放弃。<br>。。。。。。<br>额，我知道了，这段代码运行过程中还涉及到gcc编译，因为它依赖包中有GCC。<br>这两个问题实在是太专业了，今天又学习到了。现在有一点小小的开心！😊<br>解决方法参考资料：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a62e1d327023">https://www.jianshu.com/p/a62e1d327023</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Linux默认只会在指定的几个目录找共享库（动态链接库），其他目录的要自己加在LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#因为上述命令是依赖gcc的，需要gcc进行编译，所以还需要下面的操作</span></span><br><span class="line"><span class="built_in">export</span> LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#注意，上述都是临时的，治标不治本，下次执行运行rMATs时，依然要重复上述操作。当然你也可以将其永久性添加。</span></span><br></pre></td></tr></table></figure>
+<p>运行结果如下，关于这些结果文件的解释说明，可以参考rMATS官网，上面有很详细的阐述。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rMATs_output.JPG"/></p>
+<h2 id="四-rmats2sashimiplot可视化"><a href="#四-rmats2sashimiplot可视化" class="headerlink" title="(四)rmats2sashimiplot可视化"></a>(四)rmats2sashimiplot可视化</h2><p>终于到了激动人心的可视化阶段了，一顿操作之后，产生一张漂亮的图放PPT上还是很欣慰的。</p>
+<p><strong>1、环境搭建</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda create -n rmats2sashimiplot python=2.7 </span><br><span class="line">conda activate rmats2sashimiplot</span><br><span class="line">conda install -y numpy scipy matplotlib pysam samtools bedtools</span><br></pre></td></tr></table></figure>
+<p><strong>2、准备可视化的txt文件</strong>  </p>
+<p>以Exon Skipping为例演示,这里我随便找一个基因进行可视化，注意了，这个基因不一定是差异可变剪切的基因哟，因为是我随便找的一个。嘻嘻🤭</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;2p&#x27;</span> SE.MATS.JC.txt &gt; SE.plot.PRMT2.txt</span><br><span class="line">cat SE.plot.PRMT2.txt</span><br></pre></td></tr></table></figure>
+<p>文件内容如下：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PRMT2_rMATs.txt.JPG"/></p>
+<p><strong>3、可视化的txt文件</strong></p>
+<h6 id="一开始，我非常自信的运行了下面的代码"><a href="#一开始，我非常自信的运行了下面的代码" class="headerlink" title="一开始，我非常自信的运行了下面的代码~"></a>一开始，我非常自信的运行了下面的代码~</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.bam,SRR974972.Aligned.sortedByCoord.out.bam,SRR974978.Aligned.sortedByCoord.out.bam,SRR974984.Aligned.sortedByCoord.out.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.bam,SRR974976.Aligned.sortedByCoord.out.bam,SRR974980.Aligned.sortedByCoord.out.bam,SRR974982.Aligned.sortedByCoord.out.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h6 id="但是，我遇到了如下报错"><a href="#但是，我遇到了如下报错" class="headerlink" title="但是，我遇到了如下报错"></a>但是，我遇到了如下报错</h6><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rmats2sashimiplot_chr_error.JPG"/>
+
+
+<h6 id="我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"><a href="#我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。" class="headerlink" title="我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"></a>我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有<code>chr</code>存在且让其存在在正确的位置呢。</h6><h6 id="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。"><a href="#我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。" class="headerlink" title="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。"></a>我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。</h6><h6 id="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"><a href="#起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可" class="headerlink" title="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"></a>起床<del>吃早饭</del>骑车去实验室<del>思考</del>查资料<del>有一点小想法了</del>我实践一下看看可不可</h6><p>参考资料：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5ceda0350d0d">https://www.jianshu.com/p/5ceda0350d0d</a></p>
+<h6 id="第一步：给bam文件添加chr"><a href="#第一步：给bam文件添加chr" class="headerlink" title="第一步：给bam文件添加chr"></a><font color=blue>第一步：给bam文件添加chr</font></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加chr</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools view -h <span class="variable">$id</span> | sed -e <span class="string">&#x27;/^@SQ/s/SN\:/SN\:chr/&#x27;</span> -e <span class="string">&#x27;/^[^@]/s/\t/\tchr/2&#x27;</span>|awk -F <span class="string">&#x27; &#x27;</span> <span class="string">&#x27;$7=($7==&quot;=&quot; || $7==&quot;*&quot;?$7:sprintf(&quot;chr%s&quot;,$7))&#x27;</span> |tr <span class="string">&quot; &quot;</span> <span class="string">&quot;\t&quot;</span> | samtools view -h -b -@ 10 -S - &gt; <span class="variable">$&#123;id%%.*&#125;</span>.Aligned.sortedByCoord.out.chr.bam &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h6 id="第二步：使用添加chr的bam文件执行程序"><a href="#第二步：使用添加chr的bam文件执行程序" class="headerlink" title="第二步：使用添加chr的bam文件执行程序"></a><font color=blue>第二步：使用添加chr的bam文件执行程序</font></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.chr.bam,SRR974972.Aligned.sortedByCoord.out.chr.bam,SRR974978.Aligned.sortedByCoord.out.chr.bam,SRR974984.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.chr.bam,SRR974976.Aligned.sortedByCoord.out.chr.bam,SRR974980.Aligned.sortedByCoord.out.chr.bam,SRR974982.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/SE.plot</span><br></pre></td></tr></table></figure>
+<p>可视化结果如下（你会发现，咦~两组间差异不显著呀？因为我随便挑了一个基因可视化呀！我有偷偷可视化某个基因，可视化出来的差异性与我定量和半定量qPCR的结果一致哟，所以上述分析流程应该是OK的~~~嘻嘻嘻🤭不管怎样，这个基因确实存在Exon Skipping。）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ABC_GCB_PRMT2_rMATs.JPG"/></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>技术上</strong><br>1、需要搭建两个重要的环境：运行rMATs的环境，运行rmats2sashimiplot的环境。<br>2、选用STAR进行参考基因组的比对（注意了，参考基因组和注释文件的版本要一致哟）。<br>3、在rMATs的环境下,结合上述生成的bam文件，运行rMATs软件，生成可变剪切事件的文件。<br>4、在rmats2sashimiplot环境下，可视化上述生成的可变剪切事件。</p>
+<p><strong>心态上</strong><br>上午解决不了就下午解决，今天解决不了就明天解决。这个方法不行就换个方法。思考良久之后可以适当的问问老师。最关键的还是要按时吃饭按时睡觉。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/" data-id="ckl4ra1mf0010agvf9az82jph" data-title="rMART" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-可变剪切之MISO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/" class="article-date">
+  <time class="dt-published" datetime="2021-01-09T06:05:52.000Z" itemprop="datePublished">2021-01-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+
+<h1 id="可变剪切分析之MISO"><a href="#可变剪切分析之MISO" class="headerlink" title="可变剪切分析之MISO"></a>可变剪切分析之MISO</h1><p>MISO软件原文档：<a target="_blank" rel="noopener" href="https://miso.readthedocs.io/en/fastmiso/index.html#installing-fastmiso">https://miso.readthedocs.io/en/fastmiso/index.html#installing-fastmiso</a></p>
+<h2 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h2><ul>
+<li>写一个bash脚本下载数据<br>一次性下载所有的.fastq.gz文件，本次实验数据是单端测序数据<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#！/bin/bash</span></span><br><span class="line">dir=/home/gongyuqi/.aspera/connect/etc/asperaweb_id_dsa.openssh</span><br><span class="line"><span class="keyword">for</span> id <span class="keyword">in</span>  &#123;84,78,76,72,82,80,74,68&#125; </span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">       nohup ascp -QT -l 300m -P33001 -i <span class="variable">$dsa</span> era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR974/SRR9749<span class="variable">$id</span>/SRR9749<span class="variable">$id</span>.fastq.gz . &amp;</span><br><span class="line"><span class="keyword">done</span> </span><br></pre></td></tr></table></figure></li>
+<li>执行脚本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x download.sh</span><br><span class="line">nohup ./download.sh &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="比对"><a href="#比对" class="headerlink" title="比对"></a>比对</h2><p>参考资料：<a target="_blank" rel="noopener" href="http://www.360doc.com/content/18/0714/20/19913717_770401548.shtml">http://www.360doc.com/content/18/0714/20/19913717_770401548.shtml</a></p>
+<blockquote>
+<ul>
+<li>tophat进行转录组的比对时，输出的是bam（二进制的sam）文件。</li>
+<li>tophat依赖bowtie2（bowtie1也可以），参考基因组索引用bowtie2-build进行构建。</li>
+<li>如果FASTA格式的基因组与索引文件不在同一个文件夹下面，tophat会在运行中自动生成，所以记得把参考基因组和索引文件放在同一个文件夹下面，以减少系统运行时的高消耗。</li>
+<li>如果GTF或者GFF格式的基因组注释文件存在， tophat会优先比对到注释文件的转录组上。最好事先准备好转录组索引以节约后续的比对时间。</li>
+<li>如果没有事先准备好转录组索引，tophat会在运行过程中生成转录组索引，这样就比较耗时耗力了。</li>
+</ul>
+</blockquote>
+<p><strong><table><tr><td bgcolor=GreenYellow>**参考基因组索引构建、转录组索引构建</strong></td></tr></table>**</p>
+<p>hg19参考基因组gtf文件下载链接：<a target="_blank" rel="noopener" href="https://www.gencodegenes.org/human/release_36lift37.html">https://www.gencodegenes.org/human/release_36lift37.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建立hg19参考基因组索引文件</span></span><br><span class="line">nohup time bowtie2-build path/to/hg19.fa ./hg19 &gt; hg19.bowtie_index.log 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="comment">#建立hg19转录组索引文件</span></span><br><span class="line"><span class="comment">#../index/bowtie/hg19为上一步构建的hg19参考基因组索引文件的相对路径及前缀</span></span><br><span class="line">nohup tophat -G ../gencode.v36lift37.annotation.gtf --transcriptome-index=hg19.tr ../index/bowtie/hg19 &amp;</span><br></pre></td></tr></table></figure>
+
+<p><strong><table><tr><td bgcolor=GreenYellow>**参考基因组的比对</strong></td></tr></table>** </p>
+<h5 id="比对方法一"><a href="#比对方法一" class="headerlink" title="比对方法一"></a>比对方法一</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以其中一个样本为例，走一波比对转录组流程。</span></span><br><span class="line"><span class="comment">#理论上可以节约时间，但是实际跑起来非常耗时！</span></span><br><span class="line"><span class="comment">#1G左右得样本跑了4个小时都没有跑完！！！不知道问题出在那儿，但是还是果断kill掉</span></span><br><span class="line">tr_index=/home/gongyuqi/ref/hg19/transcriptome-index/hg19.tr</span><br><span class="line">gene_index=~/ref/hg19/index/bowtie/hg19</span><br><span class="line">tophat2 -o ../aligndata/SRR974980.out --transcriptome-index=<span class="variable">$tr</span> -p 30 --phred64-quals <span class="variable">$gene_index</span> SRR974980.fastq.gz</span><br></pre></td></tr></table></figure>
+<h5 id="比对方法二"><a href="#比对方法二" class="headerlink" title="比对方法二"></a>比对方法二</h5><ul>
+<li>写一个比对的bash脚本文件（align.txt），如下<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">ls *.gz|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup tophat -G ~/ref/hg19/gencode.v36lift37.annotation.gtf -p 30 -o ../aligndata/<span class="variable">$id</span>.out ~/ref/hg19/index/bowtie/hg19 <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span> </span><br></pre></td></tr></table></figure></li>
+<li>执行这个脚本，然后去睡觉，早上醒来看看比对得结果如何~<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup bash align.txt &amp;</span><br></pre></td></tr></table></figure>
+运行结果<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/align1.JPG"/>
+
+
+</li>
+</ul>
+<p>每个文件夹打开结果如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/align2.JPG"/></p>
+<p>大概了解一下样本的运行日志</p>
+<blockquote>
+<p>注意reads的长度——36。miso后续分析中需要知道这个值<br>注意其中有一个error,至于为什么有这个报错，先不追究<br>注意比对结果的那个统计文件align_summary.txt,查看这个文件发现各个样本比对情况都挺好的。这就是为什么这里暂时不追究那个报错<br>最后会统计样本比对时长<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/align4.JPG"/></p>
+</blockquote>
+<p>3、bam文件排序及索引文件建立</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> samtools sort -@ 30 -m 8G -O bam <span class="variable">$id</span> -o <span class="variable">$&#123;id%%.*&#125;</span>.accepted_hits.sorted.bam;<span class="keyword">done</span></span><br><span class="line">ls *sorted.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> nohup samtools index -@ 30 <span class="variable">$id</span> &amp; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行MISO"><a href="#运行MISO" class="headerlink" title="运行MISO"></a>运行MISO</h2><p><strong><table><tr><td bgcolor=GreenYellow>**下载hg19的GFF文件并构建索引</strong></td></tr></table>**</p>
+<p>具体下载网页及详情：<a target="_blank" rel="noopener" href="https://miso.readthedocs.io/en/fastmiso/annotation.html">https://miso.readthedocs.io/en/fastmiso/annotation.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/annotation/human/hg19</span><br><span class="line">wget hollywood.mit.edu/burgelab/miso/annotations/ver2/miso_annotations_hg19_v2.zip</span><br><span class="line">unzip miso_annotations_hg19_v2.zip</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/unzipgff.JPG"/>
+
+<p>这里我们以外显子的gff3为例构建索引</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index_gff --index SE.hg19.gff3 ./index</span><br></pre></td></tr></table></figure>
+<p>结果如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ESgff3index.JPG"/></p>
+<p><strong><table><tr><td bgcolor=GreenYellow>**以单端测序样本为例运行miso</strong></td></tr></table>**</p>
+<p>这一步生成的结果是很关键的，会计算alternative splicing events的PSI值。而这个在最后可视化的阶段会以posterior distributions over Ψ(PSI)的形式呈现——即sashimi_plot图最右边一列的柱状图。</p>
+<ul>
+<li>写一个miso_run的脚本，内容如下<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/aligndata/accpted_bam</span><br><span class="line">index_db=/home/gongyuqi/project/AS/annotation/human/hg19/index/</span><br><span class="line">out_dir=/home/gongyuqi/project/AS/miso_step1</span><br><span class="line">ls *.sorted.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup miso --run <span class="variable">$index_db</span> <span class="variable">$id</span> --output-dir <span class="variable">$out_dir</span>/<span class="variable">$&#123;id%%.*&#125;</span> --read-len 36 &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
+<li>运行脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./miso_run.sh &amp;</span><br></pre></td></tr></table></figure>
+举例查看其中一个样本的运行结果</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/miso_run_out.JPG"/>
+
+
+<table><tr><td bgcolor=GreenYellow>**样本间比较**</td></tr></table>
+
+<p>这个软件最大的问题在于只能进行两个样本的比较，这一点就很气！！！<br>气归气，还是先运行一下，至少先把流程走完，先学起来。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compare_miso --compare-samples SRR974978/ SRR974982/ comparison/</span><br></pre></td></tr></table></figure>
+
+<p><strong><table><tr><td bgcolor=GreenYellow>**过滤</strong></td></tr></table>**</p>
+<p>设置各种参数的阈值，目的是筛选差异显著的alternative splicing events。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">filter_events \</span><br><span class="line">--filter  SRR974978_vs_SRR974982.miso_bf \</span><br><span class="line">--num-inc 1 \</span><br><span class="line">--num-exc 1 \</span><br><span class="line">--num-sum-inc-exc 10 \</span><br><span class="line">--delta-psi 0.20 \</span><br><span class="line">--bayes-factor 10 \</span><br><span class="line">--output-dir ./filter_out</span><br></pre></td></tr></table></figure>
+<p>过滤前后.misoz_bf文件中的alternative splicing events有明显减少<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/filter.JPG"/></p>
+<p><strong><table><tr><td bgcolor=GreenYellow>**可视化</strong></td></tr></table>**</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">index_db=/home/gongyuqi/project/AS/annotation/human/hg19/index/</span><br><span class="line"><span class="comment">#下面做演示的剪切事件是从上一步过滤后的.miso_bf.filtered文件中提取的一个</span></span><br><span class="line">sashimi_plot \</span><br><span class="line">--plot-event <span class="string">&quot;chr20:1093906:1094052:+@chr20:1099396:1099545:+@chr20:1106141:1106293:+&quot;</span> \</span><br><span class="line"><span class="variable">$index_db</span> \</span><br><span class="line">sashimi_plot_settings.txt  \</span><br><span class="line">--output-dir ./sashimi_plot</span><br></pre></td></tr></table></figure>
+
+<p>其中sashimi_plot_settings.txt是配置文件，内容如下。当然，也可以根据自己的作图需要修改相应的参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">[data]</span><br><span class="line"><span class="comment"># directory where BAM files are</span></span><br><span class="line">bam_prefix = /home/gongyuqi/project/AS/aligndata/accpted_bam/</span><br><span class="line"><span class="comment"># directory where MISO output is</span></span><br><span class="line">miso_prefix = /home/gongyuqi/project/AS/miso_step1</span><br><span class="line"></span><br><span class="line">bam_files = [</span><br><span class="line">    <span class="string">&quot;SRR974978.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974984.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974968.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974972.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974982.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974980.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974974.accepted_hits.sorted.bam&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974976.accepted_hits.sorted.bam&quot;</span>]</span><br><span class="line"></span><br><span class="line">miso_files = [</span><br><span class="line">    <span class="string">&quot;SRR974978&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974984&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974968&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974972&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974982&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974980&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974974&quot;</span>,</span><br><span class="line">    <span class="string">&quot;SRR974976&quot;</span>]</span><br><span class="line"></span><br><span class="line">[plotting]</span><br><span class="line"><span class="comment"># Dimensions of figure to be plotted (in inches)</span></span><br><span class="line">fig_width = 4</span><br><span class="line">fig_height = 10</span><br><span class="line"><span class="comment"># Factor to scale down introns and exons by</span></span><br><span class="line">intron_scale = 30</span><br><span class="line">exon_scale = 4</span><br><span class="line"><span class="comment"># Whether to use a log scale or not when plotting</span></span><br><span class="line">logged = False</span><br><span class="line">font_size = 6</span><br><span class="line"></span><br><span class="line"><span class="comment"># Max y-axis</span></span><br><span class="line">ymax = 150</span><br><span class="line"></span><br><span class="line"><span class="comment"># Whether to plot posterior distributions inferred by MISO</span></span><br><span class="line">show_posteriors = True</span><br><span class="line"></span><br><span class="line"><span class="comment"># Whether to show posterior distributions as bar summaries</span></span><br><span class="line">bar_posteriors = False</span><br><span class="line"></span><br><span class="line"><span class="comment"># Whether to plot the number of reads in each junction</span></span><br><span class="line">number_junctions = True</span><br><span class="line"></span><br><span class="line">resolution = .5</span><br><span class="line">posterior_bins = 40</span><br><span class="line">gene_posterior_ratio = 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># List of colors for read denisites of each sample</span></span><br><span class="line">colors = [<span class="string">&quot;#CC0011&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#CC0011&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#CC0011&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#CC0011&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#FF8800&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#FF8800&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#FF8800&quot;</span>,</span><br><span class="line">          <span class="string">&quot;#FF8800&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Number of mapped reads in each sample</span></span><br><span class="line"><span class="comment"># (Used to normalize the read density for RPKM calculation)</span></span><br><span class="line">coverages = [27232306,</span><br><span class="line">             16799279,</span><br><span class="line">             31298963,</span><br><span class="line">             26308550,</span><br><span class="line">             27067722,</span><br><span class="line">             17372484,</span><br><span class="line">             26095030,</span><br><span class="line">             26980460]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Bar color for Bayes factor distribution</span></span><br><span class="line"><span class="comment"># plots (--plot-bf-dist)</span></span><br><span class="line"><span class="comment"># Paint them blue</span></span><br><span class="line">bar_color = <span class="string">&quot;b&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Bayes factors thresholds to use for --plot-bf-dist</span></span><br><span class="line">bf_thresholds = [0, 1, 2, 5, 10, 20]</span><br></pre></td></tr></table></figure>
+<p>可视化结果如下<br>因为我们选取的剪切事件是SRR974978和SRR974982之间的差异剪切事件，所以在多个样本间趋势不是很明显。但这里我们先学个方法。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sashimi_plot1.JPG"/></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/" data-id="ckl4ra1mg0012agvf8mae68f9" data-title="MISO" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2020 ATAC-seq analysis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/08/2020%20ATAC-seq%20analysis/" class="article-date">
+  <time class="dt-published" datetime="2020-12-08T05:53:55.000Z" itemprop="datePublished">2020-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="2020-ATAC-seq-analysis"><a href="#2020-ATAC-seq-analysis" class="headerlink" title="2020 ATAC-seq analysis"></a><strong>2020 ATAC-seq analysis</strong></h1><h2 id="一、ATAC-seq个性化的conda-environment的搭建"><a href="#一、ATAC-seq个性化的conda-environment的搭建" class="headerlink" title="一、ATAC-seq个性化的conda environment的搭建"></a>一、ATAC-seq个性化的conda environment的搭建</h2><h3 id="1、git-clone"><a href="#1、git-clone" class="headerlink" title="1、git clone"></a>1、git clone</h3><p>git clone文章中提到的atac-seq-pipeline (里面有你接下来分析所需要的绝大部分东西。另外一定要去看README.md，这个文档会告诉你分析ATAC-seq需要做些准备，进行些什么工作。)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/ATAC</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/ENCODE-DCC/atac-seq-pipeline</span><br></pre></td></tr></table></figure>
+<h3 id="2、环境搭建"><a href="#2、环境搭建" class="headerlink" title="2、环境搭建"></a>2、环境搭建</h3><p>（1）conda base environment搭建</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一路yes下去</span></span><br><span class="line">$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">$ bash Miniconda3-4.6.14-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#最后一个yes时你同意了每次自动启动conda的base环境，显示安装完成后，一定要退出当前的终端，再重新打开一次，你就会发现在游标的最左边多了一个（base）,你的base conda environment就激活啦！你的conda环境搭建就成功了一小步(*^__^*) 嘻嘻……</span></span><br></pre></td></tr></table></figure>
+<p>（2）失活掉base conda environment自动激活的设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ conda config --<span class="built_in">set</span> auto_activate_base <span class="literal">false</span></span><br><span class="line"><span class="comment">#同样的完成上诉操作后，记得退出当前终端，再次打开一个新的终端。你就会发现游标的最左边没有（base）了</span></span><br></pre></td></tr></table></figure>
+<p>（3）安装pipeline’s conda environment</p>
+<p>！？你是不是充满了疑问！？下面的两个shell脚本哪里冒出来的，干什么用的。不要忘了，我们第一步git clone了这个atac-seq-pipeline呢！这两个脚本就是就是来源于这个clone下来的pipeline的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网不给力的朋友，比如说我，这一部就是整个分析流程的限速步骤！！！网络给力这一步也需要花一些时间，读一下两个shell文件就知道为什么啦。</span></span><br><span class="line">$ bash scripts/uninstall_conda_env.sh  <span class="comment"># uninstall it for clean-install</span></span><br><span class="line"><span class="comment">#下面这个shell脚本会创建两个分析ATAC-seq数据所需要的环境，一个基于python3，一个基于python2的</span></span><br><span class="line">$ bash scripts/install_conda_env.sh</span><br></pre></td></tr></table></figure>
+<p>（4）激活安装的conda环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ conda activate encode-atac-seq-pipeline</span><br><span class="line"><span class="comment">#你一定会疑问为什么是encode-atac-seq-pipeline,阅读一下scripts/install_conda_env.sh这个脚本就知道啦。因为源文档作者把这个环境名命名为encode-atac-seq-pipeline。</span></span><br></pre></td></tr></table></figure>
+<p>（5）查看所有的conda环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure>
+<p>我们会看到有一个基于python2的环境，没有标明python版本的那个encode-atac-seq-pipeline是基于python3的。有些软件是要基于特定版本的python运行的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/conda environment.JPG"/></p>
+<h2 id="二、数据下载"><a href="#二、数据下载" class="headerlink" title="二、数据下载"></a>二、数据下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一次性下载所有的......_1.fastq.gz和......_2.fastq.gz样本</span></span><br><span class="line">dir=/home/gongyuqi/.aspera/connect/etc/asperaweb_id_dsa.openssh</span><br><span class="line">x=_1</span><br><span class="line">y=_2</span><br><span class="line"><span class="keyword">for</span> id <span class="keyword">in</span> &#123;93,98,99&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ascp -QT -l 300m -P33001 -i <span class="variable">$dir</span> era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR126/0<span class="variable">$id</span>/SRR126920<span class="variable">$id</span>/SRR126920$id<span class="variable">$x</span>.fastq.gz .</span><br><span class="line">ascp -QT -l 300m -P33001 -i <span class="variable">$dir</span> era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR126/0<span class="variable">$id</span>/SRR126920<span class="variable">$id</span>/SRR126920$id<span class="variable">$y</span>.fastq.gz . </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、bowtie2比对"><a href="#三、bowtie2比对" class="headerlink" title="三、bowtie2比对"></a>三、bowtie2比对</h2><h3 id="1、-fastqc-multiqc查看原始数据的质量情况"><a href="#1、-fastqc-multiqc查看原始数据的质量情况" class="headerlink" title="1、 fastqc+multiqc查看原始数据的质量情况"></a>1、 fastqc+multiqc查看原始数据的质量情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda insatll -y fastqc multiqc</span><br><span class="line"><span class="built_in">cd</span> raw </span><br><span class="line">fastqc -t 8 *gz -o ./</span><br><span class="line">multiqc *.gzip -o ./</span><br></pre></td></tr></table></figure>
+<p>multiqc结果表明原始数据质量已经很好了，完全没有adaptor残留,连PCR重复都是勉强过关的。per base sequence content和kmer content两项指标不合格，但是并不会对后续的比对造成多大的负面影响，同时这两项指标通过过滤软件的处理可能并不会后得到改善。这样的数据其实可以直接比对的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/multiqc.JPG"/></p>
+<h3 id="2、-过滤低质量的reads"><a href="#2、-过滤低质量的reads" class="headerlink" title="2、 过滤低质量的reads"></a>2、 过滤低质量的reads</h3><p>（如果原始数据需要进行过滤处理，那么走下面这个过滤流程，我们这里就不过滤了）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nohup cat rawdata.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">trim_galore -j 35 --phred33 --length 35 -e 0.1 --stringency 4 --paired -o ../clean <span class="variable">$fq1</span> <span class="variable">$fq2</span></span><br><span class="line"><span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#过滤后的数据质量控制，看数据是否有得到改善，有没有去掉adaptor非常重要</span></span><br><span class="line"><span class="built_in">cd</span> clean</span><br><span class="line">fastqc -t 20 *gz -o ./</span><br><span class="line">multiqc *.gzip -o ./</span><br></pre></td></tr></table></figure>
+<h3 id="3、-比对参考基因组"><a href="#3、-比对参考基因组" class="headerlink" title="3、 比对参考基因组"></a>3、 比对参考基因组</h3><ul>
+<li><p>比对</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nohup cat sample.txt | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">sample=<span class="variable">$&#123;fq1%%_*&#125;</span>.sort.bam</span><br><span class="line">bowtie2  --very-sensitive -X2000 --mm --threads 50 -x /home/gongyuqi/ref/mm10/index/mm10 -1 <span class="variable">$fq1</span> -2 <span class="variable">$fq2</span>|samtools sort -O bam -@ 15 - -o ../align/<span class="variable">$sample</span> </span><br><span class="line"><span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure></li>
+<li><p>比对情况统计及查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls *.bam | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">samtools flagstat -@ 4 <span class="variable">$id</span>  &gt; <span class="variable">$&#123;id%%.*&#125;</span>.<span class="built_in">stat</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ls *.<span class="built_in">stat</span> | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> cat <span class="variable">$id</span> | grep <span class="string">&quot;mapped (&quot;</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/mapped.JPG"/>
+</li>
+<li><p>生成bam文件的索引文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ls *sort.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> samtools index -@ 10 <span class="variable">$id</span>;<span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="四、PCR去除重及质控制"><a href="#四、PCR去除重及质控制" class="headerlink" title="四、PCR去除重及质控制"></a>四、PCR去除重及质控制</h2><h3 id="1、初步过滤"><a href="#1、初步过滤" class="headerlink" title="1、初步过滤"></a>1、初步过滤</h3><p>#=============================<br>#Remove unmapped, mate unmapped<br>#not primary alignment, reads failing platform<br>#Only keep properly paired reads<br>#Obtain name sorted BAM file<br>#=============================================</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#fixmate要求输入的bam文件按名称排序，所以第一步初步过滤后要按reads名称排序一下</span></span><br><span class="line">nohup ls *.sort.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> samtools view -@ 8 -F 524 -f 2 -u <span class="variable">$id</span> | samtools sort -@ 8 -n /dev/stdin -o ../filter/<span class="variable">$&#123;id%%.*&#125;</span>.filt.nmsrt.bam;<span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#multimapping=4是bowtie2的默认设置</span></span><br><span class="line"><span class="built_in">cd</span> ../filter</span><br><span class="line">multimapping=4 </span><br><span class="line">nohup ls *filt.nmsrt.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> samtools view -@ 8 -h <span class="variable">$id</span>|assign_multimappers.py -k <span class="variable">$multimapping</span> --paired-end |samtools fixmate -@ 8 -r /dev/stdin <span class="variable">$&#123;id%%.*&#125;</span>.filt.nmsrt.fixmate.bam; <span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="2、进一步"><a href="#2、进一步" class="headerlink" title="2、进一步"></a>2、进一步</h3><p>#===============================================<br>#Remove orphan reads (pair was removed)<br>#and read pairs mapping to different chromosomes<br>#Obtain position sorted BAM<br>#===============================================</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多个样本写循环</span></span><br><span class="line">nohup ls *.filt.nmsrt.fixmate.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> samtools view -@ 8 -F 1804 -f 2 -u <span class="variable">$id</span> | samtools sort -@ 8 /dev/stdin -o <span class="variable">$&#123;id%%.*&#125;</span>.prefilt.bam;<span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="3、标记PCR重复"><a href="#3、标记PCR重复" class="headerlink" title="3、标记PCR重复"></a>3、标记PCR重复</h3><p>#===============<br>#Mark duplicates<br>#===============</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MARKDUP=/home/gongyuqi/miniconda3/envs/encode-atac-seq-pipeline/share/picard-2.20.7-0/picard.jar</span><br><span class="line"><span class="comment">#多个样本写循环</span></span><br><span class="line">nohup ls *.prefilt.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> java -Xmx16G -jar <span class="variable">$MARKDUP</span> MarkDuplicates INPUT=<span class="variable">$id</span> OUTPUT=<span class="variable">$&#123;id%%.*&#125;</span>.prefilt.dupmark.bam METRICS_FILE=<span class="variable">$&#123;id%%.*&#125;</span>.prefilt.dupmark.qc VALIDATION_STRINGENCY=LENIENT ASSUME_SORTED=<span class="literal">true</span> REMOVE_DUPLICATES=<span class="literal">false</span>;<span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="4、去除PCR重复、建立索引文件、按name排序的bam文件、质控文件"><a href="#4、去除PCR重复、建立索引文件、按name排序的bam文件、质控文件" class="headerlink" title="4、去除PCR重复、建立索引文件、按name排序的bam文件、质控文件"></a>4、去除PCR重复、建立索引文件、按name排序的bam文件、质控文件</h3><p>#============================<br>#Remove duplicates<br>#Index final position sorted BAM<br>#Create final name sorted BAM<br>#============================</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多个样本写循环</span></span><br><span class="line"><span class="comment">#去重</span></span><br><span class="line">nohup ls *.prefilt.dupmark.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> samtools view -@ 16 -F 1804 -f 2 -b <span class="variable">$id</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.bam;<span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#构建索引文件</span></span><br><span class="line">nohup ls *nodup.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> samtools index <span class="variable">$id</span>;<span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="5、测序文库复杂度的检验"><a href="#5、测序文库复杂度的检验" class="headerlink" title="5、测序文库复杂度的检验"></a>5、测序文库复杂度的检验</h3><p>#=============================<br>#Compute library complexity<br>#=============================<br>#Sort by name<br>#convert to bedPE and obtain fragment coordinates<br>#sort by position and strand<br>#Obtain unique count statistics<br>#================================================</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多个样本写循环</span></span><br><span class="line">nohup ls *.nodup.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> samtools sort -@ 16 -n <span class="variable">$id</span> -o <span class="variable">$&#123;id%%.*&#125;</span>.nodup.srt.name.bam;<span class="keyword">done</span> &amp;</span><br><span class="line">nohup ls *.nodup.srt.name.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> bedtools bamtobed -bedpe -i <span class="variable">$id</span> | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125;&#123;print $1,$2,$4,$6,$9,$10&#125;&#x27;</span> | grep -v <span class="string">&#x27;chrM&#x27;</span> | sort | uniq -c | awk <span class="string">&#x27;BEGIN&#123;mt=0;m0=0;m1=0;m2=0&#125; ($1==1)&#123;m1=m1+1&#125; ($1==2)&#123;m2=m2+1&#125; &#123;m0=m0+1&#125; &#123;mt=mt+$1&#125; END&#123;m1_m2=-1.0; if(m2&gt;0) m1_m2=m1/m2;printf &quot;%d\t%d\t%d\t%d\t%f\t%f\t%f\n&quot;,mt,m0,m1,m2,m0/mt,m1/m0,m1_m2&#125;&#x27;</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.pbc.qc;<span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<p>Library complexity measures计算结果如下，…nodup.pbc.qc文件格式为：<br>TotalReadPairs<br>DistinctReadPairs<br>OneReadPair<br>TwoReadPairs<br>NRF=Distinct/Total<br>PBC1=OnePair/Distinct<br>PBC2=OnePair/TwoPair</p>
+<p>针对NRF、PBC1、PBC2这几个指标，ENCODE官网提供的标准如下:</p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/NRF-PBC1-PBC2.jpeg"></p>
+<p>我们此次4个样本的分析结果显示这几个指标的值如下所示：</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/NRF PBC1 PBC2.JPG"/>
+
+<p>除了第一个样本（SRR12692092），其他样本计算结果显示NRF、PBC1、PBC2的值都非常完美，说明我们进行过滤和PCR去重的bam文件质量上没有问题，可以用于后续的分析。</p>
+<h3 id="6、插入片段质控检测"><a href="#6、插入片段质控检测" class="headerlink" title="6、插入片段质控检测"></a>6、插入片段质控检测</h3><table><tr><td bgcolor=GreenYellow>用于评估ATAC/Chip实验质量好坏的一个重要指标</td></tr></table>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多个样本循环</span></span><br><span class="line">picard_jar=/home/gongyuqi/miniconda3/envs/encode-atac-seq-pipeline/share/picard-2.20.7-0/picard.jar</span><br><span class="line">nohup ls *.nodup.srt.name.bam | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> java -Xmx6G -XX:ParallelGCThreads=1 -jar <span class="variable">$&#123;picard_jar&#125;</span> CollectInsertSizeMetrics INPUT=<span class="variable">$id</span> OUTPUT=<span class="variable">$&#123;id%%.*&#125;</span>.INSERT.DATA H=<span class="variable">$&#123;id%%.*&#125;</span>.INSERT.PLOT.pdf VERBOSITY=ERROR QUIET=TRUE USE_JDK_DEFLATER=TRUE USE_JDK_INFLATER=TRUE W=1000 STOP_AFTER=5000000; <span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<p>成功的ATAC-seq实验会生成具有逐级递减和周期性的峰，对应无核小体区域（Nucleosome free region, NRF,100bp）,单核区域（mono-nucleosome,200bp），双核区域（400bp），三核区域（600bp）。</p>
+<p>本次结果显示样本质量OK</p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692092.INSERT.PLOT.jpg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692093.INSERT.PLOT.jpg" width="50%"></p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692098.INSERT.PLOT.jpg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692099.INSERT.PLOT.jpg" width="50%"></p>
+<h3 id="7、TSS富集"><a href="#7、TSS富集" class="headerlink" title="7、TSS富集"></a>7、TSS富集</h3><p><strong>以BRM014-10uM_24h_wt样本为例，可视化peaks在基因组上的分布特征(TSS区域；TSS、gene-body、TSE区域)</strong></p>
+<ul>
+<li>both -R and -S can accept multiple files</li>
+<li>UCSC官网下载小鼠参考基因组注释文件，详情参考：<a target="_blank" rel="noopener" href="http://www.bio-info-trainee.com/2494.html">http://www.bio-info-trainee.com/2494.html</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成bw文件用于后续的computeMatrix</span></span><br><span class="line">nohup ls *.nodup.bam |<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup bamCoverage --normalizeUsing CPM -b <span class="variable">$id</span> -o <span class="variable">$&#123;id%%.*&#125;</span>.nodup.bw</span><br><span class="line"><span class="keyword">done</span> &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#注释文件绝对路劲</span></span><br><span class="line">refseq=/home/gongyuqi/ref/mm10/mouse.ucsc.refseq.bed</span><br><span class="line"></span><br><span class="line"><span class="comment">#TSS</span></span><br><span class="line"><span class="comment">##生成plotHeatmap需要的gz文件</span></span><br><span class="line">nohup computeMatrix reference-point  --referencePoint TSS  -p 30 \</span><br><span class="line">-b 3000 -a 3000 \</span><br><span class="line">-R <span class="variable">$refseq</span> \</span><br><span class="line">-S SRR12692098.nodup.bw SRR12692099.nodup.bw \</span><br><span class="line">--skipZeros -o BRM014-10uM_24h_wt_TSS.gz \</span><br><span class="line">--outFileSortedRegions BRM014-10uM_24h_wt_TSS.bed &amp;</span><br><span class="line"><span class="comment">##可视化文件</span></span><br><span class="line">nohup plotHeatmap -m BRM014-10uM_24h_wt_TSS.gz  -out BRM014-10uM_24h_wt_TSS_rainbow.png --colorMap rainbow &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#TSS_gene-body_TSE</span></span><br><span class="line"><span class="comment">##生成plotHeatmap需要的gz文件</span></span><br><span class="line">nohup computeMatrix scale-regions -p 30 \</span><br><span class="line">-a 3000 -b 3000 -m 5000 \</span><br><span class="line">-R <span class="variable">$refseq</span> \</span><br><span class="line">-S SRR12692098.nodup.bw SRR12692099.nodup.bw \</span><br><span class="line">--skipZeros -o BRM014-10uM_24h_wt_TSS_gene0body_TSE.gz \</span><br><span class="line">--outFileSortedRegions BRM014-10uM_24h_wt_TSS.bed &amp;</span><br><span class="line"><span class="comment">##可视化文件</span></span><br><span class="line">nohup plotHeatmap -m BRM014-10uM_24h_wt_TSS_genebody_TSE.gz  -out BRM014-10uM_24h_wt_TSS_genebody_TSE.png --colorMap rainbow &amp;</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/BRM014-10uM_24h_wt_TSS_rainbow.png" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/BRM014-10uM_24h_wt_TSS_genebody_TSE.png" width="50%"></p>
+<h2 id="五、生成tagAlign格式文件"><a href="#五、生成tagAlign格式文件" class="headerlink" title="五、生成tagAlign格式文件"></a>五、生成tagAlign格式文件</h2><h3 id="1-Convert-PE-BAM-to-tagAlign"><a href="#1-Convert-PE-BAM-to-tagAlign" class="headerlink" title="1. Convert PE BAM to tagAlign"></a>1. Convert PE BAM to tagAlign</h3><ul>
+<li>对于单端序列。直接用bed格式就可以；对于双端序列，推荐用bedpe格式。这两种格式都可以称之为tagAlign，可以作为macs的输入文件。</li>
+<li>tagAligen格式相比bam，文件大小会小很多，更加方便文件的读取。在转换得到tagAlign格式之后，我们就可以很容易的将坐标进行偏移</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nohup ls *nodup.srt.name.bam|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> bedtools bamtobed -bedpe -mate1 -i <span class="variable">$id</span>  | gzip -nc &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.srt.name.bedpe.gz;<span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#含有chrM的染色体的TagAlign文件</span></span><br><span class="line">nohup ls *.nodup.srt.name.bedpe.gz | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> zcat <span class="variable">$id</span> | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125;&#123;printf &quot;%s\t%s\t%s\tN\t1000\t%s\n%s\t%s\t%s\tN\t1000\t%s\n&quot;,$1,$2,$3,$9,$4,$5,$6,$10&#125;&#x27;</span> | gzip -nc &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.srt.name.tagAlign.gz; <span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#去除chrM的染色体的TagAlign文件</span></span><br><span class="line">nohup ls *nodup.srt.name.bedpe.gz|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> zcat <span class="variable">$id</span> | grep -P -v <span class="string">&quot;^chrM&quot;</span> | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125;&#123;printf &quot;%s\t%s\t%s\tN\t1000\t%s\n%s\t%s\t%s\tN\t1000\t%s\n&quot;,$1,$2,$3,$9,$4,$5,$6,$10&#125;&#x27;</span> | gzip -nc &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.nomit.srt.name.tagAlign.gz; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-Stand-Cross-Correlation-analysis"><a href="#2-Stand-Cross-Correlation-analysis" class="headerlink" title="2. Stand Cross Correlation analysis"></a>2. Stand Cross Correlation analysis</h3><table><tr><td bgcolor=GreenYellow>用于评估ATAC/Chip实验质量好坏的一个重要指标</td></tr></table>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NREADS=25000000</span><br><span class="line">nohup ls *.nodup.srt.name.bedpe.gz | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> zcat <span class="variable">$id</span> | grep -v “chrM” | shuf -n <span class="variable">$&#123;NREADS&#125;</span> --random-source=&lt;(openssl enc -aes-256-ctr -pass pass:$(zcat -f <span class="variable">$&#123;id%%.*&#125;</span>.nodup.srt.name.tagAlign.gz | wc -c) -nosalt &lt;/dev/zero 2&gt;/dev/null) | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125;&#123;print $1,$2,$3,&quot;N&quot;,&quot;1000&quot;,$9&#125;&#x27;</span> | gzip -nc &gt; <span class="variable">$&#123;id%%.*&#125;</span>.nodup.nomit.srt.name.$((NREADS / <span class="number">1000000</span>)).tagAlign.gz; <span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#命令最终会生成交叉相关质量评估文件，*.cc.qc文件中会输出包含11列的信息，重点关注9-11列的信息，cc.plot.pdf文件相当于*.cc.qc文件的可视化</span></span><br><span class="line">nohup ls *$((NREADS / <span class="number">1000000</span>)).tagAlign.gz | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> Rscript $(<span class="built_in">which</span> run_spp.R) -c=<span class="variable">$id</span> -p=10 -filtchr=chrM -savp=<span class="variable">$&#123;id%%.*&#125;</span>.cc.plot.pdf -out=<span class="variable">$&#123;id%%.*&#125;</span>.cc.qc; <span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#质控结果查看，主要看NSC,RSC,Quality tag三个值即输出文件的第9列，第10列，第11列。</span></span><br><span class="line">ls *.cc.qc|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> cat <span class="variable">$id</span> | awk <span class="string">&#x27;&#123;print $9, &quot;\t&quot;, $10, &quot;\t&quot;, $11&#125;&#x27;</span>;<span class="keyword">done</span> </span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cc.qc.JPG" width="50%">
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692092.cc.plot.jpg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692093.cc.plot.jpg" width="50%">
+
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692098.cc.plot.jpg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692099.cc.plot.jpg" width="50%"></p>
+<ul>
+<li>质控结果解读<blockquote>
+<p>Normalized strand cross-correlation coefficent (NSC)：NSC是最大交叉相关值除以背景交叉相关的比率(所有可能的链转移的最小交叉相关值)。NSC值越大表明富集效果越好，NSC值低于1.1表明较弱的富集，小于1表示无富集。NSC值稍微低于1.05，有较低的信噪比或很少的峰，这肯能是生物学真实现象，比如有的因子在特定组织类型中只有很少的结合位点；也可能确实是数据质量差。</p>
+<p>Relative strand cross-correlation coefficient (RSC)：RSC是片段长度相关值减去背景相关值除以phantom-peak相关值减去背景相关值。RSC的最小值可能是0，表示无信号；富集好的实验RSC值大于1；低于1表示质量低。</p>
+<p>QualityTag: Quality tag based on thresholded RSC (codes: -2:veryLow,-1:Low,0:Medium,1:High,2:veryHigh)</p>
+<p>查看交叉相关性质量评估结果，主要看NSC,RSC,Quality tag三个值，这三个值分别对应输出文件的第9列，第10列，第11列。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="六、Call-Peaks"><a href="#六、Call-Peaks" class="headerlink" title="六、Call Peaks"></a>六、Call Peaks</h2><h3 id="1、去除线粒体基因的TagAlign格式文件进行shift操作，输入macs2软件去callpeak"><a href="#1、去除线粒体基因的TagAlign格式文件进行shift操作，输入macs2软件去callpeak" class="headerlink" title="1、去除线粒体基因的TagAlign格式文件进行shift操作，输入macs2软件去callpeak"></a>1、去除线粒体基因的TagAlign格式文件进行shift操作，输入macs2软件去callpeak</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">smooth_window=150 <span class="comment"># default</span></span><br><span class="line">shiftsize=$(( -<span class="variable">$smooth_window</span>/<span class="number">2</span> ))</span><br><span class="line">pval_thresh=0.01</span><br><span class="line">nohup ls *nodup.nomit.srt.name.tagAlign.gz | <span class="keyword">while</span> <span class="built_in">read</span> id; \</span><br><span class="line"><span class="keyword">do</span> macs2 callpeak \</span><br><span class="line">-t <span class="variable">$id</span> -f BED -n <span class="string">&quot;<span class="variable">$&#123;id%%.*&#125;</span>&quot;</span> -g mm -p <span class="variable">$pval_thresh</span> \</span><br><span class="line">--<span class="built_in">shift</span> <span class="variable">$shiftsize</span> --extsize <span class="variable">$smooth_window</span> --nomodel -B --SPMR --keep-dup all --call-summits; \</span><br><span class="line"><span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="2、去除ENCODE列入黑名单的区域"><a href="#2、去除ENCODE列入黑名单的区域" class="headerlink" title="2、去除ENCODE列入黑名单的区域"></a>2、去除ENCODE列入黑名单的区域</h3><ul>
+<li>去除黑名单的bed文件，用于后续的peaks注释<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BLACKLIST=/home/gongyuqi/project/ATAC/mm10.blacklist.bed.gz</span><br><span class="line"><span class="comment">#*_summits.bed为macs2软件callpeak的结果文件之一</span></span><br><span class="line">nohup ls *_summits.bed | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> bedtools intersect -a <span class="variable">$id</span> -b <span class="variable">$BLACKLIST</span> -v &gt; <span class="variable">$&#123;id%%.*&#125;</span>_filt_blacklist.bed; <span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#查看过滤黑名单的区域前后的bed文件的peaks数</span></span><br><span class="line">ls *summits.bed|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> cat <span class="variable">$id</span> |wc -l &gt;&gt;summits.bed.txt;<span class="keyword">done</span></span><br><span class="line">ls *summits_filt_blacklist.bed|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> cat <span class="variable">$id</span> |wc -l &gt;&gt;summits_filt_blacklist.bed.txt;<span class="keyword">done</span></span><br><span class="line">past summits.bed.txt summits_filt_blacklist.bed.txt </span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/before_after_blacklist-bed.JPG"/>
+
+
+
+
+
+</li>
+</ul>
+<ul>
+<li>去除黑名单的narrowPeaks文件，用于后续的IDR评估<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用IDR需要先对MACS2的结果文件narrowPeak根据-log10(p-value)进行排序,-log10(p-value)在第八列。</span></span><br><span class="line"><span class="comment"># Sort by Col8 in descending order and replace long peak names in Column 4 with Peak_&lt;peakRank&gt;</span></span><br><span class="line"><span class="comment">#*_peaks.narrowPeak为macs2软件callpeak的结果文件之一</span></span><br><span class="line">NPEAKS=300000 </span><br><span class="line">ls *_peaks.narrowPeak | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> sort -k 8gr,8gr <span class="variable">$id</span> | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125;&#123;$4=&quot;Peak_&quot;NR ; print $0&#125;&#x27;</span> | head -n <span class="variable">$&#123;NPEAKS&#125;</span> | gzip -nc &gt; <span class="variable">$&#123;id%%_*&#125;</span>.narrowPeak.gz; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">BLACKLIST=../BLACKLIST/mm10.blacklist.bed.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成不压缩文件</span></span><br><span class="line">ls *.narrowPeak.gz | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> bedtools intersect -v -a <span class="variable">$id</span> -b <span class="variable">$&#123;BLACKLIST&#125;</span> | awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125; &#123;if ($5&gt;1000) $5=1000; print $0&#125;&#x27;</span> | grep -P <span class="string">&#x27;chr[\dXY]+[ \t]&#x27;</span>  &gt; <span class="variable">$&#123;id%%.*&#125;</span>.narrowPeak.filt_blacklist; <span class="keyword">done</span></span><br><span class="line"><span class="comment">#生成压缩文件</span></span><br><span class="line"><span class="comment">#ls *.narrowPeak.gz | while read id; do bedtools intersect -v -a $id -b $&#123;BLACKLIST&#125; | awk &#x27;BEGIN&#123;OFS=&quot;\t&quot;&#125; &#123;if ($5&gt;1000) $5=1000; print $0&#125;&#x27; | grep -P &#x27;chr[\dXY]+[ \t]&#x27; | gzip -nc &gt; $&#123;id%%.*&#125;.narrowPeak.filt_blacklist.gz; done</span></span><br></pre></td></tr></table></figure>
+<h3 id="3、Irreproducibility-Discovery-Rate-IDR-评估"><a href="#3、Irreproducibility-Discovery-Rate-IDR-评估" class="headerlink" title="3、Irreproducibility Discovery Rate (IDR)评估"></a>3、Irreproducibility Discovery Rate (IDR)评估</h3><table><tr><td bgcolor=GreenYellow>用于评估重复样本间peaks一致性的重要指标</td></tr></table>
+首先生成narrowPeak_sample.txt文件，方便后续循环处理，生成文件内容如下：
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/narrowPeak for idr.JPG"/>
+
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nohup cat narrowPeak_sample.txt | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">Rep1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">Rep2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">sample=<span class="variable">$&#123;Rep1%%.*&#125;</span>_<span class="variable">$&#123;Rep2%%.*&#125;</span>_idr</span><br><span class="line">idr --samples <span class="variable">$Rep1</span> <span class="variable">$Rep2</span> --input-file-type narrowPeak -o <span class="variable">$sample</span> --plot  </span><br><span class="line"><span class="keyword">done</span> &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DMSO_24h_wt （样本处理情况）</li>
+<li>SRR12692092.filt_blacklist.narrowPeak SRR12692093.filt_blacklist.narrowPeak</li>
+<li>没有通过IDR阈值的显示为红色</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692092_SRR12692093_idr_command.png"/>
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692092_SRR12692093_idr.png"/>
+
+<ul>
+<li>BRM014-10uM_24h_wt （样本处理情况）</li>
+<li>SRR12692098.filt_blacklist.narrowPeak SRR12692099.filt_blacklist.narrowPeak</li>
+<li>没有通过IDR阈值的显示为红色</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692098_SRR12692099_idr_command.png"/>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SRR12692098_SRR12692099_idr.png"/>
+
+<blockquote>
+<p>IDR评估会同时考虑peaks间的overlap和富集倍数的一致性。通过IDR阈值（0.05）的占比越大，说明重复样本间peaks一致性越好。从idr的分析结果看，我们的测试数据还可以的呢。</p>
+</blockquote>
+<p><strong>IDR评估相关参考资料：</strong>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d8a7056b4294?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation">重复样本的处理——IDR</a></p>
+<h3 id="4、Fraction-of-reads-in-peaks-FRiP-评估"><a href="#4、Fraction-of-reads-in-peaks-FRiP-评估" class="headerlink" title="4、Fraction of reads in peaks (FRiP)评估"></a>4、Fraction of reads in peaks (FRiP)评估</h3><table><tr><td bgcolor=GreenYellow>反映样本富集效果好坏的评价指标</td></tr></table>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成bed文件</span></span><br><span class="line">nohup ls *.nodup.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> (bedtools bamtobed -i <span class="variable">$id</span> &gt;<span class="variable">$&#123;id%%.*&#125;</span>.nodup.bed) ;<span class="keyword">done</span> &amp;</span><br><span class="line"><span class="comment">#批量计算FRiP</span></span><br><span class="line">ls *_summits_filt_blacklist.bed|<span class="keyword">while</span>  <span class="built_in">read</span> id;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$id</span></span><br><span class="line">bed=<span class="variable">$&#123;id%%_*&#125;</span>.nodup.bed </span><br><span class="line">Reads=$(bedtools intersect -a <span class="variable">$bed</span> -b <span class="variable">$id</span> |wc -l|awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line">totalReads=$(wc -l <span class="variable">$bed</span>|awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$Reads</span>  <span class="variable">$totalReads</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;==&gt; FRiP value:&#x27;</span> $(bc &lt;&lt;&lt; <span class="string">&quot;scale=2;100*<span class="variable">$Reads</span>/<span class="variable">$totalReads</span>&quot;</span>)<span class="string">&#x27;%&#x27;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>FRiP值在5%以上算比较好的。但也不绝对，这是个软阈值，可以作为一个参考。</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/FRiP.JPG"/>
+
+<p><strong>FRiP评估相关参考资料：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/09e05bcd6981?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">https://www.jianshu.com/p/09e05bcd6981?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a></p>
+<h2 id="七、Peak-annotation"><a href="#七、Peak-annotation" class="headerlink" title="七、Peak annotation"></a>七、Peak annotation</h2><h3 id="1、Feature-Distribution"><a href="#1、Feature-Distribution" class="headerlink" title="1、Feature Distribution"></a>1、Feature Distribution</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">setwd(<span class="string">&quot;path to bed file&quot;</span>)</span><br><span class="line">library(ChIPpeakAnno)</span><br><span class="line">library(TxDb.Mmusculus.UCSC.mm10.knownGene)</span><br><span class="line">library(org.Mm.eg.db)</span><br><span class="line">library(BiocInstaller)</span><br><span class="line">library(ChIPseeker)</span><br><span class="line">txdb &lt;- TxDb.Mmusculus.UCSC.mm10.knownGene</span><br><span class="line">promoter &lt;- getPromoters(TxDb=txdb, upstream=<span class="number">3000</span>, downstream=<span class="number">3000</span>)</span><br><span class="line">files = <span class="built_in">list</span>(DMSO_24h_wt_rep1 = <span class="string">&quot;SRR12692092_summits_filt_blacklist.bed&quot;</span>,</span><br><span class="line">             DMSO_24h_wt_rep2 = <span class="string">&quot;SRR12692093_summits_filt_blacklist.bed&quot;</span>,</span><br><span class="line">             BRM014_10uM_24h_wt_rep1 = <span class="string">&quot;SRR12692098_summits_filt_blacklist.bed&quot;</span>,</span><br><span class="line">             BRM014_10uM_24h_wt_rep2 = <span class="string">&quot;SRR12692099_summits_filt_blacklist.bed&quot;</span>)</span><br><span class="line"><span class="comment">#汇总所有样本</span></span><br><span class="line"><span class="comment">#plotAnnoBar和plotDistToTSS这两个柱状图都支持多个数据同时展示</span></span><br><span class="line">peakAnnoList &lt;- lapply(files, annotatePeak, </span><br><span class="line">                       TxDb=txdb,</span><br><span class="line">                       tssRegion=<span class="built_in">c</span>(-<span class="number">3000</span>, <span class="number">3000</span>))</span><br><span class="line">plotAnnoBar(peakAnnoList,title = <span class="string">&quot;                        Feature Distribution&quot;</span>)</span><br><span class="line">plotDistToTSS(peakAnnoList,title = <span class="string">&quot;                 Feature Distribution relative to TSS&quot;</span>)</span><br><span class="line"><span class="comment">#例举单个样本</span></span><br><span class="line">peakAnno &lt;- annotatePeak(files[[<span class="number">1</span>]],<span class="comment"># 分别改成2或者3或者4即可，分别对应四个文件</span></span><br><span class="line">                        tssRegion=<span class="built_in">c</span>(-<span class="number">3000</span>, <span class="number">3000</span>),</span><br><span class="line">                        TxDb=txdb,</span><br><span class="line">                        annoDb=<span class="string">&quot;org.Mm.eg.db&quot;</span>)</span><br><span class="line">plotAnnoPie(peakAnnoLipeakAnnost)</span><br><span class="line">upsetplot(peakAnno, vennpie=<span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Feature Distribution.jpeg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Feature Distribution TSS.jpeg" width="50%"></p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/plotAnnoPie.jpeg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/upsetplot(peakAnno, vennpie=TRUE).jpeg" width="50%"></p>
+<h3 id="2、查看peaks在全基因组上的分布"><a href="#2、查看peaks在全基因组上的分布" class="headerlink" title="2、查看peaks在全基因组上的分布"></a>2、查看peaks在全基因组上的分布</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输入文件的准备</span></span><br><span class="line">DMSO_24h_wt_rep1&lt;-read.csv(<span class="string">&quot;SRR12692092_summits_filt_blacklist.csv&quot;</span>)</span><br><span class="line">DMSO_24h_wt_rep1&lt;-DMSO_24h_wt_rep1[,-<span class="number">4</span>]</span><br><span class="line">DMSO_24h_wt_rep2&lt;-read.csv(<span class="string">&quot;SRR12692093_summits_filt_blacklist.csv&quot;</span>)</span><br><span class="line">DMSO_24h_wt_rep2&lt;-DMSO_24h_wt_rep2[,-<span class="number">4</span>]</span><br><span class="line">BRM014_10uM_24h_wt_rep1&lt;-read.csv(<span class="string">&quot;SRR12692098_summits_filt_blacklist.csv&quot;</span>)</span><br><span class="line">BRM014_10uM_24h_wt_rep1&lt;-BRM014_10uM_24h_wt_rep1[,-<span class="number">4</span>]</span><br><span class="line">BRM014_10uM_24h_wt_rep2&lt;-read.csv(<span class="string">&quot;SRR12692099_summits_filt_blacklist.csv&quot;</span>)</span><br><span class="line">BRM014_10uM_24h_wt_rep2&lt;-BRM014_10uM_24h_wt_rep2[,-<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#以DMSO_24h_wt_rep1为例</span></span><br><span class="line">set.seed(<span class="number">123</span>)</span><br><span class="line">circos.initializeWithIdeogram(plotType = <span class="built_in">c</span>(<span class="string">&quot;axis&quot;</span>, <span class="string">&quot;labels&quot;</span>))</span><br><span class="line">circos.track(ylim = <span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>), panel.fun = <span class="keyword">function</span>(x, y) &#123;</span><br><span class="line">  chr = CELL_META$sector.index</span><br><span class="line">  xlim = CELL_META$xlim</span><br><span class="line">  ylim = CELL_META$ylim</span><br><span class="line">  circos.rect(xlim[<span class="number">1</span>], <span class="number">0</span>, xlim[<span class="number">2</span>], <span class="number">1</span>)</span><br><span class="line">&#125;, track.height = <span class="number">0.15</span>, bg.border = <span class="literal">NA</span>, bg.col=rainbow(<span class="number">24</span>))</span><br><span class="line">text(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;DMSO_24h_wt_rep1&quot;</span>, cex = <span class="number">1.5</span>)</span><br><span class="line">circos.genomicDensity(DMSO_24h_wt_rep1, col = <span class="built_in">c</span>(<span class="string">&quot;#000080&quot;</span>), track.height = <span class="number">0.2</span>)</span><br><span class="line">circos.clear()</span><br></pre></td></tr></table></figure>
+<p>看到这样的结果，第一反应就是————为什么两种处理情况下染色体开放程度那么像！？难道我代码有问题！？经过反复检查验证（将一个样本chr1上的peaks都删掉，再次运行上述代码，就会发现显著的改变），可以确定分析上是没有问题的。这两种处理导致的差异可能不是很显著。再加上20万+的peaks放在这个小小的circos图上展示，有些差异会被掩盖掉。就如在做TSS富集分析的时候，单独看TSS前后3Kb区域，可以看到有两个峰，但在看TSS-genebody-TSE区域是，TSS处相对微弱的那个峰就被掩盖掉了。</p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMSO_24h_wt_rep1.jpeg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMSO_24h_wt_rep2.jpeg" width="50%"><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/BRM014_10uM_24h_wt_rep1.jpeg" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/BRM014_10uM_24h_wt_rep2.jpeg" width="50%"></p>
+<h3 id="3、拿到每个样本中peaks对应得基因名"><a href="#3、拿到每个样本中peaks对应得基因名" class="headerlink" title="3、拿到每个样本中peaks对应得基因名"></a>3、拿到每个样本中peaks对应得基因名</h3><p>这一步非常重要，拿到基因名就可以根据课题需要进行差异分析等</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以DMSO_24h_wt样本为例</span></span><br><span class="line"><span class="comment">#replicate 1</span></span><br><span class="line">peakAnno_DMSO_24h_wt_rep1 &lt;- annotatePeak(files[[<span class="number">1</span>]],</span><br><span class="line">                                          tssRegion=<span class="built_in">c</span>(-<span class="number">3000</span>, <span class="number">3000</span>),</span><br><span class="line">                                          TxDb=txdb,</span><br><span class="line">                                          annoDb=<span class="string">&quot;org.Mm.eg.db&quot;</span>)</span><br><span class="line">genelist_DMSO_24h_wt_rep1_uniqe&lt;-as.data.frame(unique(peakAnno_DMSO_24h_wt_rep1@anno@elementMetadata@listData[[<span class="string">&quot;SYMBOL&quot;</span>]]))</span><br><span class="line">colnames(genelist_DMSO_24h_wt_rep1_uniqe)&lt;-<span class="string">&quot;symbol&quot;</span></span><br><span class="line"><span class="comment">#replicate 2</span></span><br><span class="line">peakAnno_DMSO_24h_wt_rep2 &lt;- annotatePeak(files[[<span class="number">2</span>]],</span><br><span class="line">                                          tssRegion=<span class="built_in">c</span>(-<span class="number">3000</span>, <span class="number">3000</span>),</span><br><span class="line">                                          TxDb=txdb,</span><br><span class="line">                                          annoDb=<span class="string">&quot;org.Mm.eg.db&quot;</span>)</span><br><span class="line">genelist_DMSO_24h_wt_rep2_uniqe&lt;-as.data.frame(unique(peakAnno_DMSO_24h_wt_rep2@anno@elementMetadata@listData[[<span class="string">&quot;SYMBOL&quot;</span>]]))</span><br><span class="line">colnames(genelist_DMSO_24h_wt_rep2_uniqe)&lt;-<span class="string">&quot;symbol&quot;</span></span><br><span class="line"><span class="comment">#重复样本间共同的开放基因</span></span><br><span class="line">venn.diagram(</span><br><span class="line">  x=<span class="built_in">list</span>(</span><br><span class="line">    DMSO_24h_wt_rep1=genelist_DMSO_24h_wt_rep1_uniqe$symbol,</span><br><span class="line">    DMSO_24h_wt_rep2=genelist_DMSO_24h_wt_rep2_uniqe$symbol</span><br><span class="line">  ),</span><br><span class="line">  filename = <span class="string">&quot;DMSO_24h_wt.png&quot;</span>,</span><br><span class="line">  lty=<span class="string">&quot;dotted&quot;</span>,</span><br><span class="line">  lwd=<span class="number">3</span>,</span><br><span class="line">  col=<span class="string">&quot;transparent&quot;</span>,</span><br><span class="line">  fill=<span class="built_in">c</span>(<span class="string">&quot;darkorchid1&quot;</span>,<span class="string">&quot;cornflowerblue&quot;</span>),</span><br><span class="line">  alpha=<span class="number">0.5</span>,</span><br><span class="line">  </span><br><span class="line">  label.col=<span class="built_in">c</span>(<span class="string">&quot;darkorchid1&quot;</span>,<span class="string">&quot;white&quot;</span>,<span class="string">&quot;darkblue&quot;</span>) ,</span><br><span class="line">  cex=<span class="number">1</span>,</span><br><span class="line">  fontfamily=<span class="string">&quot;serif&quot;</span>,</span><br><span class="line">  fontface=<span class="string">&quot;bold&quot;</span>,</span><br><span class="line">  cat.default.pos=<span class="string">&quot;text&quot;</span>,</span><br><span class="line">  cat.col=<span class="built_in">c</span>(<span class="string">&quot;darkorchid1&quot;</span>,<span class="string">&quot;darkblue&quot;</span>),</span><br><span class="line">  cat.cex=<span class="number">0.6</span>,</span><br><span class="line">  cat.fontfamily=<span class="string">&quot;serif&quot;</span>,</span><br><span class="line">  cat.dist=<span class="built_in">c</span>(<span class="number">0.3</span>,<span class="number">0.3</span>),</span><br><span class="line">  cat.pos=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看各组内样本间的overlapping reads：DMSO_24h_wt， BRM014_10uM_24h_wt；</span></span><br><span class="line"><span class="comment">#以及组间peaks的异同情况：DMSO_24h_wt vs. BRM014_10uM_24h_wt</span></span><br><span class="line"><span class="comment">#代码类似上面的，就不一一展示了</span></span><br></pre></td></tr></table></figure>
+<p>从下图可以看出，不管是组间还是组内，差异的peaks数目都不是很多了，这一点也验证了我们上面做的再全基因组范围内查看peaks的分布结果。</p>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMSO_24h_wt.png" width="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/BRM014_10uM_24h_wt.png" width="50%"><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMSO_BRM014.png" width="50%"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/08/2020%20ATAC-seq%20analysis/" data-id="ckl4ra1n2001aagvf49ugfsmu" data-title="2020 ATAC-seq analysis" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-NGS数据分析之表观" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/" class="article-date">
+  <time class="dt-published" datetime="2020-05-14T03:16:18.000Z" itemprop="datePublished">2020-05-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> NGS数据分析之表观中的一些注意事项</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/" data-id="ckl4ra1ls0009agvf744q336w" data-title="NGS数据分析之表观" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-UEFI" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/04/UEFI/" class="article-date">
+  <time class="dt-published" datetime="2020-04-04T06:44:56.000Z" itemprop="datePublished">2020-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/04/04/UEFI/">UEFI</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>windows启动模式包括两种：UEFI+GPT、Legacy+MBR。<br>在此介绍3中在windows上查看系统启动模式的方法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/04/04/UEFI/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/04/UEFI/" data-id="ckl4ra1ly000gagvfa0qfehby" data-title="UEFI" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System/" rel="tag">System</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-gawk-进阶" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/16/gawk-%E8%BF%9B%E9%98%B6/" class="article-date">
+  <time class="dt-published" datetime="2020-03-16T10:18:53.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/03/16/gawk-%E8%BF%9B%E9%98%B6/">gawk 进阶</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>使用变量、处理数组、处理模式</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/16/gawk-%E8%BF%9B%E9%98%B6/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/16/gawk-%E8%BF%9B%E9%98%B6/" data-id="ckl4ra1lz000hagvfho5p9dpv" data-title="gawk 进阶" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sed-进阶" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/09/sed-%E8%BF%9B%E9%98%B6/" class="article-date">
+  <time class="dt-published" datetime="2020-03-09T01:43:03.000Z" itemprop="datePublished">2020-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/03/09/sed-%E8%BF%9B%E9%98%B6/">sed 进阶</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>多行命令、保持空间、排除命令、改变流、模式替代、在脚本中使用sed、创建sed实用程序</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/09/sed-%E8%BF%9B%E9%98%B6/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/09/sed-%E8%BF%9B%E9%98%B6/" data-id="ckl4ra1ma000tagvf6nlj1na9" data-title="sed 进阶" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sed编辑器基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2020-03-07T10:41:22.000Z" itemprop="datePublished">2020-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/">sed编辑器基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sed编辑器更多的命令和格式：<br>更多的替换选项、使用地址、删除行、插入和附加文本、修改行、转换命令、打印、使用sed处理文件</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/" data-id="ckl4ra1mc000wagvf9hqe3nsy" data-title="sed编辑器基础" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-初步认识sed和gwak" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/" class="article-date">
+  <time class="dt-published" datetime="2020-03-07T06:31:16.000Z" itemprop="datePublished">2020-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/">初步认识sed和gwak</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>想在shell脚本中处理任何类型的数据，就要熟悉Linux中的sed和gawk工具。Linux世界中广泛使用的两个命令行编辑器：sed和gawk</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/" data-id="ckl4ra1md000yagvf9k8zg1hr" data-title="初步认识sed和gwak" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

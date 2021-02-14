@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL中事物的隔离级别 | gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="MySQL中事物的隔离级别123456789101112事物的隔离界别					脏读		不可重复读		幻读read uncommited 	√			√				√read commited		×			√				√repeatable read		×			×				√serialization		×			×				×mysql中默认 repeatable readoracle中默认 read co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL中事物的隔离级别">
+<meta property="og:url" content="http://example.com/2020/03/03/MySQL-transaction-isolation/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="MySQL中事物的隔离级别123456789101112事物的隔离界别					脏读		不可重复读		幻读read uncommited 	√			√				√read commited		×			√				√repeatable read		×			×				√serialization		×			×				×mysql中默认 repeatable readoracle中默认 read co">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_uncommitted1.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_uncommited2.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_commited1.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_commited2.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read1.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read2.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read_illusion1.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read_illusion2.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/serializable1.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/serializable2.png">
+<meta property="article:published_time" content="2020-03-02T18:38:39.000Z">
+<meta property="article:modified_time" content="2021-02-14T06:28:36.508Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_uncommitted1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL-transaction-isolation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/03/MySQL-transaction-isolation/" class="article-date">
+  <time class="dt-published" datetime="2020-03-02T18:38:39.000Z" itemprop="datePublished">2020-03-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL中事物的隔离级别
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="MySQL中事物的隔离级别"><a href="#MySQL中事物的隔离级别" class="headerlink" title="MySQL中事物的隔离级别"></a>MySQL中事物的隔离级别</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">事物的隔离界别</span><br><span class="line">					脏读		不可重复读		幻读</span><br><span class="line">read uncommited 	√			√				√</span><br><span class="line">read commited		×			√				√</span><br><span class="line">repeatable read		×			×				√</span><br><span class="line">serialization		×			×				×</span><br><span class="line"></span><br><span class="line">mysql中默认 repeatable read</span><br><span class="line">oracle中默认 read commited</span><br><span class="line"></span><br><span class="line">查看隔离级别：select @@tx_isolation;</span><br><span class="line">设置隔离级别：set session|global transaction isolation level 隔离级别;</span><br></pre></td></tr></table></figure>
+<h2 id="read-uncommitted"><a href="#read-uncommitted" class="headerlink" title="read uncommitted"></a>read uncommitted</h2><p><strong>无隔离</strong><br>脏读（演示）、不可重复读（演示）、幻读（这里不演示）  </p>
+<ul>
+<li>终端1中显示当前隔离级别  </li>
+<li>设置当前隔离级别为read committed  </li>
+<li>在此查看当前隔离级别  </li>
+<li>进入test数据库  </li>
+<li>查看accout表信息  </li>
+<li>开启事物  </li>
+<li>在此事物中进行列的修改  </li>
+<li>回退  </li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_uncommitted1.png"/>
+
+<ul>
+<li>终端2显示当前隔离级别</li>
+<li>设置当前隔离级别为read committed</li>
+<li>在此查看当前隔离级别</li>
+<li>进入test数据库</li>
+<li>查看account表信息（在终端1做出修改前）</li>
+<li>查看account表信息（在终端1做出修改后）</li>
+<li>查看account表信息（在终端1回退后）</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_uncommited2.png"/>
+
+
+<h2 id="read-committed"><a href="#read-committed" class="headerlink" title="read committed"></a>read committed</h2><p>不脏读（演示）、不可重复读（不演示）、幻读（这里不演示）  </p>
+<ul>
+<li>设置终端1类型read committed</li>
+<li>开启事物</li>
+<li>修改列</li>
+<li>结束事务</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_commited1.png"/>
+
+<ul>
+<li>设置终端2类型read committed   </li>
+<li>开启事务  </li>
+<li>查看account表信息（终端做修改后。但未结束事务，不脏读）  </li>
+<li>查看account表信息（终端1做修改后，结束事务，终端2还处于同一事务中，此隔离级别下不可重复读）  </li>
+<li>结束事务</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/read_commited2.png"/>
+
+<h2 id="repeatable-read"><a href="#repeatable-read" class="headerlink" title="repeatable read"></a>repeatable read</h2><p>不脏读（演示）、不可重复读（演示）、幻读（这里不演示）  </p>
+<ul>
+<li>设置终端1类型repeatable read</li>
+<li>开启事物</li>
+<li>修改列</li>
+<li>结束事务</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read1.png"/>
+
+<ul>
+<li>设置终端2类型repeatable read</li>
+<li>开启事务</li>
+<li>查看account表信息（终端1做修改后，未结束事务）</li>
+<li>查看account表信息（终端1做修改后，结束事务，终端2未结束事务，此隔离级别下可重复读）</li>
+<li>结束事务</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read2.png"/>
+
+<ul>
+<li>终端1开启事务</li>
+<li>查看account表信息</li>
+<li>插入一行信息</li>
+<li>查看account表信息</li>
+<li>结束事务</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read_illusion1.png"/>
+
+<ul>
+<li>终端2开启事务  </li>
+<li>查看account表信息（终端1做出修改后）  </li>
+<li>修改表中的列信息（终端1做出修改，但未结束事务，时间长了终端2会出现来纳瑟方框报错）  </li>
+<li>在此尝试修改表中列信息（终端1做出修改并结束事务，出现红色下划线提示，4个改变，但在终端2事务中最初只有3行信息，此处却出现4行，说明出现幻读）</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/repeatable_read_illusion2.png"/>
+
+
+<h2 id="serialization"><a href="#serialization" class="headerlink" title="serialization"></a>serialization</h2><p>不脏读、可重复度、不幻读</p>
+<ul>
+<li>设置终端1类型serialization</li>
+<li>查看当前隔离级别</li>
+<li>开启事务</li>
+<li>查看account表信息</li>
+<li>修改表的列信息（此处并未提交执行此语句）</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/serializable1.png"/>
+
+<ul>
+<li>设置终端1类型serialization</li>
+<li>开启事务</li>
+<li>修改表的列信息（终端1的表修改操作在终端2前，此时终端2列修改无法操作，红色方框未报错信息，等待时间过长，只有端事务1事务结束才能进行此操作）</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/serializable2.png"/>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/03/MySQL-transaction-isolation/" data-id="ckl4ra1lo0004agvfhw4r1zgb" data-title="MySQL中事物的隔离级别" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          初步认识sed和gwak
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/25/MySQL%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL简单介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

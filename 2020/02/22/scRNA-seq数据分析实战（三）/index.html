@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>scRNA-seq数据分析实战（三） | gyq&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="single cell RNA-seq  &amp;&amp; 10×利用Seurate 2.3.3完成单细胞转录组下游分析，重现文章《Acquired cancer resistance to combination immunotherapy from transcriptional loss of class I HLA》的部分图片。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scRNA-seq数据分析实战（三）">
+<meta property="og:url" content="http://example.com/2020/02/22/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="single cell RNA-seq  &amp;&amp; 10×利用Seurate 2.3.3完成单细胞转录组下游分析，重现文章《Acquired cancer resistance to combination immunotherapy from transcriptional loss of class I HLA》的部分图片。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/dataPBMC.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tabletimepoint.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fibenumdataPBMC.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/boxplotdataPBMC.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/histdataPBMC.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PBMC.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/VlnPlotsce.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsce.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotgene.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsample.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fvg.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tSNE.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/timepointident.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsnelabelcellname.JPG">
+<meta property="article:published_time" content="2020-02-22T08:30:23.000Z">
+<meta property="article:modified_time" content="2021-02-14T06:34:09.031Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="NGS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/dataPBMC.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="gyq's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">gyq&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-scRNA-seq数据分析实战（三）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/22/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2020-02-22T08:30:23.000Z" itemprop="datePublished">2020-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      scRNA-seq数据分析实战（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>single cell RNA-seq  &amp;&amp; 10×<br>利用Seurate 2.3.3完成单细胞转录组下游分析，重现文章《Acquired cancer resistance to combination immunotherapy from transcriptional loss of class I HLA》的部分图片。</p>
+<a id="more"></a>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls()) <span class="comment"># clear the environment</span></span><br><span class="line"><span class="comment">#load all the necessary libraries</span></span><br><span class="line">options(warn=-<span class="number">1</span>) <span class="comment"># turn off warning message globally</span></span><br><span class="line">suppressMessages(library(Seurat))</span><br></pre></td></tr></table></figure>
+<h2 id="读入文章关于第一个病人的PBMC表达矩阵"><a href="#读入文章关于第一个病人的PBMC表达矩阵" class="headerlink" title="读入文章关于第一个病人的PBMC表达矩阵"></a>读入文章关于第一个病人的PBMC表达矩阵</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">raw_dataPBMC &lt;- read.csv(<span class="string">&#x27;path/to/GSE117988_raw.expMatrix_PBMC.csv.gz&#x27;</span>, header = <span class="literal">TRUE</span>, row.names = <span class="number">1</span>)</span><br><span class="line">raw_dataPBMC[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="built_in">dim</span>(raw_dataPBMC)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/dataPBMC.JPG"/>
+
+
+<h2 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataPBMC &lt;- log2(<span class="number">1</span> + sweep(raw_dataPBMC, <span class="number">2</span>, median(colSums(raw_dataPBMC))/colSums(raw_dataPBMC), <span class="string">&#x27;*&#x27;</span>)) <span class="comment"># Normalization，矩阵大也会比较耗时</span></span><br></pre></td></tr></table></figure>
+<h2 id="按照治疗阶段分组（后续会用到）"><a href="#按照治疗阶段分组（后续会用到）" class="headerlink" title="按照治疗阶段分组（后续会用到）"></a>按照治疗阶段分组（后续会用到）</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">timePoints &lt;- sapply(colnames(dataPBMC), <span class="keyword">function</span>(x) ExtractField(x, <span class="number">2</span>, <span class="string">&#x27;[.]&#x27;</span>))</span><br><span class="line"></span><br><span class="line">timePoints &lt;-ifelse(timePoints == <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;PBMC_Pre&#x27;</span>, </span><br><span class="line">                    ifelse(timePoints == <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;PBMC_EarlyD27&#x27;</span>,</span><br><span class="line">                           ifelse(timePoints == <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;PBMC_RespD376&#x27;</span>, <span class="string">&#x27;PBMC_ARD614&#x27;</span>)))</span><br><span class="line">table(timePoints)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tabletimepoint.JPG"/>
+
+<h2 id="表达矩阵的基本信息可视化（可用于知道质控）"><a href="#表达矩阵的基本信息可视化（可用于知道质控）" class="headerlink" title="表达矩阵的基本信息可视化（可用于知道质控）"></a>表达矩阵的基本信息可视化（可用于知道质控）</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 表达矩阵的质量控制</span></span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">boxplot(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">hist(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fibenumdataPBMC.JPG"/>
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/boxplotdataPBMC.JPG" width="70%" height="70%">
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/histdataPBMC.JPG" width="70%" height="70%">
+
+<h2 id="然后创建Seurat的对象"><a href="#然后创建Seurat的对象" class="headerlink" title="然后创建Seurat的对象"></a>然后创建Seurat的对象</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create Seurat object</span></span><br><span class="line"><span class="comment"># already normalized (above)</span></span><br><span class="line">PBMC &lt;- CreateSeuratObject(raw.data = dataPBMC, </span><br><span class="line">                           min.cells = <span class="number">1</span>, min.genes = <span class="number">0</span>, project = <span class="string">&#x27;10x_PBMC&#x27;</span>) <span class="comment">#没有进行过滤</span></span><br><span class="line">PBMC </span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PBMC.JPG"/>
+
+<h2 id="根据需要添加metadata信息"><a href="#根据需要添加metadata信息" class="headerlink" title="根据需要添加metadata信息"></a>根据需要添加metadata信息</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add meta.data (nUMI and timePoints)</span></span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, </span><br><span class="line">                    metadata = apply(raw_dataPBMC, <span class="number">2</span>, <span class="built_in">sum</span>),</span><br><span class="line">                    col.name = <span class="string">&#x27;nUMI_raw&#x27;</span>)</span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, metadata = timePoints, col.name = <span class="string">&#x27;TimePoints&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="将对象进行基本的可视化"><a href="#将对象进行基本的可视化" class="headerlink" title="将对象进行基本的可视化"></a>将对象进行基本的可视化</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sce=PBMC</span><br><span class="line">VlnPlot(object = sce, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span>), </span><br><span class="line">        group.by = <span class="string">&#x27;TimePoints&#x27;</span>, nCol = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/VlnPlotsce.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GenePlot(object = sce, gene1 = <span class="string">&quot;nUMI&quot;</span>, gene2 = <span class="string">&quot;nGene&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsce.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#可以看看高表达量基因是哪些</span></span><br><span class="line">tail(sort(Matrix::rowSums(sce@raw.data)))</span><br><span class="line"><span class="comment">## 散点图可视化任意两个基因的一些属性（通常是细胞的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个基因。</span></span><br><span class="line">tmp=<span class="built_in">names</span>(sort(Matrix::rowSums(sce@raw.data),decreasing = <span class="built_in">T</span>))</span><br><span class="line">GenePlot(object = sce, gene1 = tmp[<span class="number">1</span>], gene2 = tmp[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotgene.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 散点图可视化任意两个细胞的一些属性（通常是基因的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个细胞</span></span><br><span class="line">CellPlot(sce,sce@cell.names[<span class="number">3</span>],sce@cell.names[<span class="number">4</span>],do.ident = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsample.JPG"/>
+
+
+<h2 id="聚类可视化（重点）"><a href="#聚类可视化（重点）" class="headerlink" title="聚类可视化（重点）"></a>聚类可视化（重点）</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Cluster PBMC</span></span><br><span class="line">PBMC &lt;- ScaleData(object = PBMC, vars.to.regress = <span class="built_in">c</span>(<span class="string">&#x27;nUMI_raw&#x27;</span>), model.use = <span class="string">&#x27;linear&#x27;</span>, use.umi = <span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#因为矩阵比较大，scale这一步非常耗内存，计算机内存不够的话这一步会报错</span></span><br><span class="line">PBMC &lt;- FindVariableGenes(object = PBMC, mean.function = ExpMean, dispersion.function = LogVMR, x.low.cutoff = <span class="number">0.0125</span>, x.high.cutoff = <span class="number">3</span>, y.cutoff = <span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fvg.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PBMC &lt;- RunPCA(object = PBMC, pc.genes = PBMC@var.genes)</span><br><span class="line"><span class="comment">##</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 避免太多log日志被打印出来。</span></span><br><span class="line">PBMC &lt;- FindClusters(object = PBMC, </span><br><span class="line">                     reduction.type = <span class="string">&quot;pca&quot;</span>, </span><br><span class="line">                     dims.use = <span class="number">1</span>:<span class="number">10</span>, </span><br><span class="line">                     resolution = <span class="number">1</span>, </span><br><span class="line">                     print.output = <span class="number">0</span>,</span><br><span class="line">                     k.param = <span class="number">35</span>, save.SNN = <span class="literal">TRUE</span>)</span><br><span class="line"><span class="comment">#在此，resolution、k.param的值设定不同，分群效果也会不一样，参数的调整也是一个比较麻烦的事情</span></span><br><span class="line">table(PBMC@ident)<span class="comment"># 分出了13个clusters</span></span><br><span class="line">PBMC &lt;- RunTSNE(object = PBMC, dims.use = <span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">TSNEPlot(PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tSNE.JPG" width="70%" height="70%">
+
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table(PBMC@meta.data$TimePoints,PBMC@ident)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/timepointident.JPG"/>
+
+
+<h2 id="添加亚群信息"><a href="#添加亚群信息" class="headerlink" title="添加亚群信息"></a>添加亚群信息</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">current.cluster.ids &lt;- <span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>)</span><br><span class="line"><span class="comment">#具体是哪一种cell type,根据每个亚群的maker基因，再结合生物学背景确定亚群的具体类型，这个也有网站预测。</span></span><br><span class="line">new.cluster.ids &lt;- <span class="built_in">c</span>(<span class="string">&quot;B cells&quot;</span>, <span class="string">&quot;CD14+ T cells&quot;</span>, <span class="string">&quot;Classical monicytes&quot;</span>,<span class="string">&quot;Naive memory T cells&quot;</span>, <span class="string">&quot;CD8 effector T cells&quot;</span>, <span class="string">&quot;NK cells&quot;</span>, <span class="string">&quot;NULL1&quot;</span>, <span class="string">&quot;Non-classical monocytes&quot;</span>,<span class="string">&quot;Dendritic cells&quot;</span>, <span class="string">&quot;NULL2&quot;</span>,<span class="string">&quot;CD8+ cytotoxic T cells&quot;</span>,<span class="string">&quot;Myeloid cells&quot;</span>,<span class="string">&quot;NULL3&quot;</span>)</span><br><span class="line">PBMC@ident &lt;- plyr::mapvalues(x = PBMC@ident, from = current.cluster.ids, to = new.cluster.ids)</span><br><span class="line">TSNEPlot(object = PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsnelabelcellname.JPG"/>
+
+
+
+<h2 id="QUESTION"><a href="#QUESTION" class="headerlink" title="QUESTION"></a><font color=red>QUESTION</font></h2><ul>
+<li>代码都跟原文的代码一样，虽然主要想体现的东西是有所体现的，聚类出来的细胞亚群还是有小小的偏差。</li>
+<li><code>FindClusters</code>的参数真的是我至今为止最最纠结的问题啦，参数不一样，亚群就会不一样，难不成为了得到自己想要的分群效果，不停的调整参数吗？</li>
+<li>对象问题也是个巨大的问题，对象里面包裹了好多东西，有些不太会调用。</li>
+<li>该数据按照TimePoint来体现，目前自创的方法无法做到与原文类似的图，这也是一个待解决的问题。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/02/22/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckl4ra1m7000oagvfdwjc5g6p" data-title="scRNA-seq数据分析实战（三）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/23/R%EF%BF%BD%00apply%01lapply%01strsplit%01%25in%25(%EF%BF%BD%EF%BF%BD%EF%BF%BD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          R语言apply、lapply、strsplit、%in%用法介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/16/%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%ACR%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%85%B6%E6%8A%A5%E9%94%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">特定版本R包下载及其报错</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NGS/" rel="tag">NGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/" rel="tag">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/" rel="tag">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NGS/" style="font-size: 20px;">NGS</a> <a href="/tags/R/" style="font-size: 13.33px;">R</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/notes/" style="font-size: 10px;">notes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/">SUPPA2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/">rMART</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/09/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMISO/">MISO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/2020%20ATAC-seq%20analysis/">2020 ATAC-seq analysis</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/">NGS数据分析之表观</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 gongyuqiqi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
