@@ -453,6 +453,33 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
       </tags>
   </entry>
   <entry>
+    <title>NGS数据分析之表观</title>
+    <url>/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/</url>
+    <content><![CDATA[<p> NGS数据分析之表观中的一些注意事项</p>
+<a id="more"></a>
+
+<h2 id="一、参考基因组及注释文件的准备"><a href="#一、参考基因组及注释文件的准备" class="headerlink" title="一、参考基因组及注释文件的准备"></a>一、参考基因组及注释文件的准备</h2><p>以果蝇为例</p>
+<p>(1)下载果蝇参考基因组</p>
+<p>打开谷歌(<strong>用谷歌用谷歌</strong>)，输入：drosophila_melanogaster ftp ensembl</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/1-果蝇基因组.JPG"/>
+
+<p>点击红色箭头所指方向进入正确的下载网页（这个需要自己悟，总是要多试的）</p>
+<p>①<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/2-果蝇基因组.JPG"/></p>
+<p>②<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/3-果蝇基因组.JPG"/></p>
+<p>(2)下载参考基因组索引</p>
+<p>打开谷歌，输入：drosophila_melanogaster ftp hisat2</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/4-果蝇基因组索引.JPG"/>
+
+<p>点击红色箭头所指方向进入正确的下载网页（这个需要自己悟，总是要多试的）</p>
+<p>①<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/5-果蝇基因组索引.JPG"/></p>
+<p>②<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/6-果蝇基因组索引.JPG"/></p>
+<p><font color=blue><strong>总结</strong>：参考基因组下载方式很多，版本也不唯一，重要的是知道自己需要那个版本，这一点需要悟……就参考基因组索引而言，不同比对软件需要的索引文件不一样，可以自己构建，也可以网页下载，推荐按直接下载。</font></p>
+]]></content>
+      <tags>
+        <tag>NGS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL中事物的隔离级别</title>
     <url>/2020/03/03/MySQL-transaction-isolation/</url>
     <content><![CDATA[<p>····</p>
@@ -557,33 +584,6 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
 ]]></content>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>NGS数据分析之表观</title>
-    <url>/2020/05/14/NGS%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8B%E8%A1%A8%E8%A7%82/</url>
-    <content><![CDATA[<p> NGS数据分析之表观中的一些注意事项</p>
-<a id="more"></a>
-
-<h2 id="一、参考基因组及注释文件的准备"><a href="#一、参考基因组及注释文件的准备" class="headerlink" title="一、参考基因组及注释文件的准备"></a>一、参考基因组及注释文件的准备</h2><p>以果蝇为例</p>
-<p>(1)下载果蝇参考基因组</p>
-<p>打开谷歌(<strong>用谷歌用谷歌</strong>)，输入：drosophila_melanogaster ftp ensembl</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/1-果蝇基因组.JPG"/>
-
-<p>点击红色箭头所指方向进入正确的下载网页（这个需要自己悟，总是要多试的）</p>
-<p>①<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/2-果蝇基因组.JPG"/></p>
-<p>②<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/3-果蝇基因组.JPG"/></p>
-<p>(2)下载参考基因组索引</p>
-<p>打开谷歌，输入：drosophila_melanogaster ftp hisat2</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/4-果蝇基因组索引.JPG"/>
-
-<p>点击红色箭头所指方向进入正确的下载网页（这个需要自己悟，总是要多试的）</p>
-<p>①<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/5-果蝇基因组索引.JPG"/></p>
-<p>②<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/6-果蝇基因组索引.JPG"/></p>
-<p><font color=blue><strong>总结</strong>：参考基因组下载方式很多，版本也不唯一，重要的是知道自己需要那个版本，这一点需要悟……就参考基因组索引而言，不同比对软件需要的索引文件不一样，可以自己构建，也可以网页下载，推荐按直接下载。</font></p>
-]]></content>
-      <tags>
-        <tag>NGS</tag>
       </tags>
   </entry>
   <entry>
@@ -840,54 +840,6 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
       </tags>
   </entry>
   <entry>
-    <title>R语言apply、lapply、strsplit、&amp;#37in&amp;#37用法介绍</title>
-    <url>/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%25in%25%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>生信分析下游过程中，为了构建好可用于个性化分析的数据，往往要对原有数据进行整理，这个时候<code>apply</code>、<code>lapply</code>、<code>strsplit</code>、<code>%in%</code>就会在不同的地方发光✨发热🔥啦</p>
-<a id="more"></a>
-
-<h1 id="R语言apply、lapply、strsplit、-in-用法介绍"><a href="#R语言apply、lapply、strsplit、-in-用法介绍" class="headerlink" title="R语言apply、lapply、strsplit、%in%用法介绍"></a>R语言apply、lapply、strsplit、%in%用法介绍</h1><h2 id="apply函数"><a href="#apply函数" class="headerlink" title="apply函数"></a>apply函数</h2><p><strong>用于遍历数组中的行或列，并且使用指定函数来对其元素进行处理</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">apply(x,MARGIN,FUN,...)</span><br></pre></td></tr></table></figure>
-<p>x：数组、矩阵、数据框等<br>MARGIN：1表示行，2表示列<br>FUN：自定义的函数</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">x&lt;-matrix(rnorm(<span class="number">20</span>),<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">x</span><br><span class="line">rowmean&lt;-apply(x, <span class="number">1</span>, mean)</span><br><span class="line">rowmean</span><br><span class="line">colmean&lt;-apply(x, <span class="number">2</span>, mean)</span><br><span class="line">colmean</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/apply.JPG"/>
-
-<h2 id="lapply函数"><a href="#lapply函数" class="headerlink" title="lapply函数"></a>lapply函数</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">lapply(x,FUN)</span><br></pre></td></tr></table></figure>
-<p><strong>lapply()函数中多出来的l代表的是list，所以lapply()和apply()的区别在于输出的格式，lapply()的输出是一个列表（list），所以lapply()函数不需要MARGIN参数</strong></p>
-<p><strong>遍历列表向量内的每个元素，并且使用指定函数来对其元素进行处理。返回列表向量。</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">y&lt;-matrix(<span class="number">1</span>:<span class="number">10</span>,<span class="number">2</span>,<span class="number">5</span>)</span><br><span class="line">plus3&lt;-lapply(y, <span class="keyword">function</span>(x) x+<span class="number">3</span>)</span><br><span class="line">plus3</span><br><span class="line">unlist(plus3)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lapply.JPG"/>
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">y&lt;-<span class="built_in">c</span>(<span class="string">&quot;BABA&quot;</span>,<span class="string">&quot;MAMA&quot;</span>,<span class="string">&quot;YEYE&quot;</span>,<span class="string">&quot;NAINAI&quot;</span>)</span><br><span class="line">lower&lt;-lapply(y, tolower)</span><br><span class="line">lower</span><br><span class="line">unlist(lower)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lapply2.JPG"/>
-
-
-<p><strong>特定情况下，apply族函数比for、while函数更方便。</strong></p>
-<h2 id="strsplit函数"><a href="#strsplit函数" class="headerlink" title="strsplit函数"></a>strsplit函数</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">strsplit(x, split, fixed= <span class="built_in">F</span>, perl= <span class="built_in">F</span>, useBytes= <span class="built_in">F</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>参数x为字符串格式向量，函数依次对向量的每个元素进行拆分。</p>
-</li>
-<li><p>参数split为拆分位置的字串向量，即在哪个字串处开始拆分。</p>
-</li>
-<li><p>fixed= T则表示是用普通文本匹配或者正则表达式的精确匹配,用普通文本来匹配的运算速度要快些。</p>
-</li>
-<li><p>参数useBytes表示是否逐字节进行匹配，默认为FALSE，表示是按字符匹配而不是按字节进行匹配。</p>
-</li>
-</ul>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">s&lt;-as.data.frame(<span class="built_in">c</span>(<span class="string">&quot;444.dady_good-tempered.444&quot;</span>,<span class="string">&quot;222.mom_bad-tempered.222&quot;</span>,<span class="string">&quot;111.me_completely-lazy.111&quot;</span>))</span><br><span class="line">colnames(s)&lt;-<span class="string">&quot;family&quot;</span></span><br><span class="line">rownames(s)&lt;-<span class="built_in">c</span>(<span class="string">&quot;dady&quot;</span>,<span class="string">&quot;mom&quot;</span>,<span class="string">&quot;me&quot;</span>)</span><br><span class="line"><span class="built_in">list</span>&lt;-strsplit(<span class="built_in">as.character</span>(s$family),<span class="string">&quot;[.]&quot;</span>)</span><br><span class="line"><span class="built_in">list</span></span><br><span class="line">final&lt;-as.data.frame(<span class="built_in">list</span>)</span><br><span class="line">final</span><br><span class="line">disposition&lt;-final[<span class="number">2</span>,]</span><br><span class="line">disposition</span><br><span class="line">x&lt;-as.data.frame(t(final[<span class="number">2</span>,]))</span><br><span class="line">x</span><br><span class="line">colnames(x)&lt;-<span class="string">&quot;strsplit&quot;</span></span><br><span class="line">rownames(x)&lt;-<span class="built_in">c</span>(<span class="string">&quot;dady&quot;</span>,<span class="string">&quot;mom&quot;</span>,<span class="string">&quot;me&quot;</span>)</span><br><span class="line">x</span><br><span class="line">s$disposition&lt;-x$strsplit</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/strsplit.JPG"/>
-
-<h2 id="in-函数"><a href="#in-函数" class="headerlink" title="%in%函数"></a>%in%函数</h2><p><strong><code>%in%</code>函数在不同数据集间取相同的差异基因中非常有用！</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls())</span><br><span class="line">a&lt;-<span class="built_in">c</span>(<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;s&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">b&lt;-<span class="built_in">c</span>(<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;d&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">a%in%b</span><br><span class="line">a[a%in%b]</span><br><span class="line">b%in%a</span><br><span class="line">b[b%in%a]</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/intersect.JPG"/>
-
-
-]]></content>
-      <tags>
-        <tag>R</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SSH服务</title>
     <url>/2020/02/24/SSH%E6%9C%8D%E5%8A%A1/</url>
     <content><![CDATA[<p>远程控制服务：配置sshd服务、 安全密钥验证、远程传输命令<br>不间断会话服务：管理远程会话、会话共享功能</p>
@@ -1064,6 +1016,54 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
 ]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>R语言apply、lapply、strsplit、&amp;#37in&amp;#37用法介绍</title>
+    <url>/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%25in%25%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>生信分析下游过程中，为了构建好可用于个性化分析的数据，往往要对原有数据进行整理，这个时候<code>apply</code>、<code>lapply</code>、<code>strsplit</code>、<code>%in%</code>就会在不同的地方发光✨发热🔥啦</p>
+<a id="more"></a>
+
+<h1 id="R语言apply、lapply、strsplit、-in-用法介绍"><a href="#R语言apply、lapply、strsplit、-in-用法介绍" class="headerlink" title="R语言apply、lapply、strsplit、%in%用法介绍"></a>R语言apply、lapply、strsplit、%in%用法介绍</h1><h2 id="apply函数"><a href="#apply函数" class="headerlink" title="apply函数"></a>apply函数</h2><p><strong>用于遍历数组中的行或列，并且使用指定函数来对其元素进行处理</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">apply(x,MARGIN,FUN,...)</span><br></pre></td></tr></table></figure>
+<p>x：数组、矩阵、数据框等<br>MARGIN：1表示行，2表示列<br>FUN：自定义的函数</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">x&lt;-matrix(rnorm(<span class="number">20</span>),<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">x</span><br><span class="line">rowmean&lt;-apply(x, <span class="number">1</span>, mean)</span><br><span class="line">rowmean</span><br><span class="line">colmean&lt;-apply(x, <span class="number">2</span>, mean)</span><br><span class="line">colmean</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/apply.JPG"/>
+
+<h2 id="lapply函数"><a href="#lapply函数" class="headerlink" title="lapply函数"></a>lapply函数</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">lapply(x,FUN)</span><br></pre></td></tr></table></figure>
+<p><strong>lapply()函数中多出来的l代表的是list，所以lapply()和apply()的区别在于输出的格式，lapply()的输出是一个列表（list），所以lapply()函数不需要MARGIN参数</strong></p>
+<p><strong>遍历列表向量内的每个元素，并且使用指定函数来对其元素进行处理。返回列表向量。</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">y&lt;-matrix(<span class="number">1</span>:<span class="number">10</span>,<span class="number">2</span>,<span class="number">5</span>)</span><br><span class="line">plus3&lt;-lapply(y, <span class="keyword">function</span>(x) x+<span class="number">3</span>)</span><br><span class="line">plus3</span><br><span class="line">unlist(plus3)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lapply.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">y&lt;-<span class="built_in">c</span>(<span class="string">&quot;BABA&quot;</span>,<span class="string">&quot;MAMA&quot;</span>,<span class="string">&quot;YEYE&quot;</span>,<span class="string">&quot;NAINAI&quot;</span>)</span><br><span class="line">lower&lt;-lapply(y, tolower)</span><br><span class="line">lower</span><br><span class="line">unlist(lower)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/lapply2.JPG"/>
+
+
+<p><strong>特定情况下，apply族函数比for、while函数更方便。</strong></p>
+<h2 id="strsplit函数"><a href="#strsplit函数" class="headerlink" title="strsplit函数"></a>strsplit函数</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">strsplit(x, split, fixed= <span class="built_in">F</span>, perl= <span class="built_in">F</span>, useBytes= <span class="built_in">F</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>参数x为字符串格式向量，函数依次对向量的每个元素进行拆分。</p>
+</li>
+<li><p>参数split为拆分位置的字串向量，即在哪个字串处开始拆分。</p>
+</li>
+<li><p>fixed= T则表示是用普通文本匹配或者正则表达式的精确匹配,用普通文本来匹配的运算速度要快些。</p>
+</li>
+<li><p>参数useBytes表示是否逐字节进行匹配，默认为FALSE，表示是按字符匹配而不是按字节进行匹配。</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">s&lt;-as.data.frame(<span class="built_in">c</span>(<span class="string">&quot;444.dady_good-tempered.444&quot;</span>,<span class="string">&quot;222.mom_bad-tempered.222&quot;</span>,<span class="string">&quot;111.me_completely-lazy.111&quot;</span>))</span><br><span class="line">colnames(s)&lt;-<span class="string">&quot;family&quot;</span></span><br><span class="line">rownames(s)&lt;-<span class="built_in">c</span>(<span class="string">&quot;dady&quot;</span>,<span class="string">&quot;mom&quot;</span>,<span class="string">&quot;me&quot;</span>)</span><br><span class="line"><span class="built_in">list</span>&lt;-strsplit(<span class="built_in">as.character</span>(s$family),<span class="string">&quot;[.]&quot;</span>)</span><br><span class="line"><span class="built_in">list</span></span><br><span class="line">final&lt;-as.data.frame(<span class="built_in">list</span>)</span><br><span class="line">final</span><br><span class="line">disposition&lt;-final[<span class="number">2</span>,]</span><br><span class="line">disposition</span><br><span class="line">x&lt;-as.data.frame(t(final[<span class="number">2</span>,]))</span><br><span class="line">x</span><br><span class="line">colnames(x)&lt;-<span class="string">&quot;strsplit&quot;</span></span><br><span class="line">rownames(x)&lt;-<span class="built_in">c</span>(<span class="string">&quot;dady&quot;</span>,<span class="string">&quot;mom&quot;</span>,<span class="string">&quot;me&quot;</span>)</span><br><span class="line">x</span><br><span class="line">s$disposition&lt;-x$strsplit</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/strsplit.JPG"/>
+
+<h2 id="in-函数"><a href="#in-函数" class="headerlink" title="%in%函数"></a>%in%函数</h2><p><strong><code>%in%</code>函数在不同数据集间取相同的差异基因中非常有用！</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls())</span><br><span class="line">a&lt;-<span class="built_in">c</span>(<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;s&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">b&lt;-<span class="built_in">c</span>(<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;d&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">a%in%b</span><br><span class="line">a[a%in%b]</span><br><span class="line">b%in%a</span><br><span class="line">b[b%in%a]</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/intersect.JPG"/>
+
+
+]]></content>
+      <tags>
+        <tag>R</tag>
       </tags>
   </entry>
   <entry>
@@ -1271,18 +1271,6 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
       </tags>
   </entry>
   <entry>
-    <title>my new post</title>
-    <url>/2021/02/15/my-new-post/</url>
-    <content><![CDATA[<p>bio</p>
-<a id="more"></a>
-
-<h2 id="Bio1"><a href="#Bio1" class="headerlink" title="Bio1"></a>Bio1</h2><p>balalasd</p>
-<h2 id="Bio2"><a href="#Bio2" class="headerlink" title="Bio2"></a>Bio2</h2>]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>scRNA-seq数据分析学习（一）</title>
     <url>/2020/02/13/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p>用常规转录组的知识对scRNA-seq数据进行初步探索</p>
@@ -1407,91 +1395,6 @@ http://www.bio-info-trainee.com/2548.html
       </tags>
   </entry>
   <entry>
-    <title>scRNA-seq数据分析学习（二）</title>
-    <url>/2020/02/14/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>学习R包scater对scRNA-seq数据进行分析</p>
-<a id="more"></a>
-
-<h1 id="scRNA-seq数据分析（二）"><a href="#scRNA-seq数据分析（二）" class="headerlink" title="scRNA-seq数据分析（二）"></a>scRNA-seq数据分析（二）</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls())<span class="comment">#clear the environment</span></span><br><span class="line">options(warn=-<span class="number">1</span>)<span class="comment">#turn off warning message globally</span></span><br></pre></td></tr></table></figure>
-<h1 id="认识scater"><a href="#认识scater" class="headerlink" title="认识scater"></a>认识scater</h1><h2 id="创建scater要求的对象"><a href="#创建scater要求的对象" class="headerlink" title="创建scater要求的对象"></a>创建scater要求的对象</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(scRNAseq)</span><br><span class="line">data(fluidigm)</span><br><span class="line">assay(fluidigm)&lt;-assays(fluidigm)$rsem_counts</span><br><span class="line">ct&lt;-<span class="built_in">floor</span>(assays(fluidigm)$rsem_counts)</span><br><span class="line">ct[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">table(rownames(ct)==<span class="number">0</span>)</span><br><span class="line">sample_ann&lt;-as.data.frame(colData(fluidigm))<span class="comment">#数据集的临床信息</span></span><br><span class="line"><span class="comment">#这里需要将表达矩阵做成我们的scater要求的对象</span></span><br><span class="line">sce&lt;-SingleCellExperiment(</span><br><span class="line">  assays=<span class="built_in">list</span>(counts=ct),</span><br><span class="line">  colData=sample_ann</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scepre.JPG"/>
-
-
-<h2 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h2><p><strong>基因层面的过滤</strong></p>
-<p>使用<code>calculateQCMetrics</code>函数作用于sce这个单细胞数据对象后，就可以用<code>rowData(object)</code>查看各个基因各项统计指标：  </p>
-<ul>
-<li><code>mean_counts</code>：平均表达量</li>
-<li><code>log10_mean_counts</code>：归一化 log10-scale</li>
-<li><code>pct_dropout_by_counts</code>：该基因丢失率</li>
-<li><code>n_cell_by_counts</code>：多少个细胞表达了该基因  </li>
-</ul>
-<p>上面的指标可以用来过滤，也可以自己计算这些统计学指标<br>主要是过滤掉<strong>低表达量的基因</strong>，还有<strong>线粒体基因</strong>和<strong>ERCC spike-ins</strong>的控制</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">exprs(sce)&lt;-log2(calculateCPM(sce)+<span class="number">1</span>)</span><br><span class="line">genes&lt;-rownames(rowData(sce))<span class="comment">#rowData(object)基因相关统计情况</span></span><br><span class="line">genes[grepl(<span class="string">&#x27;^MT-&#x27;</span>,genes)]</span><br><span class="line">genes[grepl(<span class="string">&#x27;^ERCC-&#x27;</span>,genes)]</span><br><span class="line"><span class="comment">#比较不幸，这个测试数据里面没有线粒体基因，也没有ERCC序列</span></span><br><span class="line">sce&lt;-calculateQCMetrics(sce,</span><br><span class="line">                        feature_controls = <span class="built_in">list</span>(ERCC=grep(<span class="string">&#x27;^ERCC&#x27;</span>,genes)))</span><br><span class="line"><span class="comment">#后面的分析都是基于sce这个变量，这个是一个SingleCellExperiment对象</span></span><br><span class="line"><span class="comment">#sce是一个list(S4),但这个list可以当成data.frame来使用，非常方便</span></span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/MTERCC.JPG"/>
-
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看信息</span></span><br><span class="line">tmp&lt;-as.data.frame(rowData(sce))</span><br><span class="line">colnames(tmp)</span><br><span class="line">head(tmp)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sceproperty.JPG"/>
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#目前只过滤掉那些在所有细胞都没有表达的基因</span></span><br><span class="line"><span class="comment">#这个过滤条件可以自行调整，可以看到基因数量大幅减少</span></span><br><span class="line">keep_feature&lt;-rowSums(exprs(sce)&gt;<span class="number">0</span>)&gt;<span class="number">0</span></span><br><span class="line">table(keep_feature)</span><br><span class="line">sce&lt;-sce[keep_feature,]</span><br><span class="line">sce</span><br></pre></td></tr></table></figure>
-
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scemid.JPG"/>
-
-
-<p><strong>细胞层面的过滤</strong><br>用<code>colData(object)</code>可以查看各个样本统计情况</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">tmp&lt;-as.data.frame(colData(sce)) </span><br><span class="line">colnames(tmp)</span><br><span class="line"><span class="comment">#尝试查看一些信息</span></span><br><span class="line">tf&lt;-sce$total_features_by_counts</span><br><span class="line">boxplot(tf)</span><br><span class="line">fivenum(tf)</span><br><span class="line"><span class="comment">#还是那句话，过滤没有统一的标准，视具体情况而定，下面举一个例子进行简单的过滤尝试</span></span><br><span class="line">tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span></span><br><span class="line">table(tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span>)</span><br><span class="line">sce&lt;-sce[,tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span>]</span><br><span class="line">sce</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/filtercountsboxplot.JPG" width="30%" height="30%">
-
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scefin.JPG"/>
-
-<p><strong>这个sce真的是非常方便了，虽然是个list,但是却可以像dataframe一样对其进行处理，</strong><br><strong>至此，我们过滤掉了9000多个基因，4个样本</strong></p>
-<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#展示一些基因在不同细胞分类的表达，这里只做一下演示，一般不这么用，不过筛出来的marker基因可以用这种方式展现其在各组间的差异</span></span><br><span class="line">plotExpression(sce,rownames(sce)[<span class="number">1</span>:<span class="number">6</span>],</span><br><span class="line">               x=<span class="string">&quot;Biological_Condition&quot;</span>,</span><br><span class="line">               exprs_values = <span class="string">&quot;logcounts&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/6genesin4groups.JPG" width="70%" height="70%">
-
-
-<p><strong>PCA</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#还可以可视化细胞距离分布</span></span><br><span class="line">sce&lt;-runPCA(sce)<span class="comment">#这里没有进行任何基因的挑选，就直接进行PCA了，与seurat包不一样</span></span><br><span class="line">reducedDimNames(sce)</span><br><span class="line"><span class="comment">#PCA分布图上添加临床信息，同样发现不同GW细胞之间不能很好的分群</span></span><br><span class="line"><span class="comment">#plotPCA(sce)该数据最原始的PCA图</span></span><br><span class="line">plotReducedDim(sce,use_dimred = <span class="string">&quot;PCA&quot;</span>,colour_by = <span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCA.JPG" width="70%" height="70%">
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#PCA分布图上面添加表达量信息，一般标marker gene，次方法不常用，这里就以一个基因为例示范一下</span></span><br><span class="line">plotReducedDim(sce,use_dimred = <span class="string">&quot;PCA&quot;</span>,colour_by = rownames(sce)[<span class="number">1</span>],size_by = rownames(sce)[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAcertaingene.JPG" width="60%" height="60%">
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">##仅仅是选取前20个PC，分群时细胞分布并没有太大区别</span></span><br><span class="line">sce&lt;-runPCA(sce,ncomponents = <span class="number">20</span>)</span><br><span class="line">plotPCA(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAcomponent20.JPG" width="70%" height="70%">
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">##可以挑选指定的PC来可视化，这里选5个PC</span></span><br><span class="line">plotPCA(sce,ncomponents=<span class="number">5</span>,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PCA5component.JPG"/>
-
-<p><strong>tSNE</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#tSNE可视化</span></span><br><span class="line">set.seed(<span class="number">1234</span>)</span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">30</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsne.JPG" width="70%" height="70%">
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#perplexity的设定值不一样，散点的分布也会有所不同，但趋势都是一致的</span></span><br><span class="line"><span class="comment">#perplexity设置为10</span></span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">10</span>,use_dimred = <span class="string">&quot;PCA&quot;</span>,n_dimred = <span class="number">10</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br><span class="line"><span class="comment">#perplexity设置为20</span></span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">20</span>,use_dimred = <span class="string">&quot;PCA&quot;</span>,n_dimred = <span class="number">10</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAper10.JPG" width="50%" height="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAper20.JPG" width="50%" height="50%"></p>
-<h1 id="认识SC3"><a href="#认识SC3" class="headerlink" title="认识SC3"></a>认识SC3</h1><h2 id="R包SC3处理scRNAseq内置的数据"><a href="#R包SC3处理scRNAseq内置的数据" class="headerlink" title="R包SC3处理scRNAseq内置的数据"></a>R包SC3处理scRNAseq内置的数据</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#R包SC3</span></span><br><span class="line">library(SC3)</span><br><span class="line">sce&lt;-sce_back</span><br><span class="line">sce&lt;-sc3_estimate_k(sce)</span><br><span class="line">metadata(sce)$sc3$k_estimation</span><br><span class="line">rowData(sce)$feature_symbol&lt;-rownames(rowData(sce))</span><br><span class="line"><span class="comment">#一步运行sc3的所有分析，相当耗时，数据量大的话就真的相当耗时</span></span><br><span class="line"><span class="comment">#这里kn表示的预估聚类数，数据集是已知的，我们这里就设定为4组，具体数据要具体考虑</span></span><br><span class="line">kn&lt;-<span class="number">4</span></span><br><span class="line">sc3_cluster&lt;-<span class="string">&quot;sc3_4_clusters&quot;</span></span><br><span class="line">sce&lt;-sc3(sce,ks=kn,biology = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="可视化展示"><a href="#可视化展示" class="headerlink" title="可视化展示"></a>可视化展示</h2><p>kn就是聚类数</p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图：比较先验分类和SC3的聚类的一致性</span></span><br><span class="line">sc3_plot_consensus(sce,k=kn,show_pdata = <span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster))</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmapconsensus.JPG"/>
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图：展示表达量信息</span></span><br><span class="line">sc3_plot_expression(sce,k=kn,show_pdata = <span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster))</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmapexpression.JPG"/>
-
-<p><font color=red><strong>SC3包找marker基因</strong></font></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图，展示可能的标记基因</span></span><br><span class="line">sc3_plot_markers(sce,k=kn,show_pdata =<span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster) )</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmarker.JPG"/>
-
-
-
-]]></content>
-      <tags>
-        <tag>NGS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>scRNA-seq数据分析学习（三）</title>
     <url>/2020/02/15/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<p>学习R包seurat对scRNA-seq数据进行分析</p>
@@ -1610,6 +1513,91 @@ http://www.bio-info-trainee.com/2548.html
       </tags>
   </entry>
   <entry>
+    <title>scRNA-seq数据分析学习（二）</title>
+    <url>/2020/02/14/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>学习R包scater对scRNA-seq数据进行分析</p>
+<a id="more"></a>
+
+<h1 id="scRNA-seq数据分析（二）"><a href="#scRNA-seq数据分析（二）" class="headerlink" title="scRNA-seq数据分析（二）"></a>scRNA-seq数据分析（二）</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls())<span class="comment">#clear the environment</span></span><br><span class="line">options(warn=-<span class="number">1</span>)<span class="comment">#turn off warning message globally</span></span><br></pre></td></tr></table></figure>
+<h1 id="认识scater"><a href="#认识scater" class="headerlink" title="认识scater"></a>认识scater</h1><h2 id="创建scater要求的对象"><a href="#创建scater要求的对象" class="headerlink" title="创建scater要求的对象"></a>创建scater要求的对象</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(scRNAseq)</span><br><span class="line">data(fluidigm)</span><br><span class="line">assay(fluidigm)&lt;-assays(fluidigm)$rsem_counts</span><br><span class="line">ct&lt;-<span class="built_in">floor</span>(assays(fluidigm)$rsem_counts)</span><br><span class="line">ct[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">table(rownames(ct)==<span class="number">0</span>)</span><br><span class="line">sample_ann&lt;-as.data.frame(colData(fluidigm))<span class="comment">#数据集的临床信息</span></span><br><span class="line"><span class="comment">#这里需要将表达矩阵做成我们的scater要求的对象</span></span><br><span class="line">sce&lt;-SingleCellExperiment(</span><br><span class="line">  assays=<span class="built_in">list</span>(counts=ct),</span><br><span class="line">  colData=sample_ann</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scepre.JPG"/>
+
+
+<h2 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h2><p><strong>基因层面的过滤</strong></p>
+<p>使用<code>calculateQCMetrics</code>函数作用于sce这个单细胞数据对象后，就可以用<code>rowData(object)</code>查看各个基因各项统计指标：  </p>
+<ul>
+<li><code>mean_counts</code>：平均表达量</li>
+<li><code>log10_mean_counts</code>：归一化 log10-scale</li>
+<li><code>pct_dropout_by_counts</code>：该基因丢失率</li>
+<li><code>n_cell_by_counts</code>：多少个细胞表达了该基因  </li>
+</ul>
+<p>上面的指标可以用来过滤，也可以自己计算这些统计学指标<br>主要是过滤掉<strong>低表达量的基因</strong>，还有<strong>线粒体基因</strong>和<strong>ERCC spike-ins</strong>的控制</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">exprs(sce)&lt;-log2(calculateCPM(sce)+<span class="number">1</span>)</span><br><span class="line">genes&lt;-rownames(rowData(sce))<span class="comment">#rowData(object)基因相关统计情况</span></span><br><span class="line">genes[grepl(<span class="string">&#x27;^MT-&#x27;</span>,genes)]</span><br><span class="line">genes[grepl(<span class="string">&#x27;^ERCC-&#x27;</span>,genes)]</span><br><span class="line"><span class="comment">#比较不幸，这个测试数据里面没有线粒体基因，也没有ERCC序列</span></span><br><span class="line">sce&lt;-calculateQCMetrics(sce,</span><br><span class="line">                        feature_controls = <span class="built_in">list</span>(ERCC=grep(<span class="string">&#x27;^ERCC&#x27;</span>,genes)))</span><br><span class="line"><span class="comment">#后面的分析都是基于sce这个变量，这个是一个SingleCellExperiment对象</span></span><br><span class="line"><span class="comment">#sce是一个list(S4),但这个list可以当成data.frame来使用，非常方便</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/MTERCC.JPG"/>
+
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看信息</span></span><br><span class="line">tmp&lt;-as.data.frame(rowData(sce))</span><br><span class="line">colnames(tmp)</span><br><span class="line">head(tmp)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sceproperty.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#目前只过滤掉那些在所有细胞都没有表达的基因</span></span><br><span class="line"><span class="comment">#这个过滤条件可以自行调整，可以看到基因数量大幅减少</span></span><br><span class="line">keep_feature&lt;-rowSums(exprs(sce)&gt;<span class="number">0</span>)&gt;<span class="number">0</span></span><br><span class="line">table(keep_feature)</span><br><span class="line">sce&lt;-sce[keep_feature,]</span><br><span class="line">sce</span><br></pre></td></tr></table></figure>
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scemid.JPG"/>
+
+
+<p><strong>细胞层面的过滤</strong><br>用<code>colData(object)</code>可以查看各个样本统计情况</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">tmp&lt;-as.data.frame(colData(sce)) </span><br><span class="line">colnames(tmp)</span><br><span class="line"><span class="comment">#尝试查看一些信息</span></span><br><span class="line">tf&lt;-sce$total_features_by_counts</span><br><span class="line">boxplot(tf)</span><br><span class="line">fivenum(tf)</span><br><span class="line"><span class="comment">#还是那句话，过滤没有统一的标准，视具体情况而定，下面举一个例子进行简单的过滤尝试</span></span><br><span class="line">tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span></span><br><span class="line">table(tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span>)</span><br><span class="line">sce&lt;-sce[,tmp$pct_counts_in_top_100_features_endogenous&lt;<span class="number">50</span>]</span><br><span class="line">sce</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/filtercountsboxplot.JPG" width="30%" height="30%">
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scefin.JPG"/>
+
+<p><strong>这个sce真的是非常方便了，虽然是个list,但是却可以像dataframe一样对其进行处理，</strong><br><strong>至此，我们过滤掉了9000多个基因，4个样本</strong></p>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#展示一些基因在不同细胞分类的表达，这里只做一下演示，一般不这么用，不过筛出来的marker基因可以用这种方式展现其在各组间的差异</span></span><br><span class="line">plotExpression(sce,rownames(sce)[<span class="number">1</span>:<span class="number">6</span>],</span><br><span class="line">               x=<span class="string">&quot;Biological_Condition&quot;</span>,</span><br><span class="line">               exprs_values = <span class="string">&quot;logcounts&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/6genesin4groups.JPG" width="70%" height="70%">
+
+
+<p><strong>PCA</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#还可以可视化细胞距离分布</span></span><br><span class="line">sce&lt;-runPCA(sce)<span class="comment">#这里没有进行任何基因的挑选，就直接进行PCA了，与seurat包不一样</span></span><br><span class="line">reducedDimNames(sce)</span><br><span class="line"><span class="comment">#PCA分布图上添加临床信息，同样发现不同GW细胞之间不能很好的分群</span></span><br><span class="line"><span class="comment">#plotPCA(sce)该数据最原始的PCA图</span></span><br><span class="line">plotReducedDim(sce,use_dimred = <span class="string">&quot;PCA&quot;</span>,colour_by = <span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCA.JPG" width="70%" height="70%">
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#PCA分布图上面添加表达量信息，一般标marker gene，次方法不常用，这里就以一个基因为例示范一下</span></span><br><span class="line">plotReducedDim(sce,use_dimred = <span class="string">&quot;PCA&quot;</span>,colour_by = rownames(sce)[<span class="number">1</span>],size_by = rownames(sce)[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAcertaingene.JPG" width="60%" height="60%">
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">##仅仅是选取前20个PC，分群时细胞分布并没有太大区别</span></span><br><span class="line">sce&lt;-runPCA(sce,ncomponents = <span class="number">20</span>)</span><br><span class="line">plotPCA(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAcomponent20.JPG" width="70%" height="70%">
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">##可以挑选指定的PC来可视化，这里选5个PC</span></span><br><span class="line">plotPCA(sce,ncomponents=<span class="number">5</span>,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PCA5component.JPG"/>
+
+<p><strong>tSNE</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#tSNE可视化</span></span><br><span class="line">set.seed(<span class="number">1234</span>)</span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">30</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsne.JPG" width="70%" height="70%">
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#perplexity的设定值不一样，散点的分布也会有所不同，但趋势都是一致的</span></span><br><span class="line"><span class="comment">#perplexity设置为10</span></span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">10</span>,use_dimred = <span class="string">&quot;PCA&quot;</span>,n_dimred = <span class="number">10</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br><span class="line"><span class="comment">#perplexity设置为20</span></span><br><span class="line">sce&lt;-runTSNE(sce,perplexity = <span class="number">20</span>,use_dimred = <span class="string">&quot;PCA&quot;</span>,n_dimred = <span class="number">10</span>)</span><br><span class="line">plotTSNE(sce,colour_by=<span class="string">&quot;Biological_Condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAper10.JPG" width="50%" height="50%"><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/scePCAper20.JPG" width="50%" height="50%"></p>
+<h1 id="认识SC3"><a href="#认识SC3" class="headerlink" title="认识SC3"></a>认识SC3</h1><h2 id="R包SC3处理scRNAseq内置的数据"><a href="#R包SC3处理scRNAseq内置的数据" class="headerlink" title="R包SC3处理scRNAseq内置的数据"></a>R包SC3处理scRNAseq内置的数据</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#R包SC3</span></span><br><span class="line">library(SC3)</span><br><span class="line">sce&lt;-sce_back</span><br><span class="line">sce&lt;-sc3_estimate_k(sce)</span><br><span class="line">metadata(sce)$sc3$k_estimation</span><br><span class="line">rowData(sce)$feature_symbol&lt;-rownames(rowData(sce))</span><br><span class="line"><span class="comment">#一步运行sc3的所有分析，相当耗时，数据量大的话就真的相当耗时</span></span><br><span class="line"><span class="comment">#这里kn表示的预估聚类数，数据集是已知的，我们这里就设定为4组，具体数据要具体考虑</span></span><br><span class="line">kn&lt;-<span class="number">4</span></span><br><span class="line">sc3_cluster&lt;-<span class="string">&quot;sc3_4_clusters&quot;</span></span><br><span class="line">sce&lt;-sc3(sce,ks=kn,biology = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="可视化展示"><a href="#可视化展示" class="headerlink" title="可视化展示"></a>可视化展示</h2><p>kn就是聚类数</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图：比较先验分类和SC3的聚类的一致性</span></span><br><span class="line">sc3_plot_consensus(sce,k=kn,show_pdata = <span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster))</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmapconsensus.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图：展示表达量信息</span></span><br><span class="line">sc3_plot_expression(sce,k=kn,show_pdata = <span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster))</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmapexpression.JPG"/>
+
+<p><font color=red><strong>SC3包找marker基因</strong></font></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#热图，展示可能的标记基因</span></span><br><span class="line">sc3_plot_markers(sce,k=kn,show_pdata =<span class="built_in">c</span>(<span class="string">&quot;Biological_Condition&quot;</span>,sc3_cluster) )</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sc3pheatmarker.JPG"/>
+
+
+
+]]></content>
+      <tags>
+        <tag>NGS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>scRNA-seq数据分析学习（四）</title>
     <url>/2020/02/15/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
     <content><![CDATA[<p>学习R包monocle对scRNA-seq数据进行分析</p>
@@ -1695,74 +1683,6 @@ http://www.bio-info-trainee.com/2548.html
 
 
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>生信技能数（<a href="https://search.bilibili.com/all?keyword=%E7%94%9F%E4%BF%A1%E6%8A%80%E8%83%BD%E6%A0%91&from_source=nav_search&spm_id_from=333.851.b_696e7465726e6174696f6e616c486561646572.9">B站</a>、公众号）   </p>
-]]></content>
-      <tags>
-        <tag>NGS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>scRNA-seq数据分析实战（三）</title>
-    <url>/2020/02/22/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<p>single cell RNA-seq  &amp;&amp; 10×<br>利用Seurate 2.3.3完成单细胞转录组下游分析，重现文章《Acquired cancer resistance to combination immunotherapy from transcriptional loss of class I HLA》的部分图片。</p>
-<a id="more"></a>
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls()) <span class="comment"># clear the environment</span></span><br><span class="line"><span class="comment">#load all the necessary libraries</span></span><br><span class="line">options(warn=-<span class="number">1</span>) <span class="comment"># turn off warning message globally</span></span><br><span class="line">suppressMessages(library(Seurat))</span><br></pre></td></tr></table></figure>
-<h2 id="读入文章关于第一个病人的PBMC表达矩阵"><a href="#读入文章关于第一个病人的PBMC表达矩阵" class="headerlink" title="读入文章关于第一个病人的PBMC表达矩阵"></a>读入文章关于第一个病人的PBMC表达矩阵</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">raw_dataPBMC &lt;- read.csv(<span class="string">&#x27;path/to/GSE117988_raw.expMatrix_PBMC.csv.gz&#x27;</span>, header = <span class="literal">TRUE</span>, row.names = <span class="number">1</span>)</span><br><span class="line">raw_dataPBMC[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="built_in">dim</span>(raw_dataPBMC)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/dataPBMC.JPG"/>
-
-
-<h2 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">dataPBMC &lt;- log2(<span class="number">1</span> + sweep(raw_dataPBMC, <span class="number">2</span>, median(colSums(raw_dataPBMC))/colSums(raw_dataPBMC), <span class="string">&#x27;*&#x27;</span>)) <span class="comment"># Normalization，矩阵大也会比较耗时</span></span><br></pre></td></tr></table></figure>
-<h2 id="按照治疗阶段分组（后续会用到）"><a href="#按照治疗阶段分组（后续会用到）" class="headerlink" title="按照治疗阶段分组（后续会用到）"></a>按照治疗阶段分组（后续会用到）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">timePoints &lt;- sapply(colnames(dataPBMC), <span class="keyword">function</span>(x) ExtractField(x, <span class="number">2</span>, <span class="string">&#x27;[.]&#x27;</span>))</span><br><span class="line"></span><br><span class="line">timePoints &lt;-ifelse(timePoints == <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;PBMC_Pre&#x27;</span>, </span><br><span class="line">                    ifelse(timePoints == <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;PBMC_EarlyD27&#x27;</span>,</span><br><span class="line">                           ifelse(timePoints == <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;PBMC_RespD376&#x27;</span>, <span class="string">&#x27;PBMC_ARD614&#x27;</span>)))</span><br><span class="line">table(timePoints)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tabletimepoint.JPG"/>
-
-<h2 id="表达矩阵的基本信息可视化（可用于知道质控）"><a href="#表达矩阵的基本信息可视化（可用于知道质控）" class="headerlink" title="表达矩阵的基本信息可视化（可用于知道质控）"></a>表达矩阵的基本信息可视化（可用于知道质控）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 表达矩阵的质量控制</span></span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">boxplot(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">hist(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fibenumdataPBMC.JPG"/>
-
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/boxplotdataPBMC.JPG" width="70%" height="70%">
-
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/histdataPBMC.JPG" width="70%" height="70%">
-
-<h2 id="然后创建Seurat的对象"><a href="#然后创建Seurat的对象" class="headerlink" title="然后创建Seurat的对象"></a>然后创建Seurat的对象</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create Seurat object</span></span><br><span class="line"><span class="comment"># already normalized (above)</span></span><br><span class="line">PBMC &lt;- CreateSeuratObject(raw.data = dataPBMC, </span><br><span class="line">                           min.cells = <span class="number">1</span>, min.genes = <span class="number">0</span>, project = <span class="string">&#x27;10x_PBMC&#x27;</span>) <span class="comment">#没有进行过滤</span></span><br><span class="line">PBMC </span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PBMC.JPG"/>
-
-<h2 id="根据需要添加metadata信息"><a href="#根据需要添加metadata信息" class="headerlink" title="根据需要添加metadata信息"></a>根据需要添加metadata信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add meta.data (nUMI and timePoints)</span></span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, </span><br><span class="line">                    metadata = apply(raw_dataPBMC, <span class="number">2</span>, <span class="built_in">sum</span>),</span><br><span class="line">                    col.name = <span class="string">&#x27;nUMI_raw&#x27;</span>)</span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, metadata = timePoints, col.name = <span class="string">&#x27;TimePoints&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="将对象进行基本的可视化"><a href="#将对象进行基本的可视化" class="headerlink" title="将对象进行基本的可视化"></a>将对象进行基本的可视化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">sce=PBMC</span><br><span class="line">VlnPlot(object = sce, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span>), </span><br><span class="line">        group.by = <span class="string">&#x27;TimePoints&#x27;</span>, nCol = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/VlnPlotsce.JPG"/>
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">GenePlot(object = sce, gene1 = <span class="string">&quot;nUMI&quot;</span>, gene2 = <span class="string">&quot;nGene&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsce.JPG"/>
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#可以看看高表达量基因是哪些</span></span><br><span class="line">tail(sort(Matrix::rowSums(sce@raw.data)))</span><br><span class="line"><span class="comment">## 散点图可视化任意两个基因的一些属性（通常是细胞的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个基因。</span></span><br><span class="line">tmp=<span class="built_in">names</span>(sort(Matrix::rowSums(sce@raw.data),decreasing = <span class="built_in">T</span>))</span><br><span class="line">GenePlot(object = sce, gene1 = tmp[<span class="number">1</span>], gene2 = tmp[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotgene.JPG"/>
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图可视化任意两个细胞的一些属性（通常是基因的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个细胞</span></span><br><span class="line">CellPlot(sce,sce@cell.names[<span class="number">3</span>],sce@cell.names[<span class="number">4</span>],do.ident = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsample.JPG"/>
-
-
-<h2 id="聚类可视化（重点）"><a href="#聚类可视化（重点）" class="headerlink" title="聚类可视化（重点）"></a>聚类可视化（重点）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Cluster PBMC</span></span><br><span class="line">PBMC &lt;- ScaleData(object = PBMC, vars.to.regress = <span class="built_in">c</span>(<span class="string">&#x27;nUMI_raw&#x27;</span>), model.use = <span class="string">&#x27;linear&#x27;</span>, use.umi = <span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#因为矩阵比较大，scale这一步非常耗内存，计算机内存不够的话这一步会报错</span></span><br><span class="line">PBMC &lt;- FindVariableGenes(object = PBMC, mean.function = ExpMean, dispersion.function = LogVMR, x.low.cutoff = <span class="number">0.0125</span>, x.high.cutoff = <span class="number">3</span>, y.cutoff = <span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fvg.JPG"/>
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">PBMC &lt;- RunPCA(object = PBMC, pc.genes = PBMC@var.genes)</span><br><span class="line"><span class="comment">##</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 避免太多log日志被打印出来。</span></span><br><span class="line">PBMC &lt;- FindClusters(object = PBMC, </span><br><span class="line">                     reduction.type = <span class="string">&quot;pca&quot;</span>, </span><br><span class="line">                     dims.use = <span class="number">1</span>:<span class="number">10</span>, </span><br><span class="line">                     resolution = <span class="number">1</span>, </span><br><span class="line">                     print.output = <span class="number">0</span>,</span><br><span class="line">                     k.param = <span class="number">35</span>, save.SNN = <span class="literal">TRUE</span>)</span><br><span class="line"><span class="comment">#在此，resolution、k.param的值设定不同，分群效果也会不一样，参数的调整也是一个比较麻烦的事情</span></span><br><span class="line">table(PBMC@ident)<span class="comment"># 分出了13个clusters</span></span><br><span class="line">PBMC &lt;- RunTSNE(object = PBMC, dims.use = <span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">TSNEPlot(PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tSNE.JPG" width="70%" height="70%">
-
-
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">table(PBMC@meta.data$TimePoints,PBMC@ident)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/timepointident.JPG"/>
-
-
-<h2 id="添加亚群信息"><a href="#添加亚群信息" class="headerlink" title="添加亚群信息"></a>添加亚群信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">current.cluster.ids &lt;- <span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>)</span><br><span class="line"><span class="comment">#具体是哪一种cell type,根据每个亚群的maker基因，再结合生物学背景确定亚群的具体类型，这个也有网站预测。</span></span><br><span class="line">new.cluster.ids &lt;- <span class="built_in">c</span>(<span class="string">&quot;B cells&quot;</span>, <span class="string">&quot;CD14+ T cells&quot;</span>, <span class="string">&quot;Classical monicytes&quot;</span>,<span class="string">&quot;Naive memory T cells&quot;</span>, <span class="string">&quot;CD8 effector T cells&quot;</span>, <span class="string">&quot;NK cells&quot;</span>, <span class="string">&quot;NULL1&quot;</span>, <span class="string">&quot;Non-classical monocytes&quot;</span>,<span class="string">&quot;Dendritic cells&quot;</span>, <span class="string">&quot;NULL2&quot;</span>,<span class="string">&quot;CD8+ cytotoxic T cells&quot;</span>,<span class="string">&quot;Myeloid cells&quot;</span>,<span class="string">&quot;NULL3&quot;</span>)</span><br><span class="line">PBMC@ident &lt;- plyr::mapvalues(x = PBMC@ident, from = current.cluster.ids, to = new.cluster.ids)</span><br><span class="line">TSNEPlot(object = PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsnelabelcellname.JPG"/>
-
-
-
-<h2 id="QUESTION"><a href="#QUESTION" class="headerlink" title="QUESTION"></a><font color=red>QUESTION</font></h2><ul>
-<li>代码都跟原文的代码一样，虽然主要想体现的东西是有所体现的，聚类出来的细胞亚群还是有小小的偏差。</li>
-<li><code>FindClusters</code>的参数真的是我至今为止最最纠结的问题啦，参数不一样，亚群就会不一样，难不成为了得到自己想要的分群效果，不停的调整参数吗？</li>
-<li>对象问题也是个巨大的问题，对象里面包裹了好多东西，有些不太会调用。</li>
-<li>该数据按照TimePoint来体现，目前自创的方法无法做到与原文类似的图，这也是一个待解决的问题。</li>
-</ul>
 ]]></content>
       <tags>
         <tag>NGS</tag>
@@ -1896,6 +1816,181 @@ http://www.bio-info-trainee.com/2548.html
 ]]></content>
       <tags>
         <tag>NGS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scRNA-seq数据分析实战（三）</title>
+    <url>/2020/02/22/scRNA-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<p>single cell RNA-seq  &amp;&amp; 10×<br>利用Seurate 2.3.3完成单细胞转录组下游分析，重现文章《Acquired cancer resistance to combination immunotherapy from transcriptional loss of class I HLA》的部分图片。</p>
+<a id="more"></a>
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">rm(<span class="built_in">list</span> = ls()) <span class="comment"># clear the environment</span></span><br><span class="line"><span class="comment">#load all the necessary libraries</span></span><br><span class="line">options(warn=-<span class="number">1</span>) <span class="comment"># turn off warning message globally</span></span><br><span class="line">suppressMessages(library(Seurat))</span><br></pre></td></tr></table></figure>
+<h2 id="读入文章关于第一个病人的PBMC表达矩阵"><a href="#读入文章关于第一个病人的PBMC表达矩阵" class="headerlink" title="读入文章关于第一个病人的PBMC表达矩阵"></a>读入文章关于第一个病人的PBMC表达矩阵</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">raw_dataPBMC &lt;- read.csv(<span class="string">&#x27;path/to/GSE117988_raw.expMatrix_PBMC.csv.gz&#x27;</span>, header = <span class="literal">TRUE</span>, row.names = <span class="number">1</span>)</span><br><span class="line">raw_dataPBMC[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="built_in">dim</span>(raw_dataPBMC)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/dataPBMC.JPG"/>
+
+
+<h2 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">dataPBMC &lt;- log2(<span class="number">1</span> + sweep(raw_dataPBMC, <span class="number">2</span>, median(colSums(raw_dataPBMC))/colSums(raw_dataPBMC), <span class="string">&#x27;*&#x27;</span>)) <span class="comment"># Normalization，矩阵大也会比较耗时</span></span><br></pre></td></tr></table></figure>
+<h2 id="按照治疗阶段分组（后续会用到）"><a href="#按照治疗阶段分组（后续会用到）" class="headerlink" title="按照治疗阶段分组（后续会用到）"></a>按照治疗阶段分组（后续会用到）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">timePoints &lt;- sapply(colnames(dataPBMC), <span class="keyword">function</span>(x) ExtractField(x, <span class="number">2</span>, <span class="string">&#x27;[.]&#x27;</span>))</span><br><span class="line"></span><br><span class="line">timePoints &lt;-ifelse(timePoints == <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;PBMC_Pre&#x27;</span>, </span><br><span class="line">                    ifelse(timePoints == <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;PBMC_EarlyD27&#x27;</span>,</span><br><span class="line">                           ifelse(timePoints == <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;PBMC_RespD376&#x27;</span>, <span class="string">&#x27;PBMC_ARD614&#x27;</span>)))</span><br><span class="line">table(timePoints)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tabletimepoint.JPG"/>
+
+<h2 id="表达矩阵的基本信息可视化（可用于知道质控）"><a href="#表达矩阵的基本信息可视化（可用于知道质控）" class="headerlink" title="表达矩阵的基本信息可视化（可用于知道质控）"></a>表达矩阵的基本信息可视化（可用于知道质控）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 表达矩阵的质量控制</span></span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">boxplot(apply(dataPBMC,<span class="number">1</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">fivenum(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br><span class="line">hist(apply(dataPBMC,<span class="number">2</span>,<span class="keyword">function</span>(x) <span class="built_in">sum</span>(x&gt;<span class="number">0</span>) ))</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fibenumdataPBMC.JPG"/>
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/boxplotdataPBMC.JPG" width="70%" height="70%">
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/histdataPBMC.JPG" width="70%" height="70%">
+
+<h2 id="然后创建Seurat的对象"><a href="#然后创建Seurat的对象" class="headerlink" title="然后创建Seurat的对象"></a>然后创建Seurat的对象</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create Seurat object</span></span><br><span class="line"><span class="comment"># already normalized (above)</span></span><br><span class="line">PBMC &lt;- CreateSeuratObject(raw.data = dataPBMC, </span><br><span class="line">                           min.cells = <span class="number">1</span>, min.genes = <span class="number">0</span>, project = <span class="string">&#x27;10x_PBMC&#x27;</span>) <span class="comment">#没有进行过滤</span></span><br><span class="line">PBMC </span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PBMC.JPG"/>
+
+<h2 id="根据需要添加metadata信息"><a href="#根据需要添加metadata信息" class="headerlink" title="根据需要添加metadata信息"></a>根据需要添加metadata信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add meta.data (nUMI and timePoints)</span></span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, </span><br><span class="line">                    metadata = apply(raw_dataPBMC, <span class="number">2</span>, <span class="built_in">sum</span>),</span><br><span class="line">                    col.name = <span class="string">&#x27;nUMI_raw&#x27;</span>)</span><br><span class="line">PBMC &lt;- AddMetaData(object = PBMC, metadata = timePoints, col.name = <span class="string">&#x27;TimePoints&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="将对象进行基本的可视化"><a href="#将对象进行基本的可视化" class="headerlink" title="将对象进行基本的可视化"></a>将对象进行基本的可视化</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">sce=PBMC</span><br><span class="line">VlnPlot(object = sce, </span><br><span class="line">        features.plot = <span class="built_in">c</span>(<span class="string">&quot;nGene&quot;</span>, <span class="string">&quot;nUMI&quot;</span>), </span><br><span class="line">        group.by = <span class="string">&#x27;TimePoints&#x27;</span>, nCol = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/VlnPlotsce.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">GenePlot(object = sce, gene1 = <span class="string">&quot;nUMI&quot;</span>, gene2 = <span class="string">&quot;nGene&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsce.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#可以看看高表达量基因是哪些</span></span><br><span class="line">tail(sort(Matrix::rowSums(sce@raw.data)))</span><br><span class="line"><span class="comment">## 散点图可视化任意两个基因的一些属性（通常是细胞的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个基因。</span></span><br><span class="line">tmp=<span class="built_in">names</span>(sort(Matrix::rowSums(sce@raw.data),decreasing = <span class="built_in">T</span>))</span><br><span class="line">GenePlot(object = sce, gene1 = tmp[<span class="number">1</span>], gene2 = tmp[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotgene.JPG"/>
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图可视化任意两个细胞的一些属性（通常是基因的度量）</span></span><br><span class="line"><span class="comment"># 这里选取两个细胞</span></span><br><span class="line">CellPlot(sce,sce@cell.names[<span class="number">3</span>],sce@cell.names[<span class="number">4</span>],do.ident = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GenePlotsample.JPG"/>
+
+
+<h2 id="聚类可视化（重点）"><a href="#聚类可视化（重点）" class="headerlink" title="聚类可视化（重点）"></a>聚类可视化（重点）</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Cluster PBMC</span></span><br><span class="line">PBMC &lt;- ScaleData(object = PBMC, vars.to.regress = <span class="built_in">c</span>(<span class="string">&#x27;nUMI_raw&#x27;</span>), model.use = <span class="string">&#x27;linear&#x27;</span>, use.umi = <span class="literal">FALSE</span>)</span><br><span class="line"><span class="comment">#因为矩阵比较大，scale这一步非常耗内存，计算机内存不够的话这一步会报错</span></span><br><span class="line">PBMC &lt;- FindVariableGenes(object = PBMC, mean.function = ExpMean, dispersion.function = LogVMR, x.low.cutoff = <span class="number">0.0125</span>, x.high.cutoff = <span class="number">3</span>, y.cutoff = <span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fvg.JPG"/>
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">PBMC &lt;- RunPCA(object = PBMC, pc.genes = PBMC@var.genes)</span><br><span class="line"><span class="comment">##</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 避免太多log日志被打印出来。</span></span><br><span class="line">PBMC &lt;- FindClusters(object = PBMC, </span><br><span class="line">                     reduction.type = <span class="string">&quot;pca&quot;</span>, </span><br><span class="line">                     dims.use = <span class="number">1</span>:<span class="number">10</span>, </span><br><span class="line">                     resolution = <span class="number">1</span>, </span><br><span class="line">                     print.output = <span class="number">0</span>,</span><br><span class="line">                     k.param = <span class="number">35</span>, save.SNN = <span class="literal">TRUE</span>)</span><br><span class="line"><span class="comment">#在此，resolution、k.param的值设定不同，分群效果也会不一样，参数的调整也是一个比较麻烦的事情</span></span><br><span class="line">table(PBMC@ident)<span class="comment"># 分出了13个clusters</span></span><br><span class="line">PBMC &lt;- RunTSNE(object = PBMC, dims.use = <span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">TSNEPlot(PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tSNE.JPG" width="70%" height="70%">
+
+
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">table(PBMC@meta.data$TimePoints,PBMC@ident)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/timepointident.JPG"/>
+
+
+<h2 id="添加亚群信息"><a href="#添加亚群信息" class="headerlink" title="添加亚群信息"></a>添加亚群信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">current.cluster.ids &lt;- <span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>)</span><br><span class="line"><span class="comment">#具体是哪一种cell type,根据每个亚群的maker基因，再结合生物学背景确定亚群的具体类型，这个也有网站预测。</span></span><br><span class="line">new.cluster.ids &lt;- <span class="built_in">c</span>(<span class="string">&quot;B cells&quot;</span>, <span class="string">&quot;CD14+ T cells&quot;</span>, <span class="string">&quot;Classical monicytes&quot;</span>,<span class="string">&quot;Naive memory T cells&quot;</span>, <span class="string">&quot;CD8 effector T cells&quot;</span>, <span class="string">&quot;NK cells&quot;</span>, <span class="string">&quot;NULL1&quot;</span>, <span class="string">&quot;Non-classical monocytes&quot;</span>,<span class="string">&quot;Dendritic cells&quot;</span>, <span class="string">&quot;NULL2&quot;</span>,<span class="string">&quot;CD8+ cytotoxic T cells&quot;</span>,<span class="string">&quot;Myeloid cells&quot;</span>,<span class="string">&quot;NULL3&quot;</span>)</span><br><span class="line">PBMC@ident &lt;- plyr::mapvalues(x = PBMC@ident, from = current.cluster.ids, to = new.cluster.ids)</span><br><span class="line">TSNEPlot(object = PBMC, colors.use = <span class="built_in">c</span>(<span class="string">&#x27;green4&#x27;</span>, <span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#FF7F00&#x27;</span>, <span class="string">&#x27;orchid&#x27;</span>, <span class="string">&#x27;#99c9fb&#x27;</span>, <span class="string">&#x27;dodgerblue2&#x27;</span>, <span class="string">&#x27;grey30&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;grey60&#x27;</span>, <span class="string">&#x27;grey&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;#FB9A99&#x27;</span>, <span class="string">&#x27;black&#x27;</span>),do.label=<span class="built_in">T</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tsnelabelcellname.JPG"/>
+
+
+
+<h2 id="QUESTION"><a href="#QUESTION" class="headerlink" title="QUESTION"></a><font color=red>QUESTION</font></h2><ul>
+<li>代码都跟原文的代码一样，虽然主要想体现的东西是有所体现的，聚类出来的细胞亚群还是有小小的偏差。</li>
+<li><code>FindClusters</code>的参数真的是我至今为止最最纠结的问题啦，参数不一样，亚群就会不一样，难不成为了得到自己想要的分群效果，不停的调整参数吗？</li>
+<li>对象问题也是个巨大的问题，对象里面包裹了好多东西，有些不太会调用。</li>
+<li>该数据按照TimePoint来体现，目前自创的方法无法做到与原文类似的图，这也是一个待解决的问题。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>NGS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sed编辑器基础</title>
+    <url>/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>sed编辑器更多的命令和格式：<br>更多的替换选项、使用地址、删除行、插入和附加文本、修改行、转换命令、打印、使用sed处理文件</p>
+<a id="more"></a>
+
+<h1 id="sed编辑器基础"><a href="#sed编辑器基础" class="headerlink" title="sed编辑器基础"></a>sed编辑器基础</h1><h2 id="更多的替换选项"><a href="#更多的替换选项" class="headerlink" title="更多的替换选项"></a>更多的替换选项</h2><h3 id="1、替换标记"><a href="#1、替换标记" class="headerlink" title="1、替换标记"></a>1、替换标记</h3><p>替换命令在替换多行中的文本时能正常工作，但默认情况下它只替换每行中出现的第一处。要让替换命令能够替换一行中不同地方出现的文本必须使用替换标记（substitution flag）。</p>
+<p>s/pattern/replacement/flags</p>
+<p>有4种可用的替换标记： </p>
+<ul>
+<li>数字，表明新文本将替换第几处模式匹配的地方 </li>
+<li>g，表明新文本将会替换所有匹配的文本 </li>
+<li>p，表明原先行的内容要打印出来 </li>
+<li>w file，将替换的结果写到文件中</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认情况下sed只替换每行中出现的第一处。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#sed替换每行中第二初匹配的地方。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/2&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#替换所有匹配的文本。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/g&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#p替换标记会输出修改过的行。</span></span><br><span class="line"><span class="comment">#sed命令的正常输出就是STANDOUT。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/p&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#p替换标记会输出修改过的行。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/p&#x27;</span> sed2.txt</span><br><span class="line"><span class="comment">#-n选项将禁止sed编辑器输出。但p替换标记会输出修改过的行。将二者配合使用的效果就是只输出被替换命令修改过的行。</span></span><br><span class="line">sed -n <span class="string">&#x27;s/test/trial/p&#x27;</span> sed2.txt</span><br><span class="line"><span class="comment">#sed编辑器的正常输出是在STDOUT中，只有那些包含匹配模式的行才会保存在指定的输出文件中。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/w test.txt&#x27;</span> sed2.txt</span><br><span class="line">cat test.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed1.jpg"/>
+
+<h3 id="2、替换字符"><a href="#2、替换字符" class="headerlink" title="2、替换字符"></a>2、替换字符</h3><p>有时你会在文本字符串中遇到一些不太方便在替换模式中使用的字符。Linux中一个常见的 例子就是正斜线（/），由于正斜线通常用作字符串分隔符，因而如果它出现在了模式文本中的话，必须用反斜线来转义。</p>
+<p>要解决这个问题，sed编辑器允许选择其他字符来作为替换命令中的字符串分隔符（与需要替换的转义字符不一致的一般都可以）。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed1.2.jpg"/></p>
+<h2 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h2><p>默认情况下，在sed编辑器中使用的命令会作用于文本数据的所有行。如果只想将命令作用 于特定行或某些行，则必须用行寻址（line addressing）。 </p>
+<p>在sed编辑器中有两种形式的行寻址： </p>
+<ul>
+<li>以数字形式表示行区间 </li>
+<li>用文本模式来过滤出行 </li>
+</ul>
+<h3 id="1、数字方式的行寻址"><a href="#1、数字方式的行寻址" class="headerlink" title="1、数字方式的行寻址"></a>1、数字方式的行寻址</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat test1.txt</span><br><span class="line">sed <span class="string">&#x27;s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2,4s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2,$/dog/cat/&#x27;</span> test1.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.1.jpg"/>
+
+
+<h3 id="2、使用文本模式过滤器"><a href="#2、使用文本模式过滤器" class="headerlink" title="2、使用文本模式过滤器"></a>2、使用文本模式过滤器</h3><p><code>/pattern/command</code>必须用正斜线将要指定的pattern封起来。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法一</span></span><br><span class="line">cat /etc/passwd|tail | sed <span class="string">&#x27;/apache/s/nologin/modification/&#x27;</span> </span><br><span class="line"><span class="comment">#方法二</span></span><br><span class="line">cat /etc/passwd|tail | sed <span class="string">&#x27;/apache/s$nologin$modification$&#x27;</span></span><br><span class="line">sed <span class="string">&#x27;/root/s/bash/modification/&#x27;</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.2.jpg"/>
+
+<h3 id="3、命令组合"><a href="#3、命令组合" class="headerlink" title="3、命令组合"></a>3、命令组合</h3><p>如果需要在单行上执行多条命令，可以用花括号将多条命令组合在一起。sed编辑器会处理 地址行处列出的每条命令。 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;2&#123;</span></span><br><span class="line"><span class="string">&gt; s/fox/elephant/</span></span><br><span class="line"><span class="string">&gt; s/dog/cat/</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test1.txt</span><br><span class="line"></span><br><span class="line">sed <span class="string">&#x27;3,$&#123;</span></span><br><span class="line"><span class="string">&gt; s/fox/elephant/</span></span><br><span class="line"><span class="string">&gt; s/dog/cat/</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test1.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.3.jpg"/>
+
+<h3 id="3、删除行"><a href="#3、删除行" class="headerlink" title="3、删除行"></a>3、删除行</h3><ul>
+<li>指定地址</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#不加入寻址模式，流中的所有文本行都会被删除</span></span><br><span class="line">sed <span class="string">&#x27;d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#加入寻址模式</span></span><br><span class="line">sed <span class="string">&#x27;3d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;3,5d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;3,$d&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed3.1.JPG"/>
+
+<ul>
+<li>模式匹配</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;/line 2/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#只要符合匹配模式的行都会被删除，所以下面的命令会删除2行</span></span><br><span class="line">sed <span class="string">&#x27;/line 1/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#指定的第一个模式 会“打开”行删除功能，第二个模式会“关闭”行删除功能</span></span><br><span class="line">sed <span class="string">&#x27;/2/,/4/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#因为有两行都匹配到1了，而第二个匹配到的1匹配不到“关闭的模式”，所以后面的内容统统删掉了</span></span><br><span class="line">sed <span class="string">&#x27;/1/,/3/d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;/1/,/6/d&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed3.2.JPG"/>
+
+<h2 id="插入和附加文本"><a href="#插入和附加文本" class="headerlink" title="插入和附加文本"></a>插入和附加文本</h2><ul>
+<li>插入（insert）命令（i）会在指定行前增加一个新行</li>
+<li>附加（append）命令（a）会在指定行后增加一个新行</li>
+</ul>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed4.2.JPG"/>
+
+<p>要向数据流行内部插入或附加数据，必须用寻址来告诉sed编辑器你想让数据出现在什么位置。可以在用这些命令时只指定一个行地址。可以匹配一个数字行号或文本模式，但不能用地址区间。</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed4.1.JPG"/>
+
+
+<h2 id="修改行"><a href="#修改行" class="headerlink" title="修改行"></a>修改行</h2><p>修改（change）命令允许修改数据流中整行文本的内容。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将第一句修改为I like teacher Li.</span></span><br><span class="line"><span class="comment">#方法一：行定位需要修改的行</span></span><br><span class="line">sed <span class="string">&#x27;1c\I like teacher Li.&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#方法二：模式匹配定位需要修改的行</span></span><br><span class="line">sed <span class="string">&#x27;/line 1/c\I like teacher Li.&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#将1至6行都修改为I like teacher Li.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>♥因为1至6行都跟teacher Li无关，所以要强行修改一下 ♥</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed &#39;1,6c\I like teacher Li.&#39; test2.txt</span><br></pre></td></tr></table></figure>
+
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed5.JPG"/>
+
+<h2 id="转换命令"><a href="#转换命令" class="headerlink" title="转换命令"></a>转换命令</h2><p>转换（transform）命令（y）是唯一可以处理单个字符的sed编辑器命令。</p>
+<p>[address]y/inchars/outchars/ </p>
+<p>转换命令会对inchars和outchars值进行一对一的映射。inchars中的第一个字符会被转 换为outchars中的第一个字符，第二个字符会被转换成outchars中的第二个字符。这个映射过 程会一直持续到处理完指定字符。如果inchars和outchars的长度不同，则sed编辑器会产生一条错误消息。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#会发现转换命令是全局的</span></span><br><span class="line">sed <span class="string">&#x27;y/123/456&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#匹配行进行修改</span></span><br><span class="line">sed <span class="string">&#x27;1y/1/6&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;6y/1/6&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed6.JPG"/>
+
+<h2 id="回顾打印"><a href="#回顾打印" class="headerlink" title="回顾打印"></a>回顾打印</h2><ul>
+<li>p命令用来打印文本行 </li>
+<li>等号（=）命令用来打印行号</li>
+<li>l（小写的L）命令用来列出行</li>
+</ul>
+<h3 id="1、打印行"><a href="#1、打印行" class="headerlink" title="1、打印行"></a>1、打印行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#模式匹配到的行打印出来</span></span><br><span class="line">sed -n <span class="string">&#x27;/li/p&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#行数匹配到的行打印出来</span></span><br><span class="line">sed -n <span class="string">&#x27;7,8p&#x27;</span> tets2.txt</span><br><span class="line"><span class="comment">#打印出修改之前的行和修改之后的行</span></span><br><span class="line">sed -n <span class="string">&#x27;/qinqin/&#123;</span></span><br><span class="line"><span class="string">&gt; p</span></span><br><span class="line"><span class="string">&gt; s/meimei/baobei/p</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed7.1.JPG"/>
+
+<h3 id="2、打印行号"><a href="#2、打印行号" class="headerlink" title="2、打印行号"></a>2、打印行号</h3><p>等号命令会打印行在数据流中的当前行号。行号由数据流中的换行符决定。每次数据流中出 现一个换行符，sed编辑器会认为一行文本结束了。 </p>
+<p>在数据流中查找特定文本模式的行，并将其与行号一起打印出来。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;/Li/&#123;</span></span><br><span class="line"><span class="string">&gt; =</span></span><br><span class="line"><span class="string">&gt; p</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed7.2.JPG"/>
+
+
+<h2 id="使用sed处理文件"><a href="#使用sed处理文件" class="headerlink" title="使用sed处理文件"></a>使用sed处理文件</h2><h3 id="1、写入文件"><a href="#1、写入文件" class="headerlink" title="1、写入文件"></a>1、写入文件</h3><p>w命令用来向文件写入行。该命令的格式如下：</p>
+<p>[address]w filename </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#支持行匹配和模式匹配</span></span><br><span class="line">sed <span class="string">&#x27;7,8w li.txt&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;/Li/w Li.txt&#x27;</span> test2.txt</span><br><span class="line">sed -n <span class="string">&#x27;/qinqin/w qinqin.txt&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.1.JPG"/>
+
+
+<h3 id="2、从文件读取数据"><a href="#2、从文件读取数据" class="headerlink" title="2、从文件读取数据"></a>2、从文件读取数据</h3><p>已经了解了如何在sed命令行上向数据流中插入或附加文本。读取（read）命令（r）允许将一个独立文件中的数据插入到数据流中。 </p>
+<p>读取命令的格式如下：</p>
+<p>[address]r filename </p>
+<p>支持行寻址和模式匹配</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;4r yinyu.txt&#x27;</span> friends.txt</span><br><span class="line">sed <span class="string">&#x27;4r yinyu.txt&#x27;</span> friends.txt</span><br><span class="line">sed <span class="string">&#x27;/yuqi/r yinyu.txt&#x27;</span> friends.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.2.JPG"/>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;/friends/&#123;</span></span><br><span class="line"><span class="string">r friends.txt</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> beautiful-people.txt</span><br><span class="line"></span><br><span class="line">sed <span class="string">&#x27;/friends/&#123;</span></span><br><span class="line"><span class="string">r friends.txt</span></span><br><span class="line"><span class="string">d&#125;&#x27;</span> beautiful-people.txt</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.3.JPG"/>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2036,163 +2131,6 @@ http://www.bio-info-trainee.com/2548.html
       </tags>
   </entry>
   <entry>
-    <title>sed编辑器基础</title>
-    <url>/2020/03/07/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p>sed编辑器更多的命令和格式：<br>更多的替换选项、使用地址、删除行、插入和附加文本、修改行、转换命令、打印、使用sed处理文件</p>
-<a id="more"></a>
-
-<h1 id="sed编辑器基础"><a href="#sed编辑器基础" class="headerlink" title="sed编辑器基础"></a>sed编辑器基础</h1><h2 id="更多的替换选项"><a href="#更多的替换选项" class="headerlink" title="更多的替换选项"></a>更多的替换选项</h2><h3 id="1、替换标记"><a href="#1、替换标记" class="headerlink" title="1、替换标记"></a>1、替换标记</h3><p>替换命令在替换多行中的文本时能正常工作，但默认情况下它只替换每行中出现的第一处。要让替换命令能够替换一行中不同地方出现的文本必须使用替换标记（substitution flag）。</p>
-<p>s/pattern/replacement/flags</p>
-<p>有4种可用的替换标记： </p>
-<ul>
-<li>数字，表明新文本将替换第几处模式匹配的地方 </li>
-<li>g，表明新文本将会替换所有匹配的文本 </li>
-<li>p，表明原先行的内容要打印出来 </li>
-<li>w file，将替换的结果写到文件中</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#默认情况下sed只替换每行中出现的第一处。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#sed替换每行中第二初匹配的地方。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/2&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#替换所有匹配的文本。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/g&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#p替换标记会输出修改过的行。</span></span><br><span class="line"><span class="comment">#sed命令的正常输出就是STANDOUT。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/p&#x27;</span> sed1.txt</span><br><span class="line"><span class="comment">#p替换标记会输出修改过的行。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/p&#x27;</span> sed2.txt</span><br><span class="line"><span class="comment">#-n选项将禁止sed编辑器输出。但p替换标记会输出修改过的行。将二者配合使用的效果就是只输出被替换命令修改过的行。</span></span><br><span class="line">sed -n <span class="string">&#x27;s/test/trial/p&#x27;</span> sed2.txt</span><br><span class="line"><span class="comment">#sed编辑器的正常输出是在STDOUT中，只有那些包含匹配模式的行才会保存在指定的输出文件中。</span></span><br><span class="line">sed <span class="string">&#x27;s/test/trial/w test.txt&#x27;</span> sed2.txt</span><br><span class="line">cat test.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed1.jpg"/>
-
-<h3 id="2、替换字符"><a href="#2、替换字符" class="headerlink" title="2、替换字符"></a>2、替换字符</h3><p>有时你会在文本字符串中遇到一些不太方便在替换模式中使用的字符。Linux中一个常见的 例子就是正斜线（/），由于正斜线通常用作字符串分隔符，因而如果它出现在了模式文本中的话，必须用反斜线来转义。</p>
-<p>要解决这个问题，sed编辑器允许选择其他字符来作为替换命令中的字符串分隔符（与需要替换的转义字符不一致的一般都可以）。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed1.2.jpg"/></p>
-<h2 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h2><p>默认情况下，在sed编辑器中使用的命令会作用于文本数据的所有行。如果只想将命令作用 于特定行或某些行，则必须用行寻址（line addressing）。 </p>
-<p>在sed编辑器中有两种形式的行寻址： </p>
-<ul>
-<li>以数字形式表示行区间 </li>
-<li>用文本模式来过滤出行 </li>
-</ul>
-<h3 id="1、数字方式的行寻址"><a href="#1、数字方式的行寻址" class="headerlink" title="1、数字方式的行寻址"></a>1、数字方式的行寻址</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat test1.txt</span><br><span class="line">sed <span class="string">&#x27;s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2,4s/dog/cat/&#x27;</span> test1.txt</span><br><span class="line">sed <span class="string">&#x27;2,$/dog/cat/&#x27;</span> test1.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.1.jpg"/>
-
-
-<h3 id="2、使用文本模式过滤器"><a href="#2、使用文本模式过滤器" class="headerlink" title="2、使用文本模式过滤器"></a>2、使用文本模式过滤器</h3><p><code>/pattern/command</code>必须用正斜线将要指定的pattern封起来。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法一</span></span><br><span class="line">cat /etc/passwd|tail | sed <span class="string">&#x27;/apache/s/nologin/modification/&#x27;</span> </span><br><span class="line"><span class="comment">#方法二</span></span><br><span class="line">cat /etc/passwd|tail | sed <span class="string">&#x27;/apache/s$nologin$modification$&#x27;</span></span><br><span class="line">sed <span class="string">&#x27;/root/s/bash/modification/&#x27;</span> /etc/passwd</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.2.jpg"/>
-
-<h3 id="3、命令组合"><a href="#3、命令组合" class="headerlink" title="3、命令组合"></a>3、命令组合</h3><p>如果需要在单行上执行多条命令，可以用花括号将多条命令组合在一起。sed编辑器会处理 地址行处列出的每条命令。 </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;2&#123;</span></span><br><span class="line"><span class="string">&gt; s/fox/elephant/</span></span><br><span class="line"><span class="string">&gt; s/dog/cat/</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test1.txt</span><br><span class="line"></span><br><span class="line">sed <span class="string">&#x27;3,$&#123;</span></span><br><span class="line"><span class="string">&gt; s/fox/elephant/</span></span><br><span class="line"><span class="string">&gt; s/dog/cat/</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test1.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed2.3.jpg"/>
-
-<h3 id="3、删除行"><a href="#3、删除行" class="headerlink" title="3、删除行"></a>3、删除行</h3><ul>
-<li>指定地址</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#不加入寻址模式，流中的所有文本行都会被删除</span></span><br><span class="line">sed <span class="string">&#x27;d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#加入寻址模式</span></span><br><span class="line">sed <span class="string">&#x27;3d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;3,5d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;3,$d&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed3.1.JPG"/>
-
-<ul>
-<li>模式匹配</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;/line 2/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#只要符合匹配模式的行都会被删除，所以下面的命令会删除2行</span></span><br><span class="line">sed <span class="string">&#x27;/line 1/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#指定的第一个模式 会“打开”行删除功能，第二个模式会“关闭”行删除功能</span></span><br><span class="line">sed <span class="string">&#x27;/2/,/4/d&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#因为有两行都匹配到1了，而第二个匹配到的1匹配不到“关闭的模式”，所以后面的内容统统删掉了</span></span><br><span class="line">sed <span class="string">&#x27;/1/,/3/d&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;/1/,/6/d&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed3.2.JPG"/>
-
-<h2 id="插入和附加文本"><a href="#插入和附加文本" class="headerlink" title="插入和附加文本"></a>插入和附加文本</h2><ul>
-<li>插入（insert）命令（i）会在指定行前增加一个新行</li>
-<li>附加（append）命令（a）会在指定行后增加一个新行</li>
-</ul>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed4.2.JPG"/>
-
-<p>要向数据流行内部插入或附加数据，必须用寻址来告诉sed编辑器你想让数据出现在什么位置。可以在用这些命令时只指定一个行地址。可以匹配一个数字行号或文本模式，但不能用地址区间。</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed4.1.JPG"/>
-
-
-<h2 id="修改行"><a href="#修改行" class="headerlink" title="修改行"></a>修改行</h2><p>修改（change）命令允许修改数据流中整行文本的内容。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将第一句修改为I like teacher Li.</span></span><br><span class="line"><span class="comment">#方法一：行定位需要修改的行</span></span><br><span class="line">sed <span class="string">&#x27;1c\I like teacher Li.&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#方法二：模式匹配定位需要修改的行</span></span><br><span class="line">sed <span class="string">&#x27;/line 1/c\I like teacher Li.&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#将1至6行都修改为I like teacher Li.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>♥因为1至6行都跟teacher Li无关，所以要强行修改一下 ♥</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed &#39;1,6c\I like teacher Li.&#39; test2.txt</span><br></pre></td></tr></table></figure>
-
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed5.JPG"/>
-
-<h2 id="转换命令"><a href="#转换命令" class="headerlink" title="转换命令"></a>转换命令</h2><p>转换（transform）命令（y）是唯一可以处理单个字符的sed编辑器命令。</p>
-<p>[address]y/inchars/outchars/ </p>
-<p>转换命令会对inchars和outchars值进行一对一的映射。inchars中的第一个字符会被转 换为outchars中的第一个字符，第二个字符会被转换成outchars中的第二个字符。这个映射过 程会一直持续到处理完指定字符。如果inchars和outchars的长度不同，则sed编辑器会产生一条错误消息。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#会发现转换命令是全局的</span></span><br><span class="line">sed <span class="string">&#x27;y/123/456&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#匹配行进行修改</span></span><br><span class="line">sed <span class="string">&#x27;1y/1/6&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;6y/1/6&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed6.JPG"/>
-
-<h2 id="回顾打印"><a href="#回顾打印" class="headerlink" title="回顾打印"></a>回顾打印</h2><ul>
-<li>p命令用来打印文本行 </li>
-<li>等号（=）命令用来打印行号</li>
-<li>l（小写的L）命令用来列出行</li>
-</ul>
-<h3 id="1、打印行"><a href="#1、打印行" class="headerlink" title="1、打印行"></a>1、打印行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#模式匹配到的行打印出来</span></span><br><span class="line">sed -n <span class="string">&#x27;/li/p&#x27;</span> test2.txt</span><br><span class="line"><span class="comment">#行数匹配到的行打印出来</span></span><br><span class="line">sed -n <span class="string">&#x27;7,8p&#x27;</span> tets2.txt</span><br><span class="line"><span class="comment">#打印出修改之前的行和修改之后的行</span></span><br><span class="line">sed -n <span class="string">&#x27;/qinqin/&#123;</span></span><br><span class="line"><span class="string">&gt; p</span></span><br><span class="line"><span class="string">&gt; s/meimei/baobei/p</span></span><br><span class="line"><span class="string">&gt; &#125;&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed7.1.JPG"/>
-
-<h3 id="2、打印行号"><a href="#2、打印行号" class="headerlink" title="2、打印行号"></a>2、打印行号</h3><p>等号命令会打印行在数据流中的当前行号。行号由数据流中的换行符决定。每次数据流中出 现一个换行符，sed编辑器会认为一行文本结束了。 </p>
-<p>在数据流中查找特定文本模式的行，并将其与行号一起打印出来。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;/Li/&#123;</span></span><br><span class="line"><span class="string">&gt; =</span></span><br><span class="line"><span class="string">&gt; p</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed7.2.JPG"/>
-
-
-<h2 id="使用sed处理文件"><a href="#使用sed处理文件" class="headerlink" title="使用sed处理文件"></a>使用sed处理文件</h2><h3 id="1、写入文件"><a href="#1、写入文件" class="headerlink" title="1、写入文件"></a>1、写入文件</h3><p>w命令用来向文件写入行。该命令的格式如下：</p>
-<p>[address]w filename </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#支持行匹配和模式匹配</span></span><br><span class="line">sed <span class="string">&#x27;7,8w li.txt&#x27;</span> test2.txt</span><br><span class="line">sed <span class="string">&#x27;/Li/w Li.txt&#x27;</span> test2.txt</span><br><span class="line">sed -n <span class="string">&#x27;/qinqin/w qinqin.txt&#x27;</span> test2.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.1.JPG"/>
-
-
-<h3 id="2、从文件读取数据"><a href="#2、从文件读取数据" class="headerlink" title="2、从文件读取数据"></a>2、从文件读取数据</h3><p>已经了解了如何在sed命令行上向数据流中插入或附加文本。读取（read）命令（r）允许将一个独立文件中的数据插入到数据流中。 </p>
-<p>读取命令的格式如下：</p>
-<p>[address]r filename </p>
-<p>支持行寻址和模式匹配</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;4r yinyu.txt&#x27;</span> friends.txt</span><br><span class="line">sed <span class="string">&#x27;4r yinyu.txt&#x27;</span> friends.txt</span><br><span class="line">sed <span class="string">&#x27;/yuqi/r yinyu.txt&#x27;</span> friends.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.2.JPG"/>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">&#x27;/friends/&#123;</span></span><br><span class="line"><span class="string">r friends.txt</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> beautiful-people.txt</span><br><span class="line"></span><br><span class="line">sed <span class="string">&#x27;/friends/&#123;</span></span><br><span class="line"><span class="string">r friends.txt</span></span><br><span class="line"><span class="string">d&#125;&#x27;</span> beautiful-people.txt</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed8.3.JPG"/>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变剪切之rMART</title>
-    <url>/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/</url>
-    <content><![CDATA[<p>RNA-seq高级分析之可变剪切</p>
-<a id="more"></a>
-
-<h1 id="可变剪切之rMART"><a href="#可变剪切之rMART" class="headerlink" title="可变剪切之rMART"></a>可变剪切之rMART</h1><p><strong>官方参考资料</strong><br><a href="http://rnaseq-mats.sourceforge.net/">http://rnaseq-mats.sourceforge.net/</a><br><strong>rMATS</strong>:<a href="https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md">https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md</a><br><strong>rmats2sashimiplot</strong>:<a href="https://github.com/Xinglab/rmats2sashimiplot">https://github.com/Xinglab/rmats2sashimiplot</a></p>
-<h2 id="一-rMATS软件及相关依赖包的下载"><a href="#一-rMATS软件及相关依赖包的下载" class="headerlink" title="(一)rMATS软件及相关依赖包的下载"></a>(一)rMATS软件及相关依赖包的下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先用conda下载rMATs软件需要的依赖包</span></span><br><span class="line"><span class="comment">#有时候python版本问题搞得我很烦，有些生信软件依赖特定的python版本，所以在软件安装过程中多加注意这个问题</span></span><br><span class="line">conda create rMATs2.7 python=2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line">conda install -y Cython=0.29.14 numpy=1.16.5 blas lapack gsl=2.6 gcc=5.4.0 CMake=3.15.4</span><br><span class="line">conda install libgfortran==1</span><br><span class="line">deactivate rMATs2.7</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载软件并解压rMATs软件</span></span><br><span class="line"><span class="comment">#rMATs不同版本下载网址：https://github.com/Xinglab/rmats-turbo/releases/tag/v4.1.0</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS</span><br><span class="line">wget https://github.com/Xinglab/rmats-turbo/releases/download/v4.1.0/rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line">tar -zxvf rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line"><span class="comment">#永久添加路径到环境变量中</span></span><br><span class="line"><span class="built_in">export</span> PATH=/home/gongyuqi/project/AS/rMATS/rmats-turbo/:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="二-STAR比对软件的使用"><a href="#二-STAR比对软件的使用" class="headerlink" title="(二)STAR比对软件的使用"></a>(二)STAR比对软件的使用</h2><p>这么多比对软件，为什么选STAR？<br>因为官网用的STAR！据说其他可以做可变剪切的比对软件生成的bam文件，rMATs运行不了~~~</p>
-<p><strong>1、构建参考基因组索引</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活比对的环境,这个环境里面我下载了各种比对软件，python版本为2.7.15.</span></span><br><span class="line">conda activate alignment2.7 </span><br><span class="line">nohup STAR --runThreadN 30 --runMode genomeGenerate \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--genomeFastaFiles /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.dna.primary_assembly.fa \</span><br><span class="line">--sjdbGTFfile /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.102.gtf &amp;</span><br></pre></td></tr></table></figure>
-<p><strong>2、用STAR软件进行比对</strong></p>
-<p>STAR的使用以及输出文件解读参考资料：<br><a href="https://blog.csdn.net/yssxswl/article/details/105703869">https://blog.csdn.net/yssxswl/article/details/105703869</a><br><a href="https://www.jianshu.com/p/eca16bf2824e">https://www.jianshu.com/p/eca16bf2824e</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入fastq文件坐在目录，这里是原始的fastq数据，质控结果挺好的，不用再过滤了，所以我直接比对了</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rawdata</span><br><span class="line"><span class="comment">#写循环进行比对</span></span><br><span class="line">ls *.gz|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup STAR --runThreadN 20 \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--readFilesCommand gunzip -c \</span><br><span class="line">--readFilesIn ./<span class="variable">$id</span> \</span><br><span class="line">--outSAMtype BAM SortedByCoordinate \</span><br><span class="line">--outFileNamePrefix /home/gongyuqi/project/AS/aligndata_star/<span class="variable">$&#123;id%%.*&#125;</span>. &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p><strong>3、比对情况统计并查看</strong></p>
-<p>(1)直接查看</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls *.Log.progress.out|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> sed -n <span class="string">&#x27;1,3p&#x27;</span> <span class="variable">$id</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>结果如下，比对情况还是不错的，可以进行后续的分析。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG"/></p>
-<p>(2)flagstat统计比对情况查看比对情况</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools flagstat -@ 20 <span class="variable">$id</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.flagstat.txt &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ls *.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> cat <span class="variable">$id</span> | grep <span class="string">&quot;mapped (&quot;</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>这个比对结果实在是难以置信！！但是结合上面的比对结果，还是可以相信比对这一步是没有问题的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_flagstat.JPG"/></p>
-<h2 id="三-运行rMATs"><a href="#三-运行rMATs" class="headerlink" title="(三)运行rMATs"></a>(三)运行rMATs</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先我们要失活掉比对的环境（alignment2.7），激活rMATs环境</span></span><br><span class="line">conda deactivate alignment2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line"><span class="comment">#虽然rMATS路径被永久添加到环境变量中，但是PATH只认可执行文件，所以这一步还是要切换到rMATs路径下</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS/rmats-turbo</span><br><span class="line">input_dir=/home/gongyuqi/project/AS/aligndata_star</span><br><span class="line">python rmats.py \</span><br><span class="line">--b1 <span class="variable">$input_dir</span>/b1.txt \</span><br><span class="line">--b2 <span class="variable">$input_dir</span>/b2.txt \</span><br><span class="line">--gtf /home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gtf \</span><br><span class="line">-t single --readLength 36 --nthread 20 \</span><br><span class="line">--od /home/gongyuqi/project/AS/rMATS/rmats_output \</span><br><span class="line">--tmp /home/gongyuqi/project/AS/rMATS/rmats_tmp</span><br><span class="line"><span class="comment">#运行完记得退出当前环境，因为后面我们要用另外一个环境</span></span><br><span class="line">conda deactivate rMATs2.7</span><br></pre></td></tr></table></figure>
-<p>运行上面的代码，会报如下错误：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/erro_libgsl.so.25.JPG"/></p>
-<p>我查看了一下，/home/gongyuqi/miniconda3/envs/rMATs2.7/lib路径下有这个文件呢！为什么电脑找不到？触及到了我的知识盲区了~~~<br>查了一下午的资料，发现这个报错涉及到查找共享库（动态链接库）问题，根据查到的东西操作了一波居然没有解决，旁边的零食都不香了！😫<br>算了~~~我还是先去吃晚饭吧，已经饿得很瘦了！😫<br>。。。。。。<br>好啦，我吃完饭回来了。我继续倒腾，不放弃。<br>。。。。。。<br>额，我知道了，这段代码运行过程中还涉及到gcc编译，因为它依赖包中有GCC。<br>这两个问题实在是太专业了，今天又学习到了。现在有一点小小的开心！😊<br>解决方法参考资料：<a href="https://www.jianshu.com/p/a62e1d327023">https://www.jianshu.com/p/a62e1d327023</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Linux默认只会在指定的几个目录找共享库（动态链接库），其他目录的要自己加在LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#因为上述命令是依赖gcc的，需要gcc进行编译，所以还需要下面的操作</span></span><br><span class="line"><span class="built_in">export</span> LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#注意，上述都是临时的，治标不治本，下次执行运行rMATs时，依然要重复上述操作。当然你也可以将其永久性添加。</span></span><br></pre></td></tr></table></figure>
-<p>运行结果如下，关于这些结果文件的解释说明，可以参考rMATS官网，上面有很详细的阐述。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rMATs_output.JPG"/></p>
-<h2 id="四-rmats2sashimiplot可视化"><a href="#四-rmats2sashimiplot可视化" class="headerlink" title="(四)rmats2sashimiplot可视化"></a>(四)rmats2sashimiplot可视化</h2><p>终于到了激动人心的可视化阶段了，一顿操作之后，产生一张漂亮的图放PPT上还是很欣慰的。</p>
-<p><strong>1、环境搭建</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n rmats2sashimiplot python=2.7 </span><br><span class="line">conda activate rmats2sashimiplot</span><br><span class="line">conda install -y numpy scipy matplotlib pysam samtools bedtools</span><br></pre></td></tr></table></figure>
-<p><strong>2、准备可视化的txt文件</strong>  </p>
-<p>以Exon Skipping为例演示,这里我随便找一个基因进行可视化，注意了，这个基因不一定是差异可变剪切的基因哟，因为是我随便找的一个。嘻嘻🤭</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;2p&#x27;</span> SE.MATS.JC.txt &gt; SE.plot.PRMT2.txt</span><br><span class="line">cat SE.plot.PRMT2.txt</span><br></pre></td></tr></table></figure>
-<p>文件内容如下：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PRMT2_rMATs.txt.JPG"/></p>
-<p><strong>3、可视化的txt文件</strong></p>
-<h6 id="一开始，我非常自信的运行了下面的代码"><a href="#一开始，我非常自信的运行了下面的代码" class="headerlink" title="一开始，我非常自信的运行了下面的代码~"></a>一开始，我非常自信的运行了下面的代码~</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.bam,SRR974972.Aligned.sortedByCoord.out.bam,SRR974978.Aligned.sortedByCoord.out.bam,SRR974984.Aligned.sortedByCoord.out.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.bam,SRR974976.Aligned.sortedByCoord.out.bam,SRR974980.Aligned.sortedByCoord.out.bam,SRR974982.Aligned.sortedByCoord.out.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<h6 id="但是，我遇到了如下报错"><a href="#但是，我遇到了如下报错" class="headerlink" title="但是，我遇到了如下报错"></a>但是，我遇到了如下报错</h6><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rmats2sashimiplot_chr_error.JPG"/>
-
-
-<h6 id="我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"><a href="#我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。" class="headerlink" title="我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"></a>我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有<code>chr</code>存在且让其存在在正确的位置呢。</h6><h6 id="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。"><a href="#我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。" class="headerlink" title="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。"></a>我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。</h6><h6 id="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"><a href="#起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可" class="headerlink" title="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"></a>起床<del>吃早饭</del>骑车去实验室<del>思考</del>查资料<del>有一点小想法了</del>我实践一下看看可不可</h6><p>参考资料：<a href="https://www.jianshu.com/p/5ceda0350d0d">https://www.jianshu.com/p/5ceda0350d0d</a></p>
-<h6 id="第一步：给bam文件添加chr"><a href="#第一步：给bam文件添加chr" class="headerlink" title="第一步：给bam文件添加chr"></a><font color=blue>第一步：给bam文件添加chr</font></h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#添加chr</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools view -h <span class="variable">$id</span> | sed -e <span class="string">&#x27;/^@SQ/s/SN\:/SN\:chr/&#x27;</span> -e <span class="string">&#x27;/^[^@]/s/\t/\tchr/2&#x27;</span>|awk -F <span class="string">&#x27; &#x27;</span> <span class="string">&#x27;$7=($7==&quot;=&quot; || $7==&quot;*&quot;?$7:sprintf(&quot;chr%s&quot;,$7))&#x27;</span> |tr <span class="string">&quot; &quot;</span> <span class="string">&quot;\t&quot;</span> | samtools view -h -b -@ 10 -S - &gt; <span class="variable">$&#123;id%%.*&#125;</span>.Aligned.sortedByCoord.out.chr.bam &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h6 id="第二步：使用添加chr的bam文件执行程序"><a href="#第二步：使用添加chr的bam文件执行程序" class="headerlink" title="第二步：使用添加chr的bam文件执行程序"></a><font color=blue>第二步：使用添加chr的bam文件执行程序</font></h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.chr.bam,SRR974972.Aligned.sortedByCoord.out.chr.bam,SRR974978.Aligned.sortedByCoord.out.chr.bam,SRR974984.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.chr.bam,SRR974976.Aligned.sortedByCoord.out.chr.bam,SRR974980.Aligned.sortedByCoord.out.chr.bam,SRR974982.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/SE.plot</span><br></pre></td></tr></table></figure>
-<p>可视化结果如下（你会发现，咦~两组间差异不显著呀？因为我随便挑了一个基因可视化呀！我有偷偷可视化某个基因，可视化出来的差异性与我定量和半定量qPCR的结果一致哟，所以上述分析流程应该是OK的~~~嘻嘻嘻🤭不管怎样，这个基因确实存在Exon Skipping。）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ABC_GCB_PRMT2_rMATs.JPG"/></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>技术上</strong><br>1、需要搭建两个重要的环境：运行rMATs的环境，运行rmats2sashimiplot的环境。<br>2、选用STAR进行参考基因组的比对（注意了，参考基因组和注释文件的版本要一致哟）。<br>3、在rMATs的环境下,结合上述生成的bam文件，运行rMATs软件，生成可变剪切事件的文件。<br>4、在rmats2sashimiplot环境下，可视化上述生成的可变剪切事件。</p>
-<p><strong>心态上</strong><br>上午解决不了就下午解决，今天解决不了就明天解决。这个方法不行就换个方法。思考良久之后可以适当的问问老师。最关键的还是要按时吃饭按时睡觉。</p>
-]]></content>
-      <tags>
-        <tag>NGS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>初步认识sed和gwak</title>
     <url>/2020/03/07/%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86sed%E5%92%8Cgwak/</url>
     <content><![CDATA[<p>想在shell脚本中处理任何类型的数据，就要熟悉Linux中的sed和gawk工具。Linux世界中广泛使用的两个命令行编辑器：sed和gawk</p>
@@ -2280,6 +2218,56 @@ http://www.bio-info-trainee.com/2548.html
 ]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>可变剪切之rMART</title>
+    <url>/2021/01/14/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BMART/</url>
+    <content><![CDATA[<p>RNA-seq高级分析之可变剪切</p>
+<a id="more"></a>
+
+<h1 id="可变剪切之rMART"><a href="#可变剪切之rMART" class="headerlink" title="可变剪切之rMART"></a>可变剪切之rMART</h1><p><strong>官方参考资料</strong><br><a href="http://rnaseq-mats.sourceforge.net/">http://rnaseq-mats.sourceforge.net/</a><br><strong>rMATS</strong>:<a href="https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md">https://github.com/Xinglab/rmats-turbo/blob/v4.1.0/README.md</a><br><strong>rmats2sashimiplot</strong>:<a href="https://github.com/Xinglab/rmats2sashimiplot">https://github.com/Xinglab/rmats2sashimiplot</a></p>
+<h2 id="一-rMATS软件及相关依赖包的下载"><a href="#一-rMATS软件及相关依赖包的下载" class="headerlink" title="(一)rMATS软件及相关依赖包的下载"></a>(一)rMATS软件及相关依赖包的下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先用conda下载rMATs软件需要的依赖包</span></span><br><span class="line"><span class="comment">#有时候python版本问题搞得我很烦，有些生信软件依赖特定的python版本，所以在软件安装过程中多加注意这个问题</span></span><br><span class="line">conda create rMATs2.7 python=2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line">conda install -y Cython=0.29.14 numpy=1.16.5 blas lapack gsl=2.6 gcc=5.4.0 CMake=3.15.4</span><br><span class="line">conda install libgfortran==1</span><br><span class="line">deactivate rMATs2.7</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载软件并解压rMATs软件</span></span><br><span class="line"><span class="comment">#rMATs不同版本下载网址：https://github.com/Xinglab/rmats-turbo/releases/tag/v4.1.0</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS</span><br><span class="line">wget https://github.com/Xinglab/rmats-turbo/releases/download/v4.1.0/rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line">tar -zxvf rmats_turbo_v4_1_0_python_2_7.tar.gz</span><br><span class="line"><span class="comment">#永久添加路径到环境变量中</span></span><br><span class="line"><span class="built_in">export</span> PATH=/home/gongyuqi/project/AS/rMATS/rmats-turbo/:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-STAR比对软件的使用"><a href="#二-STAR比对软件的使用" class="headerlink" title="(二)STAR比对软件的使用"></a>(二)STAR比对软件的使用</h2><p>这么多比对软件，为什么选STAR？<br>因为官网用的STAR！据说其他可以做可变剪切的比对软件生成的bam文件，rMATs运行不了~~~</p>
+<p><strong>1、构建参考基因组索引</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#激活比对的环境,这个环境里面我下载了各种比对软件，python版本为2.7.15.</span></span><br><span class="line">conda activate alignment2.7 </span><br><span class="line">nohup STAR --runThreadN 30 --runMode genomeGenerate \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--genomeFastaFiles /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.dna.primary_assembly.fa \</span><br><span class="line">--sjdbGTFfile /home/gongyuqi/ref/hg38/Homo_sapiens.GRCh38.102.gtf &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>2、用STAR软件进行比对</strong></p>
+<p>STAR的使用以及输出文件解读参考资料：<br><a href="https://blog.csdn.net/yssxswl/article/details/105703869">https://blog.csdn.net/yssxswl/article/details/105703869</a><br><a href="https://www.jianshu.com/p/eca16bf2824e">https://www.jianshu.com/p/eca16bf2824e</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入fastq文件坐在目录，这里是原始的fastq数据，质控结果挺好的，不用再过滤了，所以我直接比对了</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rawdata</span><br><span class="line"><span class="comment">#写循环进行比对</span></span><br><span class="line">ls *.gz|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup STAR --runThreadN 20 \</span><br><span class="line">--genomeDir /home/gongyuqi/ref/hg38/index/star \</span><br><span class="line">--readFilesCommand gunzip -c \</span><br><span class="line">--readFilesIn ./<span class="variable">$id</span> \</span><br><span class="line">--outSAMtype BAM SortedByCoordinate \</span><br><span class="line">--outFileNamePrefix /home/gongyuqi/project/AS/aligndata_star/<span class="variable">$&#123;id%%.*&#125;</span>. &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><strong>3、比对情况统计并查看</strong></p>
+<p>(1)直接查看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls *.Log.progress.out|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> sed -n <span class="string">&#x27;1,3p&#x27;</span> <span class="variable">$id</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>结果如下，比对情况还是不错的，可以进行后续的分析。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_Log.progress.out.JPG"/></p>
+<p>(2)flagstat统计比对情况查看比对情况</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools flagstat -@ 20 <span class="variable">$id</span> &gt; <span class="variable">$&#123;id%%.*&#125;</span>.flagstat.txt &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">ls *.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> cat <span class="variable">$id</span> | grep <span class="string">&quot;mapped (&quot;</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这个比对结果实在是难以置信！！但是结合上面的比对结果，还是可以相信比对这一步是没有问题的。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/star_align_flagstat.JPG"/></p>
+<h2 id="三-运行rMATs"><a href="#三-运行rMATs" class="headerlink" title="(三)运行rMATs"></a>(三)运行rMATs</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先我们要失活掉比对的环境（alignment2.7），激活rMATs环境</span></span><br><span class="line">conda deactivate alignment2.7</span><br><span class="line">conda activate rMATs2.7</span><br><span class="line"><span class="comment">#虽然rMATS路径被永久添加到环境变量中，但是PATH只认可执行文件，所以这一步还是要切换到rMATs路径下</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/rMATS/rmats-turbo</span><br><span class="line">input_dir=/home/gongyuqi/project/AS/aligndata_star</span><br><span class="line">python rmats.py \</span><br><span class="line">--b1 <span class="variable">$input_dir</span>/b1.txt \</span><br><span class="line">--b2 <span class="variable">$input_dir</span>/b2.txt \</span><br><span class="line">--gtf /home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gtf \</span><br><span class="line">-t single --readLength 36 --nthread 20 \</span><br><span class="line">--od /home/gongyuqi/project/AS/rMATS/rmats_output \</span><br><span class="line">--tmp /home/gongyuqi/project/AS/rMATS/rmats_tmp</span><br><span class="line"><span class="comment">#运行完记得退出当前环境，因为后面我们要用另外一个环境</span></span><br><span class="line">conda deactivate rMATs2.7</span><br></pre></td></tr></table></figure>
+<p>运行上面的代码，会报如下错误：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/erro_libgsl.so.25.JPG"/></p>
+<p>我查看了一下，/home/gongyuqi/miniconda3/envs/rMATs2.7/lib路径下有这个文件呢！为什么电脑找不到？触及到了我的知识盲区了~~~<br>查了一下午的资料，发现这个报错涉及到查找共享库（动态链接库）问题，根据查到的东西操作了一波居然没有解决，旁边的零食都不香了！😫<br>算了~~~我还是先去吃晚饭吧，已经饿得很瘦了！😫<br>。。。。。。<br>好啦，我吃完饭回来了。我继续倒腾，不放弃。<br>。。。。。。<br>额，我知道了，这段代码运行过程中还涉及到gcc编译，因为它依赖包中有GCC。<br>这两个问题实在是太专业了，今天又学习到了。现在有一点小小的开心！😊<br>解决方法参考资料：<a href="https://www.jianshu.com/p/a62e1d327023">https://www.jianshu.com/p/a62e1d327023</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Linux默认只会在指定的几个目录找共享库（动态链接库），其他目录的要自己加在LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#因为上述命令是依赖gcc的，需要gcc进行编译，所以还需要下面的操作</span></span><br><span class="line"><span class="built_in">export</span> LIBRARY_PATH=/home/gongyuqi/miniconda3/envs/rMATs2.7/lib</span><br><span class="line"><span class="comment">#注意，上述都是临时的，治标不治本，下次执行运行rMATs时，依然要重复上述操作。当然你也可以将其永久性添加。</span></span><br></pre></td></tr></table></figure>
+<p>运行结果如下，关于这些结果文件的解释说明，可以参考rMATS官网，上面有很详细的阐述。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rMATs_output.JPG"/></p>
+<h2 id="四-rmats2sashimiplot可视化"><a href="#四-rmats2sashimiplot可视化" class="headerlink" title="(四)rmats2sashimiplot可视化"></a>(四)rmats2sashimiplot可视化</h2><p>终于到了激动人心的可视化阶段了，一顿操作之后，产生一张漂亮的图放PPT上还是很欣慰的。</p>
+<p><strong>1、环境搭建</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n rmats2sashimiplot python=2.7 </span><br><span class="line">conda activate rmats2sashimiplot</span><br><span class="line">conda install -y numpy scipy matplotlib pysam samtools bedtools</span><br></pre></td></tr></table></figure>
+<p><strong>2、准备可视化的txt文件</strong>  </p>
+<p>以Exon Skipping为例演示,这里我随便找一个基因进行可视化，注意了，这个基因不一定是差异可变剪切的基因哟，因为是我随便找的一个。嘻嘻🤭</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;2p&#x27;</span> SE.MATS.JC.txt &gt; SE.plot.PRMT2.txt</span><br><span class="line">cat SE.plot.PRMT2.txt</span><br></pre></td></tr></table></figure>
+<p>文件内容如下：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/PRMT2_rMATs.txt.JPG"/></p>
+<p><strong>3、可视化的txt文件</strong></p>
+<h6 id="一开始，我非常自信的运行了下面的代码"><a href="#一开始，我非常自信的运行了下面的代码" class="headerlink" title="一开始，我非常自信的运行了下面的代码~"></a>一开始，我非常自信的运行了下面的代码~</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.bam,SRR974972.Aligned.sortedByCoord.out.bam,SRR974978.Aligned.sortedByCoord.out.bam,SRR974984.Aligned.sortedByCoord.out.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.bam,SRR974976.Aligned.sortedByCoord.out.bam,SRR974980.Aligned.sortedByCoord.out.bam,SRR974982.Aligned.sortedByCoord.out.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h6 id="但是，我遇到了如下报错"><a href="#但是，我遇到了如下报错" class="headerlink" title="但是，我遇到了如下报错"></a>但是，我遇到了如下报错</h6><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/rmats2sashimiplot_chr_error.JPG"/>
+
+
+<h6 id="我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"><a href="#我回头看了一下我的bam文件，染色体是以1-2…X-Y形式体现而不是chr1-chr2…chrX-chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。" class="headerlink" title="我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有chr存在且让其存在在正确的位置呢。"></a>我回头看了一下我的bam文件，染色体是以1,2…X,Y形式体现而不是chr1,chr2…chrX,chrY形式体现。我第一次遇到染色体号的问题呢。我要怎么让bam文件中有<code>chr</code>存在且让其存在在正确的位置呢。</h6><h6 id="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。"><a href="#我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果-算了，我打一局游戏睡觉吧，明天再想。" class="headerlink" title="我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。"></a>我绞尽脑汁的想了很久很久😫，我还考虑到是不是我参考基因组的问题，不同数据库参考基因组是不是有差异，我要不要换一个数据库的参考基因组。然后我一顿操作，无果~~~算了，我打一局游戏睡觉吧，明天再想。</h6><h6 id="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"><a href="#起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可" class="headerlink" title="起床吃早饭骑车去实验室思考查资料有一点小想法了我实践一下看看可不可"></a>起床<del>吃早饭</del>骑车去实验室<del>思考</del>查资料<del>有一点小想法了</del>我实践一下看看可不可</h6><p>参考资料：<a href="https://www.jianshu.com/p/5ceda0350d0d">https://www.jianshu.com/p/5ceda0350d0d</a></p>
+<h6 id="第一步：给bam文件添加chr"><a href="#第一步：给bam文件添加chr" class="headerlink" title="第一步：给bam文件添加chr"></a><font color=blue>第一步：给bam文件添加chr</font></h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#添加chr</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup samtools view -h <span class="variable">$id</span> | sed -e <span class="string">&#x27;/^@SQ/s/SN\:/SN\:chr/&#x27;</span> -e <span class="string">&#x27;/^[^@]/s/\t/\tchr/2&#x27;</span>|awk -F <span class="string">&#x27; &#x27;</span> <span class="string">&#x27;$7=($7==&quot;=&quot; || $7==&quot;*&quot;?$7:sprintf(&quot;chr%s&quot;,$7))&#x27;</span> |tr <span class="string">&quot; &quot;</span> <span class="string">&quot;\t&quot;</span> | samtools view -h -b -@ 10 -S - &gt; <span class="variable">$&#123;id%%.*&#125;</span>.Aligned.sortedByCoord.out.chr.bam &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h6 id="第二步：使用添加chr的bam文件执行程序"><a href="#第二步：使用添加chr的bam文件执行程序" class="headerlink" title="第二步：使用添加chr的bam文件执行程序"></a><font color=blue>第二步：使用添加chr的bam文件执行程序</font></h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gff3=/home/gongyuqi/ref/hg38/ensembl/Homo_sapiens.GRCh38.102.gff3</span><br><span class="line">output_dir=/home/gongyuqi/project/AS/rMATS/rmats2sashimiplot/</span><br><span class="line">rmats2sashimiplot \</span><br><span class="line">--b1 SRR974968.Aligned.sortedByCoord.out.chr.bam,SRR974972.Aligned.sortedByCoord.out.chr.bam,SRR974978.Aligned.sortedByCoord.out.chr.bam,SRR974984.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">--b2 SRR974974.Aligned.sortedByCoord.out.chr.bam,SRR974976.Aligned.sortedByCoord.out.chr.bam,SRR974980.Aligned.sortedByCoord.out.chr.bam,SRR974982.Aligned.sortedByCoord.out.chr.bam \</span><br><span class="line">-c chr21:+:46636438:46636547:<span class="variable">$gff3</span> \</span><br><span class="line">-e /home/gongyuqi/project/AS/rMATS/rmats_output/SE.plot.PRMT2.txt \</span><br><span class="line">--l1 treatment --l2 control \</span><br><span class="line">--exon_s 1 --intron_s 5 -t SE \</span><br><span class="line">-o <span class="variable">$output_dir</span>/SE.plot</span><br></pre></td></tr></table></figure>
+<p>可视化结果如下（你会发现，咦~两组间差异不显著呀？因为我随便挑了一个基因可视化呀！我有偷偷可视化某个基因，可视化出来的差异性与我定量和半定量qPCR的结果一致哟，所以上述分析流程应该是OK的~~~嘻嘻嘻🤭不管怎样，这个基因确实存在Exon Skipping。）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ABC_GCB_PRMT2_rMATs.JPG"/></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>技术上</strong><br>1、需要搭建两个重要的环境：运行rMATs的环境，运行rmats2sashimiplot的环境。<br>2、选用STAR进行参考基因组的比对（注意了，参考基因组和注释文件的版本要一致哟）。<br>3、在rMATs的环境下,结合上述生成的bam文件，运行rMATs软件，生成可变剪切事件的文件。<br>4、在rmats2sashimiplot环境下，可视化上述生成的可变剪切事件。</p>
+<p><strong>心态上</strong><br>上午解决不了就下午解决，今天解决不了就明天解决。这个方法不行就换个方法。思考良久之后可以适当的问问老师。最关键的还是要按时吃饭按时睡觉。</p>
+]]></content>
+      <tags>
+        <tag>NGS</tag>
       </tags>
   </entry>
   <entry>
@@ -2421,6 +2409,67 @@ http://www.bio-info-trainee.com/2548.html
 ]]></content>
       <tags>
         <tag>NGS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>特定版本R包下载及其报错</title>
+    <url>/2020/02/16/%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%ACR%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%85%B6%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<p>Error: Failed to install ‘unknown package’ from URL:<br>(converted from warning) installation of package ‘dtw’ had non-zero exit status</p>
+<a id="more"></a>
+
+<h1 id="特定版本R包下载及其报错"><a href="#特定版本R包下载及其报错" class="headerlink" title="特定版本R包下载及其报错"></a>特定版本R包下载及其报错</h1><h2 id="下载Seurat-2-×-×"><a href="#下载Seurat-2-×-×" class="headerlink" title="下载Seurat 2.×.×"></a>下载Seurat 2.×.×</h2><p>首先查看版本信息：<a href="https://github.com/satijalab/seurat/releases">https://github.com/satijalab/seurat/releases</a></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>报错如下</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Error: Failed to install <span class="string">&#x27;unknown package&#x27;</span> from URL:</span><br><span class="line">(converted from warning) installation of package ‘dtw’ had non-zero exit status</span><br></pre></td></tr></table></figure>
+<p>显示R包<code>dtw</code>退出码非零，即不正常退出，思考再三，是不是因为这个Seurat依赖的R包没有存在并且下载不成功导致的呢？<br>尝试单独下载R包<code>dtw </code></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">install.packages(<span class="string">&quot;dtw&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">package ‘dtw’ successfully unpacked and MD5 sums checked</span><br><span class="line">The downloaded binary packages are <span class="keyword">in</span> ...</span><br></pre></td></tr></table></figure>
+<h2 id="再次下载Seurat-2-×-×"><a href="#再次下载Seurat-2-×-×" class="headerlink" title="再次下载Seurat 2.×.×"></a>再次下载Seurat 2.×.×</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>再次得到报错信息</strong></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Error: Failed to install <span class="string">&#x27;unknown package&#x27;</span> from URL:</span><br><span class="line">(converted from warning) installation of package ‘doSNOW’ had non-zero exit status</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此次报错和上次类似，但变成另一个R包退出码非零，说明上次的排错思路可能是对的。</li>
+<li>于是后面每次出现类似的报错就单独下载相应的R包，在尝试下载Seurat 2.3.3。</li>
+</ul>
+<p><strong>第N次得到报错信息</strong></p>
+<ol>
+<li>用以下方法试图下载Seurat 2.3.3依赖的R包<code>SDMTool</code></li>
+</ol>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法1</span></span><br><span class="line">install.packages(<span class="string">&quot;SDMTools&quot;</span>)</span><br><span class="line"><span class="comment">#方法2</span></span><br><span class="line">BiocManager::install(<span class="string">&quot;SDMTools&quot;</span>)</span><br><span class="line"><span class="comment">#方法3</span></span><br><span class="line">source(<span class="string">&quot;https://bioconductor.org/biocLite.R&quot;</span>)</span><br><span class="line">biocLite(<span class="string">&quot;SDMTools&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>遗憾的是，报错了，报错信息都是以下内容</li>
+</ol>
+<p>😭<font color=blue>你时常感概，国内的网怎么老是不能通向世界呢😭</font></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">package ‘SDMTools’ is not available (<span class="keyword">for</span> R version <span class="number">3.5</span>.2)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>所以只好手动下载<code>SDMTools</code>,手动安装  </li>
+</ol>
+<ul>
+<li><p>首先登陆<a href="https://cran.r-project.org/">CRAN官网</a>，点击进入<strong>Download R for Windows</strong>（这个视不同系统而定）</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CRANwedsite.JPG"/>
+</li>
+<li><p>点击contrib</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CRANcontrib.JPG"/>
+</li>
+<li><p>点击相应的R版本，进入R包界面，<code>ctrl+F</code>搜索所需要的R包，下载到本地</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMTools.JPG"/>
+</li>
+<li><p>进入Rstudio,点击Tools,点击install packages…或者直接点击environment下的install</p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/unautoinstall.JPG"/>   
+然后点击install即可
+
+</li>
+</ul>
+<h2 id="当你再次下载Seurat-2-3-3时，遇上第N-1次报错"><a href="#当你再次下载Seurat-2-3-3时，遇上第N-1次报错" class="headerlink" title="当你再次下载Seurat 2.3.3时，遇上第N+1次报错"></a>当你再次下载Seurat 2.3.3时，遇上第N+1次报错</h2><p>当你解决了上诉报错问题后，你还会收到各种各样的报错，比如缺少这个包，缺少那个包。你就当体验一次手动解决R包之间的依赖关系好了。直到不再提示缺少什么R包。</p>
+<h2 id="再再再次次次下载Seurat-2-3-3"><a href="#再再再次次次下载Seurat-2-3-3" class="headerlink" title="再再再次次次下载Seurat 2.3.3"></a>再再再次次次下载Seurat 2.3.3</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seuratdone.JPG"/>
+
+<p><strong>成功！！！</strong></p>
+<h2 id="加载Seurat并查看相关信息"><a href="#加载Seurat并查看相关信息" class="headerlink" title="加载Seurat并查看相关信息"></a>加载Seurat并查看相关信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(Seurat)</span><br><span class="line">sessionInfo()</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seuratinfo.JPG"/>
+]]></content>
+      <tags>
+        <tag>R</tag>
       </tags>
   </entry>
   <entry>
@@ -2610,67 +2659,6 @@ http://www.bio-info-trainee.com/2548.html
 ]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>特定版本R包下载及其报错</title>
-    <url>/2020/02/16/%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%ACR%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%85%B6%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>Error: Failed to install ‘unknown package’ from URL:<br>(converted from warning) installation of package ‘dtw’ had non-zero exit status</p>
-<a id="more"></a>
-
-<h1 id="特定版本R包下载及其报错"><a href="#特定版本R包下载及其报错" class="headerlink" title="特定版本R包下载及其报错"></a>特定版本R包下载及其报错</h1><h2 id="下载Seurat-2-×-×"><a href="#下载Seurat-2-×-×" class="headerlink" title="下载Seurat 2.×.×"></a>下载Seurat 2.×.×</h2><p>首先查看版本信息：<a href="https://github.com/satijalab/seurat/releases">https://github.com/satijalab/seurat/releases</a></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>报错如下</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Error: Failed to install <span class="string">&#x27;unknown package&#x27;</span> from URL:</span><br><span class="line">(converted from warning) installation of package ‘dtw’ had non-zero exit status</span><br></pre></td></tr></table></figure>
-<p>显示R包<code>dtw</code>退出码非零，即不正常退出，思考再三，是不是因为这个Seurat依赖的R包没有存在并且下载不成功导致的呢？<br>尝试单独下载R包<code>dtw </code></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">install.packages(<span class="string">&quot;dtw&quot;</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">package ‘dtw’ successfully unpacked and MD5 sums checked</span><br><span class="line">The downloaded binary packages are <span class="keyword">in</span> ...</span><br></pre></td></tr></table></figure>
-<h2 id="再次下载Seurat-2-×-×"><a href="#再次下载Seurat-2-×-×" class="headerlink" title="再次下载Seurat 2.×.×"></a>再次下载Seurat 2.×.×</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>再次得到报错信息</strong></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Error: Failed to install <span class="string">&#x27;unknown package&#x27;</span> from URL:</span><br><span class="line">(converted from warning) installation of package ‘doSNOW’ had non-zero exit status</span><br></pre></td></tr></table></figure>
-<ul>
-<li>此次报错和上次类似，但变成另一个R包退出码非零，说明上次的排错思路可能是对的。</li>
-<li>于是后面每次出现类似的报错就单独下载相应的R包，在尝试下载Seurat 2.3.3。</li>
-</ul>
-<p><strong>第N次得到报错信息</strong></p>
-<ol>
-<li>用以下方法试图下载Seurat 2.3.3依赖的R包<code>SDMTool</code></li>
-</ol>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#方法1</span></span><br><span class="line">install.packages(<span class="string">&quot;SDMTools&quot;</span>)</span><br><span class="line"><span class="comment">#方法2</span></span><br><span class="line">BiocManager::install(<span class="string">&quot;SDMTools&quot;</span>)</span><br><span class="line"><span class="comment">#方法3</span></span><br><span class="line">source(<span class="string">&quot;https://bioconductor.org/biocLite.R&quot;</span>)</span><br><span class="line">biocLite(<span class="string">&quot;SDMTools&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>遗憾的是，报错了，报错信息都是以下内容</li>
-</ol>
-<p>😭<font color=blue>你时常感概，国内的网怎么老是不能通向世界呢😭</font></p>
-<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">package ‘SDMTools’ is not available (<span class="keyword">for</span> R version <span class="number">3.5</span>.2)</span><br></pre></td></tr></table></figure>
-<ol>
-<li>所以只好手动下载<code>SDMTools</code>,手动安装  </li>
-</ol>
-<ul>
-<li><p>首先登陆<a href="https://cran.r-project.org/">CRAN官网</a>，点击进入<strong>Download R for Windows</strong>（这个视不同系统而定）</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CRANwedsite.JPG"/>
-</li>
-<li><p>点击contrib</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CRANcontrib.JPG"/>
-</li>
-<li><p>点击相应的R版本，进入R包界面，<code>ctrl+F</code>搜索所需要的R包，下载到本地</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/DMTools.JPG"/>
-</li>
-<li><p>进入Rstudio,点击Tools,点击install packages…或者直接点击environment下的install</p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/unautoinstall.JPG"/>   
-然后点击install即可
-
-</li>
-</ul>
-<h2 id="当你再次下载Seurat-2-3-3时，遇上第N-1次报错"><a href="#当你再次下载Seurat-2-3-3时，遇上第N-1次报错" class="headerlink" title="当你再次下载Seurat 2.3.3时，遇上第N+1次报错"></a>当你再次下载Seurat 2.3.3时，遇上第N+1次报错</h2><p>当你解决了上诉报错问题后，你还会收到各种各样的报错，比如缺少这个包，缺少那个包。你就当体验一次手动解决R包之间的依赖关系好了。直到不再提示缺少什么R包。</p>
-<h2 id="再再再次次次下载Seurat-2-3-3"><a href="#再再再次次次下载Seurat-2-3-3" class="headerlink" title="再再再次次次下载Seurat 2.3.3"></a>再再再次次次下载Seurat 2.3.3</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">require(devtools)</span><br><span class="line">install_version(<span class="string">&quot;Seurat&quot;</span>,version = <span class="string">&quot;2.3.3&quot;</span>)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seuratdone.JPG"/>
-
-<p><strong>成功！！！</strong></p>
-<h2 id="加载Seurat并查看相关信息"><a href="#加载Seurat并查看相关信息" class="headerlink" title="加载Seurat并查看相关信息"></a>加载Seurat并查看相关信息</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(Seurat)</span><br><span class="line">sessionInfo()</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/seuratinfo.JPG"/>
-]]></content>
-      <tags>
-        <tag>R</tag>
       </tags>
   </entry>
   <entry>
