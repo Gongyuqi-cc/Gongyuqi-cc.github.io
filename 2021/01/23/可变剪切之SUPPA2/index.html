@@ -18,10 +18,11 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="RNA-seq高级分析之可变剪切">
 <meta property="og:type" content="article">
@@ -42,7 +43,7 @@
 <meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/diffsplice_ENSG00000149554_mark.JPG">
 <meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/volcano_plot.JPG">
 <meta property="article:published_time" content="2021-01-23T08:30:27.000Z">
-<meta property="article:modified_time" content="2021-02-14T07:38:34.138Z">
+<meta property="article:modified_time" content="2021-02-20T12:32:47.438Z">
 <meta property="article:author" content="gongyuqiqi">
 <meta property="article:tag" content="NGS">
 <meta name="twitter:card" content="summary">
@@ -297,7 +298,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-02-14 15:38:34" itemprop="dateModified" datetime="2021-02-14T15:38:34+08:00">2021-02-14</time>
+        <time title="Modified: 2021-02-20 20:32:47" itemprop="dateModified" datetime="2021-02-20T20:32:47+08:00">2021-02-20</time>
       </span>
 
   
@@ -308,7 +309,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>4.1k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -343,7 +344,7 @@
 <img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/hg19_salmon_index.JPG"/>
 
 <h3 id="2、定量获得TPM值"><a href="#2、定量获得TPM值" class="headerlink" title="2、定量获得TPM值"></a>2、定量获得TPM值</h3><p><strong>(1)、运行salmon软件定量</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;_1</span><br><span class="line">y&#x3D;_2</span><br><span class="line">for id in &#123;SRR1513329,SRR1513330,SRR1513331,SRR1513332,SRR1513333,SRR1513334&#125;</span><br><span class="line">do</span><br><span class="line">nohup salmon quant -i &#x2F;home&#x2F;gongyuqi&#x2F;ref&#x2F;hg38&#x2F;ensembl&#x2F;SUPPA_ref&#x2F;Ensembl_hg19_salmon_index -l ISF --gcBias -1 $id$x.fastq.gz -2 $id$y.fastq.gz -p 20 -o &#x2F;home&#x2F;gongyuqi&#x2F;project&#x2F;AS&#x2F;SUPPA2&#x2F;$id &amp;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x=_1</span><br><span class="line">y=_2</span><br><span class="line"><span class="keyword">for</span> id <span class="keyword">in</span> &#123;SRR1513329,SRR1513330,SRR1513331,SRR1513332,SRR1513333,SRR1513334&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup salmon quant -i /home/gongyuqi/ref/hg38/ensembl/SUPPA_ref/Ensembl_hg19_salmon_index -l ISF --gcBias -1 $id<span class="variable">$x</span>.fastq.gz -2 $id<span class="variable">$y</span>.fastq.gz -p 20 -o /home/gongyuqi/project/AS/SUPPA2/<span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <p>展示一个样本的输出结果结构<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/tree_SRR1513329.JPG"/><br>其中quant.sf文件很重要，要用于后续的分析，展示该文件部分内容<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/quant_df.JPG"/></p>
 <p><strong>(2)、提取所有样本的TPM值并合并为一个文件</strong></p>
 <p><code>-k</code> indicates the row used as index<br><code>-f</code> TPM值在第四列，在这里要提取每个样本的TPM值</p>
@@ -467,7 +468,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">136k</span>
+    <span title="Symbols count total">135k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -483,6 +484,8 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
