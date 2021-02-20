@@ -22,12 +22,12 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"gyqgyq.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="生信分析下游过程中，为了构建好可用于个性化分析的数据，往往要对原有数据进行整理，这个时候apply、lapply、strsplit、%in%就会在不同的地方发光✨发热🔥啦">
 <meta property="og:type" content="article">
 <meta property="og:title" content="R语言apply、lapply、strsplit、&amp;#37in&amp;#37用法介绍">
-<meta property="og:url" content="http://example.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:url" content="https://gyqgyq.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="gyq&#39;s blog">
 <meta property="og:description" content="生信分析下游过程中，为了构建好可用于个性化分析的数据，往往要对原有数据进行整理，这个时候apply、lapply、strsplit、%in%就会在不同的地方发光✨发热🔥啦">
 <meta property="og:locale" content="en_US">
@@ -44,7 +44,7 @@
 <meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/apply.JPG">
 
 
-<link rel="canonical" href="http://example.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/">
+<link rel="canonical" href="https://gyqgyq.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/">
 
 
 <script class="page-configurations">
@@ -261,7 +261,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2020/02/23/R%E8%AF%AD%E8%A8%80apply%E3%80%81lapply%E3%80%81strsplit%E3%80%81%in%%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/assets/img/ava.jpg">
