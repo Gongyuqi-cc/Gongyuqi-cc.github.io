@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.jpg">
+  <link rel="mask-icon" href="/images/avatar.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gyqgyq.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="whole exome-sequencing analysis pipeline">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WES">
+<meta property="og:url" content="https://gyqgyq.com/2021/05/14/WES/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="whole exome-sequencing analysis pipeline">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/java_version.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/paper_methods.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fastqc-status-check-heatmap.png">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/bwa_flagstat.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Mutect2.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.99.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.99.content.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vcf.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/wc_l.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SnpSift_second.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/G_to_A.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CDK12_G_to_A.JPG">
+<meta property="article:published_time" content="2021-05-14T05:37:00.000Z">
+<meta property="article:modified_time" content="2021-06-19T11:11:10.233Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="tag1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/java_version.JPG">
+
+
+<link rel="canonical" href="https://gyqgyq.com/2021/05/14/WES/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>WES | gyq's blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">gyq's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A8%E5%A4%96%E6%98%BE%E5%AD%90%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">全外显子数据分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">(一) 环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-WES%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.2.</span> <span class="nav-text">(二) WES测试数据下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-GATK%E5%87%86%E5%A4%87bam%E6%96%87%E4%BB%B6%E7%94%A8%E4%BA%8E%E6%89%BE%E5%8F%98%E5%BC%82"><span class="nav-number">1.3.</span> <span class="nav-text">(三) GATK准备bam文件用于找变异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81-%E6%AF%94%E5%AF%B9GATK%E5%AE%98%E7%BD%91%E6%8F%90%E4%BE%9B%E7%9A%84%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、 比对GATK官网提供的参考基因组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%A0%87%E8%AE%B0PCR%E9%87%8D%E5%A4%8D"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、标记PCR重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%A2%B1%E5%9F%BA%E7%9F%AB%E6%AD%A3-BaseRecalibrator"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、碱基矫正 BaseRecalibrator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81HaplotypeCaller"><span class="nav-number">1.3.4.</span> <span class="nav-text">4、HaplotypeCaller</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-Mutect2%E6%89%BE%E5%8F%98%E5%BC%82"><span class="nav-number">1.4.</span> <span class="nav-text">(三) Mutect2找变异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%BF%87%E6%BB%A4%E7%A7%8D%E7%B3%BB%E7%AA%81%E5%8F%98"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、过滤种系突变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%80%83%E8%99%91%E6%A0%B7%E5%93%81%E7%BA%AF%E5%BA%A6%E5%8F%8A%E5%81%87%E9%98%B3%E6%80%A7"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、考虑样品纯度及假阳性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#step-1%E3%80%81%E7%94%9F%E6%88%90af-only-gnomad-hg38-SNP-biallelic-vcf-gz"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">step 1、生成af-only-gnomad.hg38.SNP_biallelic.vcf.gz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-2%E3%80%81GetPileupSummaries"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">step 2、GetPileupSummaries</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-3%E3%80%81-CalculateContamination"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">step 3、 CalculateContamination</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-3%E3%80%81-FilterMutectCalls"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">step 3、 FilterMutectCalls</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-SnpEff-amp-SnpSift%E6%B3%A8%E9%87%8A"><span class="nav-number">1.5.</span> <span class="nav-text">(四) SnpEff &amp; SnpSift注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81SnpEff%E8%BD%AF%E4%BB%B6%E5%8F%8A%E6%89%80%E9%9C%80%E6%B3%A8%E9%87%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、SnpEff软件及所需注释数据库的下载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#step-1%E3%80%81%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85SnpEff%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">step 1、下载安装SnpEff软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-2%E3%80%81%E4%B8%8B%E8%BD%BDSnpEff%E8%BD%AF%E4%BB%B6%E9%9C%80%E8%A6%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">step 2、下载SnpEff软件需要的数据库文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81SnpEff%E3%80%81SnpSift%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、SnpEff、SnpSift使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#step-1%E3%80%81SnpEff%E6%B3%A8%E9%87%8A"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">step 1、SnpEff注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-2%E3%80%81SnpSift%E8%BF%87%E6%BB%A4"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">step 2、SnpSift过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#step-3%E3%80%81sed%E5%91%BD%E4%BB%A4%E5%A4%8D%E7%8E%B0SnpSift%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">step 3、sed命令复现SnpSift的功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E5%8E%9F%E6%96%87%E6%95%B0%E6%8D%AE%E5%A4%8D%E7%8E%B0"><span class="nav-number">1.6.</span> <span class="nav-text">(五) 原文数据复现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="gongyuqiqi"
+      src="/assets/img/ava.jpg">
+  <p class="site-author-name" itemprop="name">gongyuqiqi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:gongyuqi163@163.com" title="E-Mail → mailto:gongyuqi163@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/gongyuqiqi" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2021/05/14/WES/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/img/ava.jpg">
+      <meta itemprop="name" content="gongyuqiqi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gyq's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WES
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-05-14 13:37:00" itemprop="dateCreated datePublished" datetime="2021-05-14T13:37:00+08:00">2021-05-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-06-19 19:11:10" itemprop="dateModified" datetime="2021-06-19T19:11:10+08:00">2021-06-19</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>9.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>9 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>whole exome-sequencing analysis pipeline</p>
+<a id="more"></a>
+<h1 id="全外显子数据分析"><a href="#全外显子数据分析" class="headerlink" title="全外显子数据分析"></a>全外显子数据分析</h1><h2 id="一-环境搭建"><a href="#一-环境搭建" class="headerlink" title="(一) 环境搭建"></a>(一) 环境搭建</h2><p><strong>1、GATK依赖Java 8/JDK 1.8 (Oracle or OpenJDK)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看一下环境中是否有java，如果有，版本是否符合要求</span></span><br><span class="line">java --version</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/java_version.JPG"/>
+
+<p><strong>2、下载安装GATK4</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/broadinstitute/gatk/releases/download/4.2.0.0/gatk-4.2.0.0.zip</span><br><span class="line">unzip gatk-4.2.0.0.zip</span><br><span class="line"><span class="comment">#将当前路径加到环境变量中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=/home/gongyuqi/biosoft/GATK/gatk-4.2.0.0:$PATH&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p><strong>3、下载其他需要的软件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先创建WES的conda环境</span></span><br><span class="line">conda create -n WES</span><br><span class="line"><span class="comment">#其次下载其他需要的软件</span></span><br><span class="line">conda install -y python=3.6.2</span><br><span class="line">conda install -y bwa sra-tools samtools bcftools snpEFF multiqc </span><br><span class="line">qualimap  </span><br><span class="line"><span class="comment">#激活环境，准备开始实战演练</span></span><br><span class="line">conda activate WES</span><br><span class="line"><span class="comment">#创建存放各阶段数据的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/WES</span><br><span class="line">mkdir raw qc clean mutaion</span><br><span class="line"><span class="built_in">cd</span> qc &amp;&amp; mkdir raw_qc clean_qc</span><br></pre></td></tr></table></figure>
+<h2 id="二-WES测试数据下载"><a href="#二-WES测试数据下载" class="headerlink" title="(二) WES测试数据下载"></a>(二) WES测试数据下载</h2><p><strong>1、数据来源<a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153707">GSE153707</a>，我们这里从<a target="_blank" rel="noopener" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA643782">EBI直接下载fastq文件</a></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将下列数据下载的脚本保存到download.sh文件中</span></span><br><span class="line">dir=/home/gongyuqi/.aspera/connect/etc/asperaweb_id_dsa.openssh</span><br><span class="line">x=_1</span><br><span class="line">y=_2</span><br><span class="line"><span class="keyword">for</span> id <span class="keyword">in</span> &#123;11,12&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ascp -QT -l 300m -P33001 -i <span class="variable">$dir</span> era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR121/0<span class="variable">$id</span>/SRR121359<span class="variable">$id</span>/SRR121359$id<span class="variable">$x</span>.fastq.gz .</span><br><span class="line">ascp -QT -l 300m -P33001 -i <span class="variable">$dir</span> era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/SRR121/0<span class="variable">$id</span>/SRR121359<span class="variable">$id</span>/SRR121359$id<span class="variable">$y</span>.fastq.gz . </span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#赋予执行权限</span></span><br><span class="line">chmod +x download.sh</span><br><span class="line"><span class="comment">#放后台进行数据下载</span></span><br><span class="line">nohup ./download.sh &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>2、了解文章WES数据处理的相关步骤和参数</strong></p>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/paper_methods.JPG" width="70%">
+
+
+<h2 id="三-GATK准备bam文件用于找变异"><a href="#三-GATK准备bam文件用于找变异" class="headerlink" title="(三) GATK准备bam文件用于找变异"></a>(三) GATK准备bam文件用于找变异</h2><h3 id="1、-比对GATK官网提供的参考基因组"><a href="#1、-比对GATK官网提供的参考基因组" class="headerlink" title="1、 比对GATK官网提供的参考基因组"></a>1、 比对GATK官网提供的参考基因组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#====step 1 首先质空，查看数据是否需要进行过滤</span></span><br><span class="line"><span class="comment">#我们这里的质控结果显示reads的整体质量还不错（GC含量看着不太过分基本不影响后续的分析），可以直接用于比对</span></span><br><span class="line">ls ../raw/*.gz|xargs fastqc -t 4 -o ./</span><br><span class="line">multiqc *.zip</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/fastqc-status-check-heatmap.png"/>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#====step 2 比对</span></span><br><span class="line">ls *1.fastq.gz &gt;fq1.txt</span><br><span class="line">ls *2.fastq.gz &gt;fq2.txt</span><br><span class="line">paste fq1.txt fq2.txt &gt; sample.txt</span><br><span class="line">index=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta.64</span><br><span class="line">cat sample.txt | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup</span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">sample=<span class="variable">$&#123;fq1%%_*&#125;</span></span><br><span class="line">bwa mem -t 8 -R <span class="string">&quot;@RG\tID:<span class="variable">$sample</span>\tSM:<span class="variable">$sample</span>\tLB:WGS\tPL:Illumina&quot;</span> /<span class="variable">$index</span> <span class="variable">$fq1</span> <span class="variable">$fq2</span> |samtools sort -@ 8 -o ../align/<span class="variable">$sample</span>.sort.bam - &amp;&gt;&gt;../align/<span class="variable">$sample</span>.<span class="built_in">log</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ====step 3 查看比对结果</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> samtools flagstat <span class="variable">$id</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/bwa_flagstat.JPG" width="50%">
+
+<h3 id="2、标记PCR重复"><a href="#2、标记PCR重复" class="headerlink" title="2、标记PCR重复"></a>2、标记PCR重复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ====step 1 MarkDuplicates</span></span><br><span class="line">ls *.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">   MarkDuplicates \</span><br><span class="line">   --INPUT <span class="variable">$sample</span> \</span><br><span class="line">   --OUTPUT <span class="variable">$&#123;sample%%.*&#125;</span>_marked.bam \</span><br><span class="line">   -M <span class="variable">$&#123;sample%%.*&#125;</span>.metrics &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====step 2 FixMateInformation</span></span><br><span class="line">ls *_marked.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">   FixMateInformation \</span><br><span class="line">   -I <span class="variable">$&#123;sample&#125;</span> \</span><br><span class="line">   -O <span class="variable">$&#123;sample%%_*&#125;</span>_marked_fixed.bam \</span><br><span class="line">   -SO coordinate &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#建立*_fixed.bam文件索引</span></span><br><span class="line">ls *_fixed.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup samtools index <span class="variable">$sample</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="3、碱基矫正-BaseRecalibrator"><a href="#3、碱基矫正-BaseRecalibrator" class="headerlink" title="3、碱基矫正 BaseRecalibrator"></a>3、碱基矫正 BaseRecalibrator</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">snp=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf</span><br><span class="line">indel=/home/gongyuqi/ref/GATK/hg38/v0/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz</span><br><span class="line"></span><br><span class="line">ls *_marked_fixed.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup gatk \</span><br><span class="line">         --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">         BaseRecalibrator \</span><br><span class="line">         -R <span class="variable">$ref</span> \</span><br><span class="line">         -I <span class="variable">$sample</span> \</span><br><span class="line">         --known-sites <span class="variable">$snp</span> \</span><br><span class="line">         --known-sites <span class="variable">$indel</span> \</span><br><span class="line">         -O <span class="variable">$&#123;sample%%_*&#125;</span>_recal.table \</span><br><span class="line">         1&gt;<span class="variable">$&#123;sample%%_*&#125;</span>_log.recal 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#BWA比对时设置@RG的重要性在这一步体现出来了，算法通过@RG中的ID来识别各个独立的测序过程</span></span><br><span class="line">ls *_marked_fixed.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup gatk \</span><br><span class="line">         --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span>   ApplyBQSR \</span><br><span class="line">         -R <span class="variable">$ref</span>  \</span><br><span class="line">         -I <span class="variable">$sample</span>  \</span><br><span class="line">         -bqsr <span class="variable">$&#123;sample%%_*&#125;</span>_recal.table \</span><br><span class="line">         -O <span class="variable">$&#123;sample%%_*&#125;</span>_bqsr.bam \</span><br><span class="line">         1&gt;<span class="variable">$&#123;sample%%_*&#125;</span>_log.ApplyBQSR  2&gt;&amp;1 &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 查看比对结果</span></span><br><span class="line">ls *bqsr.bam|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup samtools flagstat <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">gatk --java-options <span class="string">&quot;-Xmx20G&quot;</span> AnalyzeCovariates \</span><br><span class="line">     -before recal_data.table1 \</span><br><span class="line">     -after recal_data.table2 \</span><br><span class="line">     -plots AnalyzeCovariates.pdf</span><br></pre></td></tr></table></figure>
+<h3 id="4、HaplotypeCaller"><a href="#4、HaplotypeCaller" class="headerlink" title="4、HaplotypeCaller"></a>4、HaplotypeCaller</h3><blockquote>
+<p>这一步是使用GATK的HaplotypeCaller找变异，但现在GATK官网推荐GATK4+Mutect2找变异，在这里我们还是简单运行一下HaplotypeCaller。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ls *bqsr.bam|<span class="keyword">while</span> <span class="built_in">read</span> sample</span><br><span class="line"><span class="keyword">do</span> nohup gatk \</span><br><span class="line">         --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> HaplotypeCaller \</span><br><span class="line">         -R <span class="variable">$ref</span>  \</span><br><span class="line">         -I <span class="variable">$sample</span> \</span><br><span class="line">         --dbsnp <span class="variable">$snp</span> \</span><br><span class="line">         -O ../vcf/<span class="variable">$&#123;sample%%_*&#125;</span>_raw.vcf \</span><br><span class="line">         1&gt;../vcf/<span class="variable">$&#123;sample%%_*&#125;</span>_log.HC 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-Mutect2找变异"><a href="#三-Mutect2找变异" class="headerlink" title="(三) Mutect2找变异"></a>(三) Mutect2找变异</h2><p><strong><a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136">Mutect2 v4.1.0.0的教程</a>目前已经不被GATK官方强烈推荐。官方更新推荐了<a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/articles/360035531132">Mutect2 v4.1.1.0 and later版本的使用教程</a>，更新过的教程比较推荐用于正常对照样本&gt;40的WES测序数据。如果没有这么多的样本量，Mutect2 v4.1.0.0的教程也同样可以使用，只是有部分参数在新的Mutect2版本中被弃用或是将其功能整合到另外的参数去了。具体问题可以查看官网说明。</strong></p>
+<h3 id="1、过滤种系突变"><a href="#1、过滤种系突变" class="headerlink" title="1、过滤种系突变"></a>1、过滤种系突变</h3><blockquote>
+<p>首先需要一个germline variant sites VCF文件，去官网下载<a target="_blank" rel="noopener" href="https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-hg38">af-only-gnomad.hg38.vcf.gz</a>文件。记得一并下载对应的.tbi文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">germine_vcf=/home/gongyuqi/ref/GATK/hg38/af-only-gnomad/af-only-gnomad.hg38.vcf.gz</span><br><span class="line"></span><br><span class="line">nohup gatk --java-options <span class="string">&quot;-Xmx20g&quot;</span> Mutect2 \</span><br><span class="line">-R <span class="variable">$ref</span> \</span><br><span class="line">-I SRR12135912_bqsr.bam \</span><br><span class="line">-tumor SRR12135912 \</span><br><span class="line">-I SRR12135911_bqsr.bam \</span><br><span class="line">-normal SRR12135911 \</span><br><span class="line">--germline-resource <span class="variable">$germine_vcf</span> \</span><br><span class="line">--af-of-alleles-not-in-resource 0.0000025 \</span><br><span class="line">--disable-read-filter MateOnSameContigOrNoMappedMateReadFilter \</span><br><span class="line">--bam-output HQ461-untreated-Mutect2.bam \</span><br><span class="line">-O ../Mutect2/HQ461-untreated.Mutect2.vcf &amp;</span><br></pre></td></tr></table></figure>
+<p>生成文件如下：<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/Mutect2.JPG"/></p>
+<h3 id="2、考虑样品纯度及假阳性"><a href="#2、考虑样品纯度及假阳性" class="headerlink" title="2、考虑样品纯度及假阳性"></a>2、考虑样品纯度及假阳性</h3><blockquote>
+<p>通常，病人的肿瘤样本是混合有正常组织的，这个时候我们可以选择<code>GetPileupSummaries</code>工具来计算肿瘤样本的污染程度。对于Mutect2流程而言，GATK只考虑了肿瘤样本中正常样本的污染情况，不考虑正常样本中肿瘤样本的污染情况。这里我们的处理组:HQ461,对照组untreated。，虽然我们的样本是肿瘤细胞的单克隆株，我们这里还是跑一下这个流程。</p>
+</blockquote>
+<h4 id="step-1、生成af-only-gnomad-hg38-SNP-biallelic-vcf-gz"><a href="#step-1、生成af-only-gnomad-hg38-SNP-biallelic-vcf-gz" class="headerlink" title="step 1、生成af-only-gnomad.hg38.SNP_biallelic.vcf.gz"></a>step 1、生成af-only-gnomad.hg38.SNP_biallelic.vcf.gz</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">germine_vcf=/home/gongyuqi/ref/GATK/hg38/af-only-gnomad/af-only-gnomad.hg38.vcf.gz</span><br><span class="line">nohup gatk SelectVariants \</span><br><span class="line">-R <span class="variable">$ref</span> \</span><br><span class="line">-V <span class="variable">$germine_vcf</span> \</span><br><span class="line">--select-type-to-include SNP \</span><br><span class="line">--restrict-alleles-to BIALLELIC \</span><br><span class="line">-O /home/gongyuqi/ref/GATK/hg38/af-only-gnomad/af-only-gnomad.hg38.SNP_biallelic.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
+<h4 id="step-2、GetPileupSummaries"><a href="#step-2、GetPileupSummaries" class="headerlink" title="step 2、GetPileupSummaries"></a>step 2、GetPileupSummaries</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">germine_biallelic_vcf=/home/gongyuqi/ref/GATK/hg38/af-only-gnomad/af-only-gnomad.hg38.SNP_biallelic.vcf.gz</span><br><span class="line">genomic_intervals=/home/gongyuqi/ref/GATK/hg38/v0/wgs_calling_regions.hg38.interval_list</span><br><span class="line"></span><br><span class="line">nohup gatk GetPileupSummaries \</span><br><span class="line">-I SRR12135911_bqsr.bam \</span><br><span class="line">-L <span class="variable">$genomic_intervals</span> \</span><br><span class="line">-V <span class="variable">$germine_biallelic_vcf</span> \</span><br><span class="line">-O ../Mutect2/SRR12135911.pileups.table &amp;</span><br><span class="line"></span><br><span class="line">nohup gatk GetPileupSummaries \</span><br><span class="line">-I SRR12135912_bqsr.bam \</span><br><span class="line">-L <span class="variable">$genomic_intervals</span> \</span><br><span class="line">-V <span class="variable">$germine_biallelic_vcf</span> \</span><br><span class="line">-O ../Mutect2/SRR12135912.pileups.table &amp;</span><br></pre></td></tr></table></figure>
+<h4 id="step-3、-CalculateContamination"><a href="#step-3、-CalculateContamination" class="headerlink" title="step 3、 CalculateContamination"></a>step 3、 CalculateContamination</h4><blockquote>
+<p>计算污染比例，用以过滤掉somatic variant中一些可能由污染导致的假阳性突变</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nohup gatk CalculateContamination \</span><br><span class="line">-I SRR12135912.pileups.table \</span><br><span class="line">-matched SRR12135911.pileups.table \</span><br><span class="line">-O HQ461-untreated.calculatecontamination.table &amp;</span><br></pre></td></tr></table></figure>
+<h4 id="step-3、-FilterMutectCalls"><a href="#step-3、-FilterMutectCalls" class="headerlink" title="step 3、 FilterMutectCalls"></a>step 3、 FilterMutectCalls</h4><blockquote>
+<p>结合CalculateContamination的评估，进行最后的过滤</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">nohup gatk FilterMutectCalls \</span><br><span class="line">-R <span class="variable">$ref</span> \</span><br><span class="line">-V HQ461-untreated.Mutect2.vcf \</span><br><span class="line">--contamination-table HQ461-untreated.calculatecontamination.table \</span><br><span class="line">-O HQ461-untreated.filtered.Mutect2.vcf &amp;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>至此，我们找变异的步骤就差不多走完了。你会发现我们并没有使用到<code>CollectSequencingArtifactMetrics</code>和<code>FilterByOrientationBias</code>参数，那是因为我们当前版本的Mutect2已经将FilterByOrientationBias的功能整合进<code>FilterMutectCalls</code>中了，详情见<a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/community/posts/360077855051-gatk-FilterByOrientationBias">GATK论坛中的一篇帖子</a>。</p>
+</blockquote>
+<blockquote>
+<p>另外，在做WES分析时，对照组是很重要的。拿肿瘤样本举例，tumor-only的模式会得到很多很多很多的假阳性，详情见<a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/community/posts/360057810051-Mutect2-somatic-variant-calling-with-without-matched-normal-sample">GATK论坛中的另一篇帖子</a>。对照组的存在会大大降低假阳性率。</p>
+</blockquote>
+<h2 id="四-SnpEff-amp-SnpSift注释"><a href="#四-SnpEff-amp-SnpSift注释" class="headerlink" title="(四) SnpEff &amp; SnpSift注释"></a>(四) SnpEff &amp; SnpSift注释</h2><blockquote>
+<p>以下流程参考<a target="_blank" rel="noopener" href="https://pcingola.github.io/SnpEff/se_introduction/">SnpEff &amp; SnpSift官网文档</a></p>
+</blockquote>
+<h3 id="1、SnpEff软件及所需注释数据库的下载"><a href="#1、SnpEff软件及所需注释数据库的下载" class="headerlink" title="1、SnpEff软件及所需注释数据库的下载"></a>1、SnpEff软件及所需注释数据库的下载</h3><h4 id="step-1、下载安装SnpEff软件"><a href="#step-1、下载安装SnpEff软件" class="headerlink" title="step 1、下载安装SnpEff软件"></a>step 1、下载安装SnpEff软件</h4><p>下载<a target="_blank" rel="noopener" href="https://pcingola.github.io/SnpEff/download/">SnpEff</a>，现在SnpEff和SnpSift是绑定在一起的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/biosoft/</span><br><span class="line"><span class="comment">#下载</span></span><br><span class="line">wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip &amp;</span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line">unzip snpEff_latest_core.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="step-2、下载SnpEff软件需要的数据库文件"><a href="#step-2、下载SnpEff软件需要的数据库文件" class="headerlink" title="step 2、下载SnpEff软件需要的数据库文件"></a>step 2、下载SnpEff软件需要的数据库文件</h4><p>下载 SnpEff databases: 官网给的命令是java -jar snpEff.jar download GRCh38.76。但是运行这个命令会报错：找不到GRCh38.76</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#运行下面的命令查看SnpEff目前支持的database</span></span><br><span class="line">java -jar snpEff.jar databases | less</span><br><span class="line"><span class="comment">#运行下面的命令查看SnpEff支持的GRCh38 database,目前是GRCh38.99</span></span><br><span class="line">java -jar snpEff.jar databases | grep -i GRCh38</span><br><span class="line"><span class="comment">#看来SnpEff网站更新不及时呀，在网站维护和更新这一点上，要重点表扬GATK团队！！！</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.99.JPG"/>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#于是下载GRCh38.99</span></span><br><span class="line">nohup java -jar snpEff.jar download GRCh38.99 &amp;</span><br><span class="line"><span class="comment">#但是这个网络问题是无解的。我最后还是自己手动下载snpEff_v5_0_GRCh38.99.zip文件</span></span><br><span class="line"><span class="comment">#解压完，最后GRCh38.99文件夹绝对路径/home/gongyuqi/biosoft/snpEff/data/GRCh38.99</span></span><br></pre></td></tr></table></figure>
+<p>GRCh38.99内容如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.99.content.JPG"/></p>
+<h3 id="2、SnpEff、SnpSift使用"><a href="#2、SnpEff、SnpSift使用" class="headerlink" title="2、SnpEff、SnpSift使用"></a>2、SnpEff、SnpSift使用</h3><h4 id="step-1、SnpEff注释"><a href="#step-1、SnpEff注释" class="headerlink" title="step 1、SnpEff注释"></a>step 1、SnpEff注释</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#the &quot;verbose&quot; mode (command line option -v), this makes SnpEff to show a lot of information which can be useful for debugging.</span></span><br><span class="line">java -Xmx16g -jar snpEff.jar -v GRCh38.99 /home/gongyuqi/project/WES/Mutect2/HQ461-untreated.filtered.Mutect2.vcf &gt; HQ461-untreated.filtered.ann.vcf</span><br></pre></td></tr></table></figure>
+
+<h4 id="step-2、SnpSift过滤"><a href="#step-2、SnpSift过滤" class="headerlink" title="step 2、SnpSift过滤"></a>step 2、SnpSift过滤</h4><p>该部分同时参考官网说明文档及某优秀博客<a target="_blank" rel="noopener" href="http://www.sci666.net/40794.html">用SnpSift过滤VCF文件</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#保留Filter字段为&#x27;PASS&#x27;或缺失值的记录</span></span><br><span class="line">cat HQ461-untreated.filtered.ann.vcf | java -jar SnpSift.jar filter <span class="string">&quot;( na FILTER ) | (FILTER = &#x27;PASS&#x27;)&quot;</span> &gt; HQ461-untreated.filtered.ann.snpsift.vcf</span><br><span class="line"><span class="comment">#保留INFO中ANN字段的IMPACT为&#x27;HIGH&#x27;或&#x27;MODERATE&#x27;的记录</span></span><br><span class="line">cat HQ461-untreated.filtered.ann.snpsift.vcf | java -jar SnpSift.jar filter <span class="string">&quot;(ANN[0].IMPACT has &#x27;HIGH&#x27;) | (ANN[0].IMPACT has &#x27;MODERATE&#x27;)&quot;</span> &gt; HQ461-untreated.filtered.ann.snpsift.second.vcf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#简单看一下三个vcf文件的大小</span></span><br><span class="line">ls -lh *.vcf</span><br><span class="line">ls *.vcf|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> cat <span class="variable">$id</span>|wc -l;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/vcf.JPG"/>
+
+
+<h4 id="step-3、sed命令复现SnpSift的功能"><a href="#step-3、sed命令复现SnpSift的功能" class="headerlink" title="step 3、sed命令复现SnpSift的功能"></a>step 3、<code>sed</code>命令复现SnpSift的功能</h4><blockquote>
+<p>这里不难发现，SnpSift其实就是对文本文件的处理。要是shell脚本够扎实，也完全可以不依赖SnpSift。重要的是，在学习NGS组学分析过程中，但凡有锻炼自己shell脚本的地方，就一定要抓住机会动手写一写💪 <strong>这里我们可以用一个简单的<code>sed</code>命令解决</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一个`sed`命令打印出所有标记为PASS的位点</span></span><br><span class="line"><span class="comment">#第二个`sed`命令承接上一个管道输出的内容，保留标记为HIGH或者MODERATE的位点</span></span><br><span class="line">cat HQ461-untreated.filtered.ann.vcf | grep -v <span class="string">&quot;#&quot;</span>| \</span><br><span class="line">sed -n <span class="string">&#x27;/PASS/p&#x27;</span> - | \</span><br><span class="line">sed -n <span class="string">&#x27;/\(HIGH\|MODERATE\)/p&#x27;</span> - \</span><br><span class="line">&gt;test_PASS_HIGH_MODERATE.third.vcf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检验一下我们`sed`脚本的正确性</span></span><br><span class="line"><span class="comment">#看看位点数目是否一致</span></span><br><span class="line">cat HQ461-untreated.filtered.ann.snpsift.second.vcf|grep -v <span class="string">&quot;#&quot;</span>|wc -l</span><br><span class="line">cat test_PASS_HIGH_MODERATE.second.vcf|wc -l</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/wc_l.JPG"/>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#再具体看看内容是否一致</span></span><br><span class="line">cat HQ461-untreated.filtered.ann.snpsift.second.vcf|grep -v <span class="string">&quot;#&quot;</span>|less -SN</span><br><span class="line">cat test_PASS_HIGH_MODERATE.second.vcf|less -SN</span><br></pre></td></tr></table></figure>
+<p>HQ461-untreated.filtered.ann.snpsift.second.vcf<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/SnpSift_second.JPG"/><br>test_PASS_HIGH_MODERATE.second.vcf<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/sed.JPG"/></p>
+<h2 id="五-原文数据复现"><a href="#五-原文数据复现" class="headerlink" title="(五) 原文数据复现"></a>(五) 原文数据复现</h2><blockquote>
+<p>真正接受检验的时候到了，看看我们的pipeline能不能复现文章的数据。这也是进一步检验我们pipeline的正确性的重要环节（当然也不能迷信文章的结果，但是7+文章的数据分析质量应该还是可以作为一个较好的参考）。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/G_to_A.JPG"/></p>
+</blockquote>
+<p><strong>再看看我们过滤后的vcf文件中是否有检测到CDK12的G到A的突变</strong><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/CDK12_G_to_A.JPG"/></p>
+<p><strong>学习WES心得体会</strong></p>
+<p>1、学习某个软件的用法时，主要参考官方文档！！！可以选择性参考相关博客主博客，但切记拿来主义！！！深刻理解用到的每个参数。</p>
+<p>2、WES的相关分析还有很多，我们这里只涉及到SNV。同样的，突变的注释也涉及到多种软件，我们这里只涉及到了SnpEff。学海无涯啊~~~从培养起自主学习的思维和习惯开始。</p>
+<p>3、拿到最终的注释文件（.vcf），我们还可以用到maftools、ComplexHeatmap等R包将突变情况进行可视化。</p>
+<p>4、不急不慢，不慌不忙，坚持下去❤</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>If you like this post, you can buy me a coffee ^_^</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.jpg" alt="gongyuqiqi Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/tag1/" rel="tag"><i class="fa fa-tag"></i> tag1</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/13/scRNA-seq-%E6%95%B0%E6%8D%AE%E5%A4%8D%E7%8E%B0/" rel="prev" title="scRNA-seq_数据复现">
+                  <i class="fa fa-chevron-left"></i> scRNA-seq_数据复现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/27/Mutect2/" rel="next" title="Mutect2">
+                  Mutect2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gongyuqiqi</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Symbols count total: </span>
+    <span title="Symbols count total">168k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Reading time total &asymp;</span>
+    <span title="Reading time total">2:33</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "gongyuqiqi/utterances");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-light");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
+
+</body>
+</html>

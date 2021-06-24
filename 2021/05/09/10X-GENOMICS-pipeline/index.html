@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.jpg">
+  <link rel="mask-icon" href="/images/avatar.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gyqgyq.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="（一）环境搭建下载Cell Ranger,下载10X GENOMICS配套的参考基因组.官网也提供了Cell Ranger Pipeline。 官网下载链接： https:&#x2F;&#x2F;support.10xgenomics.com&#x2F;single-cell-gene-expression&#x2F;software&#x2F;downloads&#x2F;latest (1)下载、安装Cell Ranger软件12345678910">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10X GENOMICS pipeline">
+<meta property="og:url" content="https://gyqgyq.com/2021/05/09/10X-GENOMICS-pipeline/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="（一）环境搭建下载Cell Ranger,下载10X GENOMICS配套的参考基因组.官网也提供了Cell Ranger Pipeline。 官网下载链接： https:&#x2F;&#x2F;support.10xgenomics.com&#x2F;single-cell-gene-expression&#x2F;software&#x2F;downloads&#x2F;latest (1)下载、安装Cell Ranger软件12345678910">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/test_cellranger.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/before_rename.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/after_rename.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html2.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_input.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html2.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html_alert.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_results.JPG">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_R.JPG">
+<meta property="article:published_time" content="2021-05-09T01:27:42.000Z">
+<meta property="article:modified_time" content="2021-05-13T07:22:54.834Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="NGS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/test_cellranger.JPG">
+
+
+<link rel="canonical" href="https://gyqgyq.com/2021/05/09/10X-GENOMICS-pipeline/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>10X GENOMICS pipeline | gyq's blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">gyq's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">（一）环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E3%80%81%E5%AE%89%E8%A3%85Cell-Ranger%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">(1)下载、安装Cell Ranger软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%B8%8B%E8%BD%BD%E4%BA%BA%E7%B1%BB%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">(2)下载人类参考基因组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%8B%E8%BD%BD%E5%B0%8F%E9%BC%A0%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">(3)下载小鼠参考基因组</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-%E4%B8%8B%E8%BD%BD%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">(二)下载测试数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-pretch%E4%B8%8B%E8%BD%BDSRA%E6%96%87%E4%BB%B6"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">(1)pretch下载SRA文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ascp%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">(2)ascp下载</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89-Cell-Ranger-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">(三)Cell Ranger 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-SRA%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%88%90fastq%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">(1)SRA格式转成fastq格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%87%8D%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">(2)重命名文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%B4%A8%E6%8E%A7"><span class="nav-number">3.3.</span> <span class="nav-text">(3)质控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-cellranger-count"><span class="nav-number">3.4.</span> <span class="nav-text">(4)cellranger count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-cellranger-aggr"><span class="nav-number">3.5.</span> <span class="nav-text">(5)cellranger aggr</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B-Cell-Ranger%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E5%AF%BC%E5%85%A5R"><span class="nav-number">4.</span> <span class="nav-text">(四) Cell Ranger输出结果导入R</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="gongyuqiqi"
+      src="/assets/img/ava.jpg">
+  <p class="site-author-name" itemprop="name">gongyuqiqi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:gongyuqi163@163.com" title="E-Mail → mailto:gongyuqi163@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/gongyuqiqi" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2021/05/09/10X-GENOMICS-pipeline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/img/ava.jpg">
+      <meta itemprop="name" content="gongyuqiqi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gyq's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          10X GENOMICS pipeline
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-05-09 09:27:42" itemprop="dateCreated datePublished" datetime="2021-05-09T09:27:42+08:00">2021-05-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-05-13 15:22:54" itemprop="dateModified" datetime="2021-05-13T15:22:54+08:00">2021-05-13</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <a id="more"></a>
+
+<h1 id="（一）环境搭建"><a href="#（一）环境搭建" class="headerlink" title="（一）环境搭建"></a>（一）环境搭建</h1><p><strong>下载Cell Ranger,下载10X GENOMICS配套的参考基因组.官网也提供了Cell Ranger Pipeline。</strong></p>
+<p>官网下载链接： <a target="_blank" rel="noopener" href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a></p>
+<h4 id="1-下载、安装Cell-Ranger软件"><a href="#1-下载、安装Cell-Ranger软件" class="headerlink" title="(1)下载、安装Cell Ranger软件"></a>(1)下载、安装Cell Ranger软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#下载</span></span><br><span class="line">curl -o cellranger-6.0.1.tar.gz <span class="string">&quot;https://cf.10xgenomics.com/releases/cell-exp/cellranger-6.0.1.tar.gz?Expires=1620565659&amp;Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci02LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2MjA1NjU2NTl9fX1dfQ__&amp;Signature=IN508xcNVbAtoHul8SUog8KHmlAhg2lbR6-hCQeiwPs~-EfvTL1JmDurZ3dV-k3ry7TO9WP5Ae11yceDSzCfVIqglxHp6Pad4CftaStozIuEU7XJ0JbtDTO3DFVHRkpgNR8k48dNADA~JnhcHx8zOsT23VEeugqc7Z~35~05SOG8GJjxSJ8qGSTBdHYt7kPyqfZVs2apryxLOV-QBho66LvD4NLqNXFvzkPZ8t0e9Cv4rrV1JXseqY6PJnK8TPozTnDBnhfkop30FZ~jOLEY8wObOIA4b~EoyskSGjSfcvnp5urI7xjAyQNC6XtlJmRwDWEwWovgicScei2gkZqOGw__&amp;Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&quot;</span></span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line"><span class="comment">##解压</span></span><br><span class="line">tar zxvf cellranger-6.0.1.tar.gz</span><br><span class="line"><span class="comment">##添加环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=/home/gongyuqi/10X/cellranger-6.0.1:$PATH&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="comment">##永久生效环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"><span class="comment">#查看本机的配置，看看是否满足跑单细胞数据的最低配置</span></span><br><span class="line">cellranger sitecheck &gt; sitecheck.txt</span><br><span class="line">less -N sitecheck.txt</span><br><span class="line"><span class="comment">#最后，测试一下下载安装的cellranger能否正常运行</span></span><br><span class="line">cellranger testrun --id=testcellranger </span><br></pre></td></tr></table></figure>
+<p>标准输出最后两行为如下结果，表示cellranger可以正常使用<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/test_cellranger.JPG" width="50%"></p>
+<h4 id="2-下载人类参考基因组"><a href="#2-下载人类参考基因组" class="headerlink" title="(2)下载人类参考基因组"></a>(2)下载人类参考基因组</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span><br><span class="line">tar -zxvf refdata-gex-GRCh38-2020-A.tar.gz</span><br></pre></td></tr></table></figure>
+<p>查看一下文件的组成结构<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.JPG" width="50%"></p>
+<h4 id="3-下载小鼠参考基因组"><a href="#3-下载小鼠参考基因组" class="headerlink" title="(3)下载小鼠参考基因组"></a>(3)下载小鼠参考基因组</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz</span><br><span class="line">tar -zxvf refdata-gex-mm10-2020-A.tar.gz</span><br></pre></td></tr></table></figure>
+<h1 id="二-下载测试数据"><a href="#二-下载测试数据" class="headerlink" title="(二)下载测试数据"></a>(二)下载测试数据</h1><p><strong>在这里要用到prefetch和ascp的组合，详细的软件安装以及测试数据下载请参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1Njk4ODE0MQ==&mid=2247484146&idx=1&sn=16e09b82d048eed1ff6100b22970abd5&chksm=ea1f0470dd688d66bdbfbaf2a2b9ae91f545992469996cfecf407a09492df32b4536fda7ca4f&scene=21#wechat_redirect">单细胞数据下载</a></strong></p>
+<h4 id="1-pretch下载SRA文件"><a href="#1-pretch下载SRA文件" class="headerlink" title="(1)pretch下载SRA文件"></a>(1)pretch下载SRA文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#refetch默认通过https的方式下载原始数据，速度上会有限制</span></span><br><span class="line"><span class="comment">#如果存在ascp，prefetch默认通过fasp的方式下载数据，速度一下载从骑自行车升级为开飞机</span></span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup prefetch <span class="variable">$id</span> -O ./ &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;id&#125;</span>.sra done&quot;</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-ascp下载"><a href="#2-ascp下载" class="headerlink" title="(2)ascp下载"></a>(2)ascp下载</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#其中两个样本不在ncbi中，所以我们这里用直接用ascp下载EBI中存储的SRA文件，两个样本就不写循环了</span></span><br><span class="line">ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/srr/SRR772/009/SRR7722939 ./</span><br><span class="line">ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/srr/SRR772/002/SRR7722942 ./</span><br></pre></td></tr></table></figure>
+<h1 id="三-Cell-Ranger-使用"><a href="#三-Cell-Ranger-使用" class="headerlink" title="(三)Cell Ranger 使用"></a>(三)Cell Ranger 使用</h1><h2 id="1-SRA格式转成fastq格式"><a href="#1-SRA格式转成fastq格式" class="headerlink" title="(1)SRA格式转成fastq格式"></a>(1)SRA格式转成fastq格式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/scRNA-seq/raw_data</span><br><span class="line"><span class="comment">#--split-files生成三个文件，第一个文件的所有序列都是8bp，第二个文件都是26bp，第三个文件都是91bp，第三个文件是测序reads</span></span><br><span class="line">ls *.sra|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup fastq-dump --gzip --split-files -A <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-重命名文件"><a href="#2-重命名文件" class="headerlink" title="(2)重命名文件"></a>(2)重命名文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls *.sra|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> mv <span class="variable">$&#123;id&#125;</span>_1*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_I1_001.fastq.gz; mv <span class="variable">$&#123;id&#125;</span>_2*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_R1_001.fastq.gz; mv <span class="variable">$&#123;id&#125;</span>_3*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_R2_001.fastq.gz</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>命名前<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/before_rename.JPG"/><br>命名后<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/after_rename.JPG"/></p>
+<h2 id="3-质控"><a href="#3-质控" class="headerlink" title="(3)质控"></a>(3)质控</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls *R1*.gz &gt; sample_fastq.txt</span><br><span class="line">ls *R2*.gz &gt;&gt; sample_fastq.txt</span><br></pre></td></tr></table></figure>
+<h2 id="4-cellranger-count"><a href="#4-cellranger-count" class="headerlink" title="(4)cellranger count"></a>(4)cellranger count</h2><p><strong>cellranger是软件最核心的部分，可以完成细胞鉴定，基因组比对，过滤，UMI计数，细胞降维，聚类，差异分析等功能。内部流程很多，但是使用很简单。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先进入到cellranger_count文件夹下面并建立存放各个样本结果的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/scRNA-seq/cellranger_count</span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> mkdir <span class="variable">$id</span>;<span class="keyword">done</span></span><br><span class="line"><span class="comment">#将下列代码编辑到脚本文件cellranger_count.sh中</span></span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">cellranger count --id=<span class="variable">$id</span> \</span><br><span class="line">                 --transcriptome=/home/gongyuqi/10X/refdata-gex-GRCh38-2020-A \</span><br><span class="line">                 --fastqs=/home/gongyuqi/project/scRNA-seq/raw_data \</span><br><span class="line">                 --sample=<span class="variable">$id</span> \</span><br><span class="line">                 --nosecondary \</span><br><span class="line">                 --localcores=16 \</span><br><span class="line">                 --localmem=64 &gt; <span class="variable">$&#123;id&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#给脚本文件执行权限</span></span><br><span class="line">chmod +x cellranger_count.sh</span><br><span class="line"><span class="comment">#后台运行脚本文件</span></span><br><span class="line">nohup ./cellranger_count.sh &amp;</span><br><span class="line"><span class="comment">#参数解析</span></span><br><span class="line"><span class="comment">#--id: 指定输出文件存放目录</span></span><br><span class="line"><span class="comment">#--transcriptome: cellranger兼容的参考基因组位置</span></span><br><span class="line"><span class="comment">#--fastqs：重命名好的fastq.gz文件位置</span></span><br><span class="line"><span class="comment">#--sample：fastq.gz文件文件前缀，以作为软件识别的标志</span></span><br><span class="line"><span class="comment">#--nosecondary：只获得表达矩阵，不进行后续的降维、聚类和可视化（这些工作用R包做，如Seurat）</span></span><br><span class="line"><span class="comment">#--jobmode=local: 指定cellranger在本地运行（cellranger默认也是在本地运行）。它会占用90%的空余内存和所有空余的CPU。如果要进行资源控制，使用--localmem或者--localcores</span></span><br><span class="line"><span class="comment">#--localcores: 限定cellranger最多同时使用的cpu个数</span></span><br><span class="line"><span class="comment">#--localmem：限定cellranger最多占用的内存大小</span></span><br></pre></td></tr></table></figure>
+<p>以SRR7722937为例，来看一下cellranger count的结果总结：Barcode,UMI,mapping情况，样本的信息（使用v2试剂，参考基因组，cellranger版本），reads与测序饱和度、基因数量的关系（正相关，情理之中~）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html.JPG"/><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html2.JPG"/></p>
+<h2 id="5-cellranger-aggr"><a href="#5-cellranger-aggr" class="headerlink" title="(5)cellranger aggr"></a>(5)cellranger aggr</h2><p>第一步构建输入文件信息，文件内容如下。如果整合的样本既有v2试剂也有v3试剂，需要在第三列加上相应的试剂信息。如果都是用的同一种试剂，只需要保留前两列的信息即可。如本次测试数据。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_input.JPG"/></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--id为输出文件保存的位置</span></span><br><span class="line"><span class="comment">#--csv为输入文件的信息</span></span><br><span class="line">cellranger aggr --id=patient_2586-4 \</span><br><span class="line">                --csv=patient_2586-4_libbrary.csv \</span><br><span class="line">                --normalize=mapped</span><br></pre></td></tr></table></figure>
+<p>同样的，来查看一下cellranger aggr的结果报告。报告的消息解读可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/30de2aea4b74?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">https://www.jianshu.com/p/30de2aea4b74?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a>  </p>
+<table><tr><td bgcolor=#DCDCDC>1、Count Summary</td></tr></table>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html.JPG"/>
+<table><tr><td bgcolor=#DCDCDC>2、Count Analysis</td></tr></table>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html2.JPG"/>
+<table><tr><td bgcolor=#FF6347>3、Alerts</td></tr></table>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html_alert.JPG"/>
+
+<h1 id="四-Cell-Ranger输出结果导入R"><a href="#四-Cell-Ranger输出结果导入R" class="headerlink" title="(四) Cell Ranger输出结果导入R"></a>(四) Cell Ranger输出结果导入R</h1><p>cellranger aggar运行完成之后，在outs文件夹下面的子文件夹filtered_feature_bc_matrix中的三个文件上传到本地，解压导入R中。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_results.JPG"/></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">library(Matrix)</span><br><span class="line">barcode.path&lt;-paste0(<span class="string">&quot;barcodes.tsv&quot;</span>)</span><br><span class="line">feature.path&lt;-paste0(<span class="string">&quot;features.tsv&quot;</span>)</span><br><span class="line">matrix.path&lt;-paste0(<span class="string">&quot;matrix.mtx&quot;</span>)</span><br><span class="line">mat&lt;-readMM(file = matrix.path)</span><br><span class="line"></span><br><span class="line">feature.names&lt;-read.delim(feature.path,</span><br><span class="line">                          header = <span class="literal">FALSE</span>,</span><br><span class="line">                          stringsAsFactors = <span class="literal">FALSE</span>)</span><br><span class="line">barcode.names&lt;-read.delim(barcode.path,</span><br><span class="line">                          header = <span class="literal">FALSE</span>,</span><br><span class="line">                          stringsAsFactors = <span class="literal">FALSE</span>)</span><br><span class="line">colnames(mat)&lt;-barcode.names$V1</span><br><span class="line">rownames(mat)&lt;-feature.names$V2</span><br><span class="line">mat[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="built_in">dim</span>(mat)</span><br></pre></td></tr></table></figure>
+<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_R.JPG"/>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>If you like this post, you can buy me a coffee ^_^</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.jpg" alt="gongyuqiqi Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/NGS/" rel="tag"><i class="fa fa-tag"></i> NGS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/30/ATAC-project/" rel="prev" title="ATAC_project">
+                  <i class="fa fa-chevron-left"></i> ATAC_project
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/13/scRNA-seq-%E6%95%B0%E6%8D%AE%E5%A4%8D%E7%8E%B0/" rel="next" title="scRNA-seq_数据复现">
+                  scRNA-seq_数据复现 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gongyuqiqi</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Symbols count total: </span>
+    <span title="Symbols count total">168k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Reading time total &asymp;</span>
+    <span title="Reading time total">2:33</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "gongyuqiqi/utterances");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-light");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
+
+</body>
+</html>

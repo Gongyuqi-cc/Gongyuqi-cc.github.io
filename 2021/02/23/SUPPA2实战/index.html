@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.jpg">
+  <link rel="mask-icon" href="/images/avatar.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gyqgyq.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="SUPPA2实战（DLBCL）因为最近ascp无法使用了，只好使用preftch进行数据下载SRA数据，再自己转成fastq。 1nohup prefetch --option-file SRR_Acc_List1.txt &amp; 1234567scp -P 6001 .&#x2F;test.csv gongyuqi@124.77.170.70:&#x2F;home&#x2F;gongyu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUPPA2实战">
+<meta property="og:url" content="https://gyqgyq.com/2021/02/23/SUPPA2%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="gyq&#39;s blog">
+<meta property="og:description" content="SUPPA2实战（DLBCL）因为最近ascp无法使用了，只好使用preftch进行数据下载SRA数据，再自己转成fastq。 1nohup prefetch --option-file SRR_Acc_List1.txt &amp; 1234567scp -P 6001 .&#x2F;test.csv gongyuqi@124.77.170.70:&#x2F;home&#x2F;gongyu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ensembl_hg19.events.ioe.JPG">
+<meta property="article:published_time" content="2021-02-23T04:11:20.000Z">
+<meta property="article:modified_time" content="2021-03-04T07:36:46.583Z">
+<meta property="article:author" content="gongyuqiqi">
+<meta property="article:tag" content="tag1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ensembl_hg19.events.ioe.JPG">
+
+
+<link rel="canonical" href="https://gyqgyq.com/2021/02/23/SUPPA2%E5%AE%9E%E6%88%98/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>SUPPA2实战 | gyq's blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">gyq's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SUPPA2%E5%AE%9E%E6%88%98%EF%BC%88DLBCL%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">SUPPA2实战（DLBCL）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%8B%E8%BD%BD%E3%80%81%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">数据下载、转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A8%E6%8E%A7"><span class="nav-number">1.2.</span> <span class="nav-text">质控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81PSI%E8%AE%A1%E7%AE%97"><span class="nav-number">1.4.</span> <span class="nav-text">三、PSI计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AEensembl-ID%E8%8E%B7%E5%8F%96%E5%9F%BA%E5%9B%A0%E5%90%8D"><span class="nav-number">1.5.</span> <span class="nav-text">根据ensembl ID获取基因名</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="gongyuqiqi"
+      src="/assets/img/ava.jpg">
+  <p class="site-author-name" itemprop="name">gongyuqiqi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:gongyuqi163@163.com" title="E-Mail → mailto:gongyuqi163@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/gongyuqiqi" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2021/02/23/SUPPA2%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/img/ava.jpg">
+      <meta itemprop="name" content="gongyuqiqi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gyq's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SUPPA2实战
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-23 12:11:20" itemprop="dateCreated datePublished" datetime="2021-02-23T12:11:20+08:00">2021-02-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-03-04 15:36:46" itemprop="dateModified" datetime="2021-03-04T15:36:46+08:00">2021-03-04</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <a id="more"></a>
+
+<h1 id="SUPPA2实战（DLBCL）"><a href="#SUPPA2实战（DLBCL）" class="headerlink" title="SUPPA2实战（DLBCL）"></a>SUPPA2实战（DLBCL）</h1><p>因为最近ascp无法使用了，只好使用preftch进行数据下载SRA数据，再自己转成fastq。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup prefetch --option-file SRR_Acc_List1.txt &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scp -P 6001 .&#x2F;test.csv gongyuqi@124.77.170.70:&#x2F;home&#x2F;gongyuqi</span><br><span class="line"></span><br><span class="line">#port: 6654</span><br><span class="line">gmb39@81.70.205.254:&#x2F;home&#x2F;data&#x2F;gmb39&#x2F;project&#x2F;AS&#x2F;SUPPA2&#x2F;SRA </span><br><span class="line"></span><br><span class="line">#port: 6001</span><br><span class="line">gongyuqi@124.77.170.70:&#x2F;home&#x2F;gongyuqi&#x2F;project&#x2F;AS&#x2F;SUPPA2&#x2F;SRA</span><br></pre></td></tr></table></figure>
+
+<p>conda安装参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/edaa744ea47d">https://www.jianshu.com/p/edaa744ea47d</a></p>
+<h2 id="数据下载、转换"><a href="#数据下载、转换" class="headerlink" title="数据下载、转换"></a>数据下载、转换</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#SRA格式转成fastq格式</span></span><br><span class="line">ls *.sra | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup fastq-dump --split-3 <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#gzip压缩一下，节省空间</span></span><br><span class="line">ls *.fastq | <span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup pigz -p 8 <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="质控"><a href="#质控" class="headerlink" title="质控"></a>质控</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">nohup fastqc -t 16 *gz -o ./fastqc &amp;</span><br><span class="line">nohup multiqc ./fastqc/*.zip -o ./multiqc &amp;</span><br><span class="line"></span><br><span class="line">out_dir=/home/gongyuqi/project/AS/SUPPA2/clean</span><br><span class="line">trim_galore --paired --quality 20 -a AGATCGGAAGAGC -a2 AGATCGGAAGAGC --length 20 -o <span class="variable">$out_dir</span> R1.fq.gz R2.fq.gz</span><br><span class="line"></span><br><span class="line">out_dir=/home/gongyuqi/project/AS/SUPPA2/clean</span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">nohup trim_galore --paired --quality 25 -e 0.1 --length 36 -a AGATCGGAAGAGC -a2 AGATCGGAAGAGC  -o <span class="variable">$out_dir</span> <span class="variable">$fq1</span> <span class="variable">$fq2</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><strong>(1)、运行salmon软件定量</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat clean_sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">dir=<span class="variable">$&#123;fq1%%_*&#125;</span></span><br><span class="line">nohup salmon quant -i /home/gongyuqi/ref/hg38/ensembl/SUPPA_ref/Ensembl_hg19_salmon_index -l ISF --gcBias -1 <span class="variable">$fq1</span> -2 <span class="variable">$fq2</span> -p 8 -o /home/gongyuqi/project/AS/SUPPA2/salmon_quant/<span class="variable">$dir</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>(2)、提取所有样本的TPM值并合并为一个文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">suppa_dir=/home/gongyuqi/miniconda3/envs/SUPPA2_3.9/bin/</span><br><span class="line">nohup python <span class="variable">$suppa_dir</span>/multipleFieldSelection.py -i /home/gongyuqi/project/AS/SUPPA2/salmon_quant/*/quant.sf -k 1 -f 4 -o /home/gongyuqi/project/AS/SUPPA2/output/iso_tpm.txt &amp;</span><br></pre></td></tr></table></figure>
+
+<p><strong>(3)、使iso_tpm.txt文件中的转录本id同下载的gtf文件id一致</strong>  </p>
+<p>运行此R脚本，会生成iso_tpm_formatted.txt文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rscript format_Ensembl_ids.R iso_tpm.txt</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="三、PSI计算"><a href="#三、PSI计算" class="headerlink" title="三、PSI计算"></a>三、PSI计算</h2><p><strong>1、根据参考基因组注释文件生成可变剪切事件文件</strong></p>
+<p><code>-i</code> GTF文件<br><code>-o</code> 输出文件前缀<br><code>-e</code> 输出文件中包含的可变剪切类型<br><code>-f</code> 输出的格式  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成ioe文件</span></span><br><span class="line">suppa_dir=/home/gongyuqi/miniconda3/envs/SUPPA2_3.9/bin/</span><br><span class="line">gtf_dir=/home/gongyuqi/ref/hg38/ensembl/SUPPA_ref</span><br><span class="line">python <span class="variable">$suppa_dir</span>/suppa.py generateEvents -i <span class="variable">$gtf_dir</span>/Homo_sapiens.GRCh37.75.formatted.gtf -o ensembl_hg19.events -e SE SS MX RI FL -f ioe</span><br><span class="line"><span class="comment">#合并所有的ioe文件</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$gtf_dir</span></span><br><span class="line">awk <span class="string">&#x27;</span></span><br><span class="line"><span class="string">    FNR==1 &amp;&amp; NR!=1 &#123; while (/^&lt;header&gt;/) getline; &#125;</span></span><br><span class="line"><span class="string">    1 &#123;print&#125;</span></span><br><span class="line"><span class="string">&#x27;</span> *.ioe &gt; ensembl_hg19.events.ioe</span><br></pre></td></tr></table></figure>
+<p>结果如下<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/ensembl_hg19.events.ioe.JPG"/></p>
+<p><strong>2、计算样本的PSI值</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/AS/SUPPA2</span><br><span class="line">ioe_merge_file=~/ref/hg38/ensembl/SUPPA_ref/hg19_event/ensembl_hg19.events.ioe</span><br><span class="line">nohup python <span class="variable">$suppa_dir</span>/suppa.py psiPerEvent -i <span class="variable">$ioe_merge_file</span> -e iso_tpm_formatted.txt -o TRA2_events &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据ensembl-ID获取基因名"><a href="#根据ensembl-ID获取基因名" class="headerlink" title="根据ensembl ID获取基因名"></a>根据ensembl ID获取基因名</h2><p>参考资料：<a target="_blank" rel="noopener" href="https://www.sohu.com/a/245475759_777125">https://www.sohu.com/a/245475759_777125</a></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">library(biomaRt)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Biomart目前提供了四种数据库，可以使用listMarts()函数查看</span></span><br><span class="line">listMarts()</span><br><span class="line"><span class="comment">#               biomart                version</span></span><br><span class="line"><span class="comment">#1 ENSEMBL_MART_ENSEMBL      Ensembl Genes 103</span></span><br><span class="line"><span class="comment">#2   ENSEMBL_MART_MOUSE      Mouse strains 103</span></span><br><span class="line"><span class="comment">#3     ENSEMBL_MART_SNP  Ensembl Variation 103</span></span><br><span class="line"><span class="comment">#4 ENSEMBL_MART_FUNCGEN Ensembl Regulation 103</span></span><br><span class="line"><span class="comment">#当处理人类基因时，用useMart()函数选择“ENSEMBL_MART_ENSEMBL”</span></span><br><span class="line">human_mart&lt;-useMart(<span class="string">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>)</span><br><span class="line"><span class="comment">#ensembl数据库中包含了很多个数据集，可以使用这个代码查看</span></span><br><span class="line">datasets&lt;-listDatasets(human_mart)</span><br><span class="line">view(datasets)</span><br><span class="line"><span class="comment">#从上一步的结果中，选择人类基因的ensembl数据集：hsapiens_gene_ensembl</span></span><br><span class="line">my_datasets&lt;-useDataset(<span class="string">&quot;hsapiens_gene_ensembl&quot;</span>,mart=human_nart)</span><br><span class="line"><span class="comment">#输入需要转换的ensembl ID</span></span><br><span class="line">ensembl_id&lt;-<span class="string">&quot;ENSG00000149554&quot;</span></span><br><span class="line"><span class="comment">#getBM进行ID转换</span></span><br><span class="line">ensembl_symbol&lt;-getBM(<span class="built_in">attributes</span> = <span class="built_in">c</span>(<span class="string">&quot;ensembl_gene_id&quot;</span>,<span class="string">&quot;chromosome_name&quot;</span>,<span class="string">&quot;hgnc_symbol&quot;</span>,<span class="string">&quot;hgnc_id&quot;</span>),</span><br><span class="line">      filters = <span class="string">&quot;ensembl_gene_id&quot;</span>,</span><br><span class="line">      values = ensembl_id,</span><br><span class="line">      mart = my_datasets)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>ENSG00000000457</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>If you like this post, you can buy me a coffee ^_^</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.jpg" alt="gongyuqiqi Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/tag1/" rel="tag"><i class="fa fa-tag"></i> tag1</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/23/%E5%8F%AF%E5%8F%98%E5%89%AA%E5%88%87%E4%B9%8BSUPPA2/" rel="prev" title="可变剪切之SUPPA2">
+                  <i class="fa fa-chevron-left"></i> 可变剪切之SUPPA2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/30/ATAC-project/" rel="next" title="ATAC_project">
+                  ATAC_project <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gongyuqiqi</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Symbols count total: </span>
+    <span title="Symbols count total">168k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Reading time total &asymp;</span>
+    <span title="Reading time total">2:33</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "gongyuqiqi/utterances");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-light");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
+
+</body>
+</html>
