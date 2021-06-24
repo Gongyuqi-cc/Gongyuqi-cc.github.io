@@ -196,7 +196,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -279,7 +279,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-24 21:48:30" itemprop="dateModified" datetime="2021-06-24T21:48:30+08:00">2021-06-24</time>
+        <time title="Modified: 2021-06-24 22:04:22" itemprop="dateModified" datetime="2021-06-24T22:04:22+08:00">2021-06-24</time>
       </span>
 
   
@@ -308,151 +308,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="MeRIP-Seq数据分析"><a href="#MeRIP-Seq数据分析" class="headerlink" title="MeRIP-Seq数据分析"></a>MeRIP-Seq数据分析</h1><ul>
-<li><p><strong>看看推荐的MeRIP-seq数据分析流程</strong></p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/MeRIP-seq_pipeline.JPG"/>
-</li>
-<li><p><strong>今天要复现下面这篇文章中MeRIP-Seq相关的数据。</strong></p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/paper.JPG" width="50%">
-</li>
-<li><p><strong>看看文章作者如何处理MeRIP-seq数据的</strong></p>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/method_MeRIP-seq.JPG"/>
-
-</li>
-</ul>
-<h2 id="一-数据下载"><a href="#一-数据下载" class="headerlink" title="(一)数据下载"></a>(一)数据下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#GSE号：GSE133857</span></span><br><span class="line"><span class="comment">#简单的3个样本就不写脚本啦</span></span><br><span class="line"><span class="comment">#SRR9646136：HOC313 siControl_m6A_IP_replicate1</span></span><br><span class="line"><span class="comment">#SRR9646140：HOC313 siControl_m6A_IP_replicate2</span></span><br><span class="line"><span class="comment">#SRR9646137：HOC313 siControl_IgG_IP</span></span><br><span class="line">nohup preftch SRR9646136 &amp;</span><br><span class="line">nohup preftch SRR9646140 &amp;</span><br><span class="line">nohup preftch SRR9646137 &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#SRA文件转成fastq文件</span></span><br><span class="line">fastq-dump /path/to/xxx.sra </span><br><span class="line">ls *.sra|<span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> nohup fastq-dump --split-3 <span class="variable">$id</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="二-数据比对"><a href="#二-数据比对" class="headerlink" title="(二) 数据比对"></a>(二) 数据比对</h2><h3 id="step-1、质量控制"><a href="#step-1、质量控制" class="headerlink" title="step 1、质量控制"></a>step 1、质量控制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#质控，质控结果显示需要进一步过滤接头</span></span><br><span class="line"><span class="comment">#另外，GC含量很高，还出现双峰！！！</span></span><br><span class="line">fastqc -t 6 *fastq -o ./qc</span><br><span class="line"><span class="built_in">cd</span> ./qc</span><br><span class="line">multiqc *.zip -o ./</span><br><span class="line"><span class="comment">#trim-galore过滤</span></span><br><span class="line">cat fq.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">nohup trim_galore -q 20 --phred33 --length 20 -e 0.1 --stringency 3 --paired -o ../clean <span class="variable">$fq1</span> <span class="variable">$fq2</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#过滤后质控,质控结果显示接头去除成功</span></span><br></pre></td></tr></table></figure>
-<h3 id="step-2、HISAT2比对"><a href="#step-2、HISAT2比对" class="headerlink" title="step 2、HISAT2比对"></a>step 2、HISAT2比对</h3><p><strong>①、下载hisat2索引文件（含转录组信息）</strong></p>
-<blockquote>
-<p>首先去<a target="_blank" rel="noopener" href="http://daehwankimlab.github.io/hisat2/download/#h-sapiens">HISAT2官网下载比对所需要的索引文件</a>。注意啦，因为我们是MeRIP-seq数据的比对，构建的索引需要把转录组信息加进去，所以我们这里下载UCSC的hg38：<a target="_blank" rel="noopener" href="https://genome-idx.s3.amazonaws.com/hisat/hg38_tran.tar.gz">genome_tran</a>。注意了，这里选择UCSC的参考基因组，因为后面peak注释用到的工具——HOMER或者R包ChIPseeker内置的都是UCSC的参考基因组。如果你非要用到其他数据库的参考基因组，如NCBI的GRCh38，你就会在peaks注释阶段遇到染色体号相关的报错。当然，这个报错动动脑子也是可以解决的。</p>
-</blockquote>
-<blockquote>
-<p>你也可以自己构建带有转录组信息的索引文件，HISAT2官网同样给出了<a target="_blank" rel="noopener" href="http://daehwankimlab.github.io/hisat2/howto/#build-hgfm-index-with-transcripts">详细的教程</a>。但是，这个操作至少需要160G的内存😂，还是算了吧~~~没必要重复造轮子</p>
-</blockquote>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/HISAT2_UCSC_hg38_index.JPG"/>
-
-
-
-
-<p><strong>②、下载<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1805475">rRNA的fastq文件</a>,构建rRNA文件的索引</strong></p>
-<p>参考资料：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1805475">https://cloud.tencent.com/developer/article/1805475</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#HISAT2下载安装</span></span><br><span class="line"><span class="comment">#conda下载hisat2今天突然不好使了库😢，手动下载以下</span></span><br><span class="line">wget https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download</span><br><span class="line"><span class="comment">#file download发现其是zip文件</span></span><br><span class="line">unzip download</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=/home/gongyuqi/biosoft/HISAT2/hisat2-2.2.1:$PATH&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#构建rRNA文件索引</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/ref/rRNA</span><br><span class="line">hisat2-build -p 4 rRNA.fasta ./index_hisat2/rRNA</span><br></pre></td></tr></table></figure>
-<p><strong>③、去除rRNAs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--un-conc:输出没有比对到rRNA上的reads</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;36,40,37&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">nohup hisat2 -x /home/gongyuqi/ref/rRNA/index_hisat2/rRNA \</span><br><span class="line">       -1 SRR96461<span class="variable">$&#123;i&#125;</span>_1_val_1.fq \</span><br><span class="line">       -2 SRR96461<span class="variable">$&#123;i&#125;</span>_2_val_2.fq \</span><br><span class="line">       --un-conc ../rmr_rRNA/SRR96461<span class="variable">$&#123;i&#125;</span>_rmr_%.fq \</span><br><span class="line">       -p 16 -S ../rmr_rRNA/SRR96461<span class="variable">$&#123;i&#125;</span>.sam &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#去除rRNA后再次质控后发现GC含量更加异常了！！！</span></span><br><span class="line"><span class="comment">#另外，参考基因组的比对率也挺低的，50-70%之间。这批数据感觉质量不是很OK呀😢先分析下去看看~</span></span><br></pre></td></tr></table></figure>
-<p><strong>④、HISAT2比对含有转录组信息的参考基因组</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#hisat2比对</span></span><br><span class="line">ls *_1.fq&gt; rmr_fq1.txt</span><br><span class="line">ls *_2.fq&gt; rmr_fq2.txt</span><br><span class="line">paste rmr_fq1.txt rmr_fq2.txt &gt; rmr_fq.txt</span><br><span class="line">ref=/home/gongyuqi/ref/hg38/index/hisat2_UCSC/hg38_tran/genome_tran</span><br><span class="line">cat rmr_fq.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">arr=(<span class="variable">$&#123;id&#125;</span>)</span><br><span class="line">fq1=<span class="variable">$&#123;arr[0]&#125;</span></span><br><span class="line">fq2=<span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line">sample=<span class="variable">$&#123;fq1%%_*&#125;</span>.sort.bam</span><br><span class="line">nohup hisat2 -p 8 -x <span class="variable">$ref</span> -1 <span class="variable">$fq1</span> -2 <span class="variable">$fq2</span> | samtools sort -@ 8 -o ../align/<span class="variable">$sample</span> - &amp;</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">nohup hisat2 -p 8 -x <span class="variable">$ref</span> -1 SRR9646139_rmr_1.fq -2 SRR9646139_rmr_2.fq | samtools sort -@ 8 -o ../align/SRR9646139.sort.bam - &amp;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#构建索引,bam文件导入IGV时需要索引文件同时存在</span></span><br><span class="line">ls *.bam | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> nohup samtools flagstat <span class="variable">$id</span> &amp; <span class="keyword">done</span></span><br><span class="line">ls *.bam | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> nohup samtools index <span class="variable">$id</span> &amp; <span class="keyword">done</span></span><br><span class="line">ls *.bam | <span class="keyword">while</span> <span class="built_in">read</span> id; <span class="keyword">do</span> nohup bamCoverage -b <span class="variable">$id</span> -o <span class="variable">$&#123;id%%_*&#125;</span>.bw &amp; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h2 id="三-MACS2-call-peaks"><a href="#三-MACS2-call-peaks" class="headerlink" title="(三)MACS2 call peaks"></a>(三)MACS2 call peaks</h2><p>MACS2<a target="_blank" rel="noopener" href="https://pypi.org/project/MACS2/">官网参考资料</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#call peaks: siControl_m6A_IgG_replicate1</span></span><br><span class="line">macs2 callpeak -t SRR9646136.sort.bam -c SRR9646137.sort.bam -f BAM -g hs -n siControl_m6A_IgG_replicate1 -B -q 0.01 --outdir siControl_m6A_IgG</span><br><span class="line"><span class="comment">#call peaks: siControl_m6A_IgG_replicate2</span></span><br><span class="line">macs2 callpeak -t SRR9646140.sort.bam -c SRR9646137.sort.bam -f BAM -g hs -n siControl_m6A_IgG_replicate2 -B -q 0.01 --outdir siControl_m6A_IgG</span><br><span class="line"></span><br><span class="line">macs2 callpeak -t SRR9646138.sort.bam -c SRR9646139.sort.bam -f BAM -g hs -n siFTO_m6A_IgG -B -q 0.01 --outdir ../peaks</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="四-peaks注释"><a href="#四-peaks注释" class="headerlink" title="(四)peaks注释"></a>(四)peaks注释</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">library(org.Hs.eg.db)</span><br><span class="line">library(ChIPseeker)</span><br><span class="line">library(TxDb.Hsapiens.UCSC.hg38.knownGene)</span><br><span class="line"></span><br><span class="line">txdb &lt;- TxDb.Hsapiens.UCSC.hg38.knownGene</span><br><span class="line">files &lt;- <span class="built_in">list</span>(replicate1=<span class="string">&quot;siControl_m6A_IgG_replicate1_summits.bed&quot;</span>,</span><br><span class="line">              replicate2=<span class="string">&quot;siControl_m6A_IgG_replicate2_summits.bed&quot;</span>)</span><br><span class="line"></span><br><span class="line">peakAnno_replicate1 &lt;- annotatePeak(files[[<span class="number">1</span>]], TxDb=txdb, annoDb=<span class="string">&quot;org.Hs.eg.db&quot;</span>)</span><br><span class="line">peakAnno_replicate2 &lt;- annotatePeak(files[[<span class="number">2</span>]], TxDb=txdb, annoDb=<span class="string">&quot;org.Hs.eg.db&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#大部分情况下会出现多了peaks对应到同一个SYMBOL上，所以一定要记得unique一下</span></span><br><span class="line"></span><br><span class="line">siFTO_siControl_peak&lt;-peakAnno_siFTO_siControl_m6A@anno@elementMetadata@listData</span><br><span class="line">siFTO_siControl_peak&lt;-as.data.frame(siFTO_siControl_peak)</span><br><span class="line"></span><br><span class="line">replicate1_peak&lt;-as.data.frame(peakAnno_replicate1@anno@elementMetadata@listData)</span><br><span class="line">replicate1_peak_SYMBOL&lt;-peakAnno_replicate1@anno@elementMetadata@listData$SYMBOL</span><br><span class="line">replicate1_peak_SYMBOL&lt;-unique(na.omit(replicate1_peak_SYMBOL))</span><br><span class="line"></span><br><span class="line">replicate2_peak&lt;-as.data.frame(peakAnno_replicate2@anno@elementMetadata@listData)</span><br><span class="line">replicate2_peak_SYMBOL&lt;-peakAnno_replicate2@anno@elementMetadata@listData$SYMBOL</span><br><span class="line">replicate2_peak_SYMBOL&lt;-unique(na.omit(replicate2_peak_SYMBOL))</span><br><span class="line"></span><br><span class="line">common_peaks&lt;-intersect(replicate1_peak_SYMBOL,replicate2_peak_SYMBOL)</span><br><span class="line">table(<span class="string">&quot;CCND1&quot;</span>%in%common_peaks)<span class="comment">#在此，结果为TRUE</span></span><br></pre></td></tr></table></figure>
-<p><strong>将bam文件导入IGV,可视化CCND1上m6A的情况</strong><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/IGV_CCND1.png"/></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2021/05/27/Mutect2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/assets/img/ava.jpg">
-      <meta itemprop="name" content="gongyuqiqi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gyq's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/27/Mutect2/" class="post-title-link" itemprop="url">Mutect2</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-05-27 15:47:41" itemprop="dateCreated datePublished" datetime="2021-05-27T15:47:41+08:00">2021-05-27</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-05-29 11:18:55" itemprop="dateModified" datetime="2021-05-29T11:18:55+08:00">2021-05-29</time>
-      </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="Mutect2最新使用教程"><a href="#Mutect2最新使用教程" class="headerlink" title="Mutect2最新使用教程"></a>Mutect2最新使用教程</h1><p><strong><a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136">Mutect2 v4.1.0.0的教程</a>目前已经被GATK官方弃用了。下面我们采用官方更新推荐的<a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us/articles/360035531132">Mutect2 v4.1.1.0 and later版本的使用教程</a>。</strong></p>
-<h2 id="一-Create-a-panel-of-normal"><a href="#一-Create-a-panel-of-normal" class="headerlink" title="(一) Create a panel of normal"></a>(一) Create a panel of normal</h2><h3 id="step-1-Run-Mutect2-in-tumor-only-mode-for-each-normal-sample"><a href="#step-1-Run-Mutect2-in-tumor-only-mode-for-each-normal-sample" class="headerlink" title="step 1: Run Mutect2 in tumor-only mode for each normal sample"></a>step 1: Run Mutect2 in tumor-only mode for each normal sample</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">nohup gatk Mutect2 -R <span class="variable">$ref</span> -I SRR12135911_bqsr.bam --max-mnp-distance 0 -O ../Mutect2/PON/untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-<h3 id="step-2-Create-a-GenomicsDB-from-the-normal-Mutect2-calls"><a href="#step-2-Create-a-GenomicsDB-from-the-normal-Mutect2-calls" class="headerlink" title="step 2: Create a GenomicsDB from the normal Mutect2 calls"></a>step 2: Create a GenomicsDB from the normal Mutect2 calls</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interval=/home/gongyuqi/ref/GATK/hg38/v0/HybSelOligos/hg38_v0_HybSelOligos_whole_exome_illumina_coding_v1_whole_exome_illumina_coding_v1.Homo_sapiens_assembly38.targets.interval_list</span><br><span class="line">nohup gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#option 1</span></span><br><span class="line">gatk --java-options <span class="string">&quot;-Xmx20G&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#option 2</span></span><br><span class="line">gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-<h3 id="必需文件准备"><a href="#必需文件准备" class="headerlink" title="必需文件准备"></a>必需文件准备</h3><p><a target="_blank" rel="noopener" href="https://console.cloud.google.com/storage/browser/gcp-public-data--broad-references/hg38/v0/HybSelOligos">interval文件</a>：基因组间隔信息</p>
-<p><a target="_blank" rel="noopener" href="https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-hg38">af-only-gnomad.vcf文件</a>: a copy of the gnomAD VCF stripped of all unnecessary INFO fields.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gatk Mutect2 -R ref.fasta \</span><br><span class="line">        -L intervals.interval_list \</span><br><span class="line">        -I tumor.bam \</span><br><span class="line">        -germline-resource af-only-gnomad.vcf \</span><br><span class="line">        -pon panel_of_normals.vcf   \</span><br><span class="line">        --f1r2-tar-gz f1r2.tar.gz \</span><br><span class="line">        -O unfiltered.vcf</span><br></pre></td></tr></table></figure>
+          <p>MeRIP-Seq数据分析</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/06/03/MeRIP-Seq/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -772,7 +636,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-05-13 15:22:54" itemprop="dateModified" datetime="2021-05-13T15:22:54+08:00">2021-05-13</time>
+        <time title="Modified: 2021-06-24 22:05:51" itemprop="dateModified" datetime="2021-06-24T22:05:51+08:00">2021-06-24</time>
       </span>
 
   
@@ -801,39 +665,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="（一）环境搭建"><a href="#（一）环境搭建" class="headerlink" title="（一）环境搭建"></a>（一）环境搭建</h1><p><strong>下载Cell Ranger,下载10X GENOMICS配套的参考基因组.官网也提供了Cell Ranger Pipeline。</strong></p>
-<p>官网下载链接： <a target="_blank" rel="noopener" href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a></p>
-<h4 id="1-下载、安装Cell-Ranger软件"><a href="#1-下载、安装Cell-Ranger软件" class="headerlink" title="(1)下载、安装Cell Ranger软件"></a>(1)下载、安装Cell Ranger软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#下载</span></span><br><span class="line">curl -o cellranger-6.0.1.tar.gz <span class="string">&quot;https://cf.10xgenomics.com/releases/cell-exp/cellranger-6.0.1.tar.gz?Expires=1620565659&amp;Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci02LjAuMS50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2MjA1NjU2NTl9fX1dfQ__&amp;Signature=IN508xcNVbAtoHul8SUog8KHmlAhg2lbR6-hCQeiwPs~-EfvTL1JmDurZ3dV-k3ry7TO9WP5Ae11yceDSzCfVIqglxHp6Pad4CftaStozIuEU7XJ0JbtDTO3DFVHRkpgNR8k48dNADA~JnhcHx8zOsT23VEeugqc7Z~35~05SOG8GJjxSJ8qGSTBdHYt7kPyqfZVs2apryxLOV-QBho66LvD4NLqNXFvzkPZ8t0e9Cv4rrV1JXseqY6PJnK8TPozTnDBnhfkop30FZ~jOLEY8wObOIA4b~EoyskSGjSfcvnp5urI7xjAyQNC6XtlJmRwDWEwWovgicScei2gkZqOGw__&amp;Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&quot;</span></span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line"><span class="comment">##解压</span></span><br><span class="line">tar zxvf cellranger-6.0.1.tar.gz</span><br><span class="line"><span class="comment">##添加环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=/home/gongyuqi/10X/cellranger-6.0.1:$PATH&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="comment">##永久生效环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"><span class="comment">#查看本机的配置，看看是否满足跑单细胞数据的最低配置</span></span><br><span class="line">cellranger sitecheck &gt; sitecheck.txt</span><br><span class="line">less -N sitecheck.txt</span><br><span class="line"><span class="comment">#最后，测试一下下载安装的cellranger能否正常运行</span></span><br><span class="line">cellranger testrun --id=testcellranger </span><br></pre></td></tr></table></figure>
-<p>标准输出最后两行为如下结果，表示cellranger可以正常使用<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/test_cellranger.JPG" width="50%"></p>
-<h4 id="2-下载人类参考基因组"><a href="#2-下载人类参考基因组" class="headerlink" title="(2)下载人类参考基因组"></a>(2)下载人类参考基因组</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span><br><span class="line">tar -zxvf refdata-gex-GRCh38-2020-A.tar.gz</span><br></pre></td></tr></table></figure>
-<p>查看一下文件的组成结构<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/GRCh38.JPG" width="50%"></p>
-<h4 id="3-下载小鼠参考基因组"><a href="#3-下载小鼠参考基因组" class="headerlink" title="(3)下载小鼠参考基因组"></a>(3)下载小鼠参考基因组</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz</span><br><span class="line">tar -zxvf refdata-gex-mm10-2020-A.tar.gz</span><br></pre></td></tr></table></figure>
-<h1 id="二-下载测试数据"><a href="#二-下载测试数据" class="headerlink" title="(二)下载测试数据"></a>(二)下载测试数据</h1><p><strong>在这里要用到prefetch和ascp的组合，详细的软件安装以及测试数据下载请参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1Njk4ODE0MQ==&mid=2247484146&idx=1&sn=16e09b82d048eed1ff6100b22970abd5&chksm=ea1f0470dd688d66bdbfbaf2a2b9ae91f545992469996cfecf407a09492df32b4536fda7ca4f&scene=21#wechat_redirect">单细胞数据下载</a></strong></p>
-<h4 id="1-pretch下载SRA文件"><a href="#1-pretch下载SRA文件" class="headerlink" title="(1)pretch下载SRA文件"></a>(1)pretch下载SRA文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#refetch默认通过https的方式下载原始数据，速度上会有限制</span></span><br><span class="line"><span class="comment">#如果存在ascp，prefetch默认通过fasp的方式下载数据，速度一下载从骑自行车升级为开飞机</span></span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup prefetch <span class="variable">$id</span> -O ./ &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;id&#125;</span>.sra done&quot;</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-ascp下载"><a href="#2-ascp下载" class="headerlink" title="(2)ascp下载"></a>(2)ascp下载</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#其中两个样本不在ncbi中，所以我们这里用直接用ascp下载EBI中存储的SRA文件，两个样本就不写循环了</span></span><br><span class="line">ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/srr/SRR772/009/SRR7722939 ./</span><br><span class="line">ascp -QT -l 300m -P33001 -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/srr/SRR772/002/SRR7722942 ./</span><br></pre></td></tr></table></figure>
-<h1 id="三-Cell-Ranger-使用"><a href="#三-Cell-Ranger-使用" class="headerlink" title="(三)Cell Ranger 使用"></a>(三)Cell Ranger 使用</h1><h2 id="1-SRA格式转成fastq格式"><a href="#1-SRA格式转成fastq格式" class="headerlink" title="(1)SRA格式转成fastq格式"></a>(1)SRA格式转成fastq格式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/scRNA-seq/raw_data</span><br><span class="line"><span class="comment">#--split-files生成三个文件，第一个文件的所有序列都是8bp，第二个文件都是26bp，第三个文件都是91bp，第三个文件是测序reads</span></span><br><span class="line">ls *.sra|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> nohup fastq-dump --gzip --split-files -A <span class="variable">$id</span> &amp;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-重命名文件"><a href="#2-重命名文件" class="headerlink" title="(2)重命名文件"></a>(2)重命名文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls *.sra|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span> mv <span class="variable">$&#123;id&#125;</span>_1*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_I1_001.fastq.gz; mv <span class="variable">$&#123;id&#125;</span>_2*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_R1_001.fastq.gz; mv <span class="variable">$&#123;id&#125;</span>_3*.gz <span class="variable">$&#123;id&#125;</span>_S1_L001_R2_001.fastq.gz</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>命名前<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/before_rename.JPG"/><br>命名后<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/after_rename.JPG"/></p>
-<h2 id="3-质控"><a href="#3-质控" class="headerlink" title="(3)质控"></a>(3)质控</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls *R1*.gz &gt; sample_fastq.txt</span><br><span class="line">ls *R2*.gz &gt;&gt; sample_fastq.txt</span><br></pre></td></tr></table></figure>
-<h2 id="4-cellranger-count"><a href="#4-cellranger-count" class="headerlink" title="(4)cellranger count"></a>(4)cellranger count</h2><p><strong>cellranger是软件最核心的部分，可以完成细胞鉴定，基因组比对，过滤，UMI计数，细胞降维，聚类，差异分析等功能。内部流程很多，但是使用很简单。</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先进入到cellranger_count文件夹下面并建立存放各个样本结果的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> /home/gongyuqi/project/scRNA-seq/cellranger_count</span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id;<span class="keyword">do</span> mkdir <span class="variable">$id</span>;<span class="keyword">done</span></span><br><span class="line"><span class="comment">#将下列代码编辑到脚本文件cellranger_count.sh中</span></span><br><span class="line">cat sample.txt|<span class="keyword">while</span> <span class="built_in">read</span> id</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">cellranger count --id=<span class="variable">$id</span> \</span><br><span class="line">                 --transcriptome=/home/gongyuqi/10X/refdata-gex-GRCh38-2020-A \</span><br><span class="line">                 --fastqs=/home/gongyuqi/project/scRNA-seq/raw_data \</span><br><span class="line">                 --sample=<span class="variable">$id</span> \</span><br><span class="line">                 --nosecondary \</span><br><span class="line">                 --localcores=16 \</span><br><span class="line">                 --localmem=64 &gt; <span class="variable">$&#123;id&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#给脚本文件执行权限</span></span><br><span class="line">chmod +x cellranger_count.sh</span><br><span class="line"><span class="comment">#后台运行脚本文件</span></span><br><span class="line">nohup ./cellranger_count.sh &amp;</span><br><span class="line"><span class="comment">#参数解析</span></span><br><span class="line"><span class="comment">#--id: 指定输出文件存放目录</span></span><br><span class="line"><span class="comment">#--transcriptome: cellranger兼容的参考基因组位置</span></span><br><span class="line"><span class="comment">#--fastqs：重命名好的fastq.gz文件位置</span></span><br><span class="line"><span class="comment">#--sample：fastq.gz文件文件前缀，以作为软件识别的标志</span></span><br><span class="line"><span class="comment">#--nosecondary：只获得表达矩阵，不进行后续的降维、聚类和可视化（这些工作用R包做，如Seurat）</span></span><br><span class="line"><span class="comment">#--jobmode=local: 指定cellranger在本地运行（cellranger默认也是在本地运行）。它会占用90%的空余内存和所有空余的CPU。如果要进行资源控制，使用--localmem或者--localcores</span></span><br><span class="line"><span class="comment">#--localcores: 限定cellranger最多同时使用的cpu个数</span></span><br><span class="line"><span class="comment">#--localmem：限定cellranger最多占用的内存大小</span></span><br></pre></td></tr></table></figure>
-<p>以SRR7722937为例，来看一下cellranger count的结果总结：Barcode,UMI,mapping情况，样本的信息（使用v2试剂，参考基因组，cellranger版本），reads与测序饱和度、基因数量的关系（正相关，情理之中~）<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html.JPG"/><br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_count_summary_html2.JPG"/></p>
-<h2 id="5-cellranger-aggr"><a href="#5-cellranger-aggr" class="headerlink" title="(5)cellranger aggr"></a>(5)cellranger aggr</h2><p>第一步构建输入文件信息，文件内容如下。如果整合的样本既有v2试剂也有v3试剂，需要在第三列加上相应的试剂信息。如果都是用的同一种试剂，只需要保留前两列的信息即可。如本次测试数据。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_input.JPG"/></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--id为输出文件保存的位置</span></span><br><span class="line"><span class="comment">#--csv为输入文件的信息</span></span><br><span class="line">cellranger aggr --id=patient_2586-4 \</span><br><span class="line">                --csv=patient_2586-4_libbrary.csv \</span><br><span class="line">                --normalize=mapped</span><br></pre></td></tr></table></figure>
-<p>同样的，来查看一下cellranger aggr的结果报告。报告的消息解读可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/30de2aea4b74?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">https://www.jianshu.com/p/30de2aea4b74?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a>  </p>
-<table><tr><td bgcolor=#DCDCDC>1、Count Summary</td></tr></table>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html.JPG"/>
-<table><tr><td bgcolor=#DCDCDC>2、Count Analysis</td></tr></table>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html2.JPG"/>
-<table><tr><td bgcolor=#FF6347>3、Alerts</td></tr></table>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_summary_html_alert.JPG"/>
-
-<h1 id="四-Cell-Ranger输出结果导入R"><a href="#四-Cell-Ranger输出结果导入R" class="headerlink" title="(四) Cell Ranger输出结果导入R"></a>(四) Cell Ranger输出结果导入R</h1><p>cellranger aggar运行完成之后，在outs文件夹下面的子文件夹filtered_feature_bc_matrix中的三个文件上传到本地，解压导入R中。<br><img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_aggr_results.JPG"/></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">library(Matrix)</span><br><span class="line">barcode.path&lt;-paste0(<span class="string">&quot;barcodes.tsv&quot;</span>)</span><br><span class="line">feature.path&lt;-paste0(<span class="string">&quot;features.tsv&quot;</span>)</span><br><span class="line">matrix.path&lt;-paste0(<span class="string">&quot;matrix.mtx&quot;</span>)</span><br><span class="line">mat&lt;-readMM(file = matrix.path)</span><br><span class="line"></span><br><span class="line">feature.names&lt;-read.delim(feature.path,</span><br><span class="line">                          header = <span class="literal">FALSE</span>,</span><br><span class="line">                          stringsAsFactors = <span class="literal">FALSE</span>)</span><br><span class="line">barcode.names&lt;-read.delim(barcode.path,</span><br><span class="line">                          header = <span class="literal">FALSE</span>,</span><br><span class="line">                          stringsAsFactors = <span class="literal">FALSE</span>)</span><br><span class="line">colnames(mat)&lt;-barcode.names$V1</span><br><span class="line">rownames(mat)&lt;-feature.names$V2</span><br><span class="line">mat[<span class="number">1</span>:<span class="number">4</span>,<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="built_in">dim</span>(mat)</span><br></pre></td></tr></table></figure>
-<img src="https://blog-image-host.oss-cn-shanghai.aliyuncs.com/gyqblog/cellranger_R.JPG"/>
-
+          <p>Cellranger 软件流程</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/05/09/10X-GENOMICS-pipeline/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1335,6 +1175,100 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gyqgyq.com/2020/12/08/2020%20ATAC-seq%20analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/img/ava.jpg">
+      <meta itemprop="name" content="gongyuqiqi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gyq's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/08/2020%20ATAC-seq%20analysis/" class="post-title-link" itemprop="url">2020 ATAC-seq analysis</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-08 13:53:55" itemprop="dateCreated datePublished" datetime="2020-12-08T13:53:55+08:00">2020-12-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-06-03 20:37:13" itemprop="dateModified" datetime="2021-06-03T20:37:13+08:00">2021-06-03</time>
+      </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>16 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>ATAC-seq最新处理流程</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/08/2020%20ATAC-seq%20analysis/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
@@ -1382,14 +1316,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">168k</span>
+    <span title="Symbols count total">167k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">2:33</span>
+    <span title="Reading time total">2:32</span>
   </span>
 </div>
 

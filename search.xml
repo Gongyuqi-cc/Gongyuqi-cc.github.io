@@ -3,7 +3,8 @@
   <entry>
     <title>10X GENOMICS pipeline</title>
     <url>/2021/05/09/10X-GENOMICS-pipeline/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>Cellranger 软件流程</p>
+<a id="more"></a>
 
 <h1 id="（一）环境搭建"><a href="#（一）环境搭建" class="headerlink" title="（一）环境搭建"></a>（一）环境搭建</h1><p><strong>下载Cell Ranger,下载10X GENOMICS配套的参考基因组.官网也提供了Cell Ranger Pipeline。</strong></p>
 <p>官网下载链接： <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a></p>
@@ -505,7 +506,8 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
   <entry>
     <title>MeRIP-Seq</title>
     <url>/2021/06/03/MeRIP-Seq/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>MeRIP-Seq数据分析</p>
+<a id="more"></a>
 
 <h1 id="MeRIP-Seq数据分析"><a href="#MeRIP-Seq数据分析" class="headerlink" title="MeRIP-Seq数据分析"></a>MeRIP-Seq数据分析</h1><ul>
 <li><p><strong>看看推荐的MeRIP-seq数据分析流程</strong></p>
@@ -550,30 +552,6 @@ I get 10 times more traffic from [Google] <a href="http://google.com/" title="Go
 ]]></content>
       <tags>
         <tag>NGS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mutect2</title>
-    <url>/2021/05/27/Mutect2/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="Mutect2最新使用教程"><a href="#Mutect2最新使用教程" class="headerlink" title="Mutect2最新使用教程"></a>Mutect2最新使用教程</h1><p><strong><a href="https://gatk.broadinstitute.org/hc/en-us/articles/360035889791?id=11136">Mutect2 v4.1.0.0的教程</a>目前已经被GATK官方弃用了。下面我们采用官方更新推荐的<a href="https://gatk.broadinstitute.org/hc/en-us/articles/360035531132">Mutect2 v4.1.1.0 and later版本的使用教程</a>。</strong></p>
-<h2 id="一-Create-a-panel-of-normal"><a href="#一-Create-a-panel-of-normal" class="headerlink" title="(一) Create a panel of normal"></a>(一) Create a panel of normal</h2><h3 id="step-1-Run-Mutect2-in-tumor-only-mode-for-each-normal-sample"><a href="#step-1-Run-Mutect2-in-tumor-only-mode-for-each-normal-sample" class="headerlink" title="step 1: Run Mutect2 in tumor-only mode for each normal sample"></a>step 1: Run Mutect2 in tumor-only mode for each normal sample</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ref=/home/gongyuqi/ref/GATK/hg38/v0/Homo_sapiens_assembly38.fasta</span><br><span class="line">nohup gatk Mutect2 -R <span class="variable">$ref</span> -I SRR12135911_bqsr.bam --max-mnp-distance 0 -O ../Mutect2/PON/untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-<h3 id="step-2-Create-a-GenomicsDB-from-the-normal-Mutect2-calls"><a href="#step-2-Create-a-GenomicsDB-from-the-normal-Mutect2-calls" class="headerlink" title="step 2: Create a GenomicsDB from the normal Mutect2 calls"></a>step 2: Create a GenomicsDB from the normal Mutect2 calls</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interval=/home/gongyuqi/ref/GATK/hg38/v0/HybSelOligos/hg38_v0_HybSelOligos_whole_exome_illumina_coding_v1_whole_exome_illumina_coding_v1.Homo_sapiens_assembly38.targets.interval_list</span><br><span class="line">nohup gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#option 1</span></span><br><span class="line">gatk --java-options <span class="string">&quot;-Xmx20G&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#option 2</span></span><br><span class="line">gatk --java-options <span class="string">&quot;-Xmx20G -Djava.io.tmpdir=./&quot;</span> \</span><br><span class="line">      GenomicsDBImport -R <span class="variable">$ref</span> \</span><br><span class="line">      -L <span class="variable">$interval</span> \</span><br><span class="line">      --genomicsdb-workspace-path pon_db \</span><br><span class="line">      -V untreated.vcf.gz &amp;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-<h3 id="必需文件准备"><a href="#必需文件准备" class="headerlink" title="必需文件准备"></a>必需文件准备</h3><p><a href="https://console.cloud.google.com/storage/browser/gcp-public-data--broad-references/hg38/v0/HybSelOligos">interval文件</a>：基因组间隔信息</p>
-<p><a href="https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-hg38">af-only-gnomad.vcf文件</a>: a copy of the gnomAD VCF stripped of all unnecessary INFO fields.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gatk Mutect2 -R ref.fasta \</span><br><span class="line">        -L intervals.interval_list \</span><br><span class="line">        -I tumor.bam \</span><br><span class="line">        -germline-resource af-only-gnomad.vcf \</span><br><span class="line">        -pon panel_of_normals.vcf   \</span><br><span class="line">        --f1r2-tar-gz f1r2.tar.gz \</span><br><span class="line">        -O unfiltered.vcf</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>tag1</tag>
       </tags>
   </entry>
   <entry>
